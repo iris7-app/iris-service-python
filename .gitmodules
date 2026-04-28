@@ -1,6 +1,6 @@
 [submodule "infra/shared"]
 	path = infra/shared
-	url = https://gitlab.com/mirador1/mirador-service-shared.git
+	url = https://gitlab.com/mirador1/iris-service-shared.git
 [submodule "infra/common"]
 	path = infra/common
-	url = https://gitlab.com/mirador1/mirador-common.git
+	url = https://gitlab.com/mirador1/iris-common.git
