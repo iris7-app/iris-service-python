@@ -16,7 +16,7 @@ from functools import lru_cache
 
 from iris_service.ml.inference import ChurnPredictor
 
-#: Path env-var (parallels Java's ``mirador.churn.model-path``).
+#: Path env-var (parallels Java's ``iris.churn.model-path``).
 #: Default matches the ConfigMap mount point from shared ADR-0062.
 ENV_MODEL_PATH = "IRIS_CHURN_MODEL_PATH"
 ENV_MODEL_VERSION = "IRIS_CHURN_MODEL_VERSION"

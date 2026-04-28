@@ -82,10 +82,10 @@ EnrichmentService.request_reply(request, timeout=5s)
 
 Different consumer groups :
 - `customer.enrich.request` consumer uses a STABLE group_id
-  (`mirador-enrich-handler`) so all replicas share the load (only one
+  (`iris-enrich-handler`) so all replicas share the load (only one
   replica processes each request).
 - `customer.enrich.reply` consumer uses a UNIQUE group_id per instance
-  (`mirador-enrich-reply-{id}`) so EVERY replica sees EVERY reply (the
+  (`iris-enrich-reply-{id}`) so EVERY replica sees EVERY reply (the
   reply must reach the specific instance with the pending future ; load
   balancing would lose replies to wrong replicas).
 

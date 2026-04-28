@@ -2,11 +2,11 @@ apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: iris-service-python
-  namespace: mirador
+  namespace: iris
   labels:
     app.kubernetes.io/name: iris-service-python
     app.kubernetes.io/component: backend
-    app.kubernetes.io/part-of: mirador
+    app.kubernetes.io/part-of: iris
 spec:
   # minAvailable: 1 means at most (replicas-1) pods can be evicted at once.
   # With replicas=2 this lets a single node drain proceed while keeping the

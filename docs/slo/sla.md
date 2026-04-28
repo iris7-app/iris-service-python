@@ -21,7 +21,7 @@
   (the metric names differ from Java's `http_server_requests_seconds_*`,
   hence the separate `slo.yaml`).
 - **Recording rules** : Sloth-generated, stored in
-  `iris-service-shared/deploy/kubernetes/observability-prom/mirador-py-slo.yaml`.
+  `iris-service-shared/deploy/kubernetes/observability-prom/iris-py-slo.yaml`.
 - **Dashboard** : same `SLO Overview — Iris` Grafana board ; both
   Java + Python burn-rate timeseries are visible side-by-side
   (filtered by `sloth_service=iris-service-python` for Python-only).

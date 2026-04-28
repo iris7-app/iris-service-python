@@ -88,7 +88,7 @@ exception.
 
 ```bash
 # Wire it up in claude.
-claude mcp add --transport http mirador-python http://localhost:8001/mcp \
+claude mcp add --transport http iris-python http://localhost:8001/mcp \
     --header "X-API-Key: demo-api-key-2026"
 
 # Ask in natural language :
@@ -151,7 +151,7 @@ The 8 features + their canonical order (per [shared ADR-0061](https://gitlab.com
 §"Feature engineering") are the contract — both
 [`iris_service.ml.inference.extract_features`](https://gitlab.com/iris-7/iris-service-python/-/blob/main/src/iris_service/ml/inference.py)
 (Python runtime, single-customer) and the Java
-[`ChurnFeatureExtractor`](https://gitlab.com/iris-7/iris-service-java/-/blob/main/src/main/java/com/mirador/ml/ChurnFeatureExtractor.java)
+[`ChurnFeatureExtractor`](https://gitlab.com/iris-7/iris-service-java/-/blob/main/src/main/java/org/iris/ml/ChurnFeatureExtractor.java)
 implement the same logic. Tests on both sides assert determinism
 on golden inputs.
 

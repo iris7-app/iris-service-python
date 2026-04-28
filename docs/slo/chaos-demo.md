@@ -32,7 +32,7 @@ docker compose -f infra/shared/compose/dev-stack.yml up -d
 uv run uvicorn iris_service.app:app --reload --port 8000
 
 # 3. Open Grafana → SLO Breakdown by Endpoint
-open http://localhost:3001/d/mirador-py-slo-breakdown-by-endpoint
+open http://localhost:3001/d/iris-py-slo-breakdown-by-endpoint
 
 # 4. Pick your scenario from another terminal :
 #    Latency burn (5s slow-query, 30 calls)
@@ -69,7 +69,7 @@ will surface the marker.
      `/customers/diagnostic/db-failure` row.
    - kafka-timeout → "Budget burn contribution" panel shows the
      `*kafka-timeout*` row spike.
-3. **Open the SLO Overview dashboard** (uid : `mirador-slo-overview`) —
+3. **Open the SLO Overview dashboard** (uid : `iris-slo-overview`) —
    the corresponding burn-rate timeseries shows the spike inside the
    1h fast-burn window.
 4. **Within ~1 minute** (Sloth's `mwmbr` short window) the

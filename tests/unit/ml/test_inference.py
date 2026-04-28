@@ -1,6 +1,6 @@
 """Inference + feature-extraction tests — runtime side, no [ml] extra needed.
 
-Mirrors :class:`com.mirador.ml.ChurnPredictorTest` +
+Mirrors :class:`org.iris.ml.ChurnPredictorTest` +
 :class:`ChurnFeatureExtractorTest` from the Java sibling. The 8-feature
 extractor MUST produce numerically-identical output to Java for the
 same input — Phase G's cross-language smoke test asserts this end-to-end.

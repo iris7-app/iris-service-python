@@ -2,7 +2,7 @@
 # =============================================================================
 # bin/dev/iris-doctor — single-command "tout va bien ?" for Python side.
 #
-# Mirror of the Java side's mirador-doctor. Runs every cheap check in one
+# Mirror of the Java side's iris-doctor. Runs every cheap check in one
 # sweep so you know within ~10 s if your dev environment is healthy. Designed
 # as the first command after opening the repo in the morning or resuming
 # work after a break.
@@ -40,7 +40,7 @@ info() { printf "  ${B}INFO${N} %s\n" "$1"; }
 FAILS=0
 cd "$REPO_ROOT"
 
-echo "mirador-doctor (python) — $(date +'%H:%M:%S')"
+echo "iris-doctor (python) — $(date +'%H:%M:%S')"
 echo "    repo: $REPO_ROOT"
 echo
 

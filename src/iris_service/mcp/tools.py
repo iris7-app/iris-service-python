@@ -370,7 +370,7 @@ async def predict_customer_churn(
     - Returns :class:`ChurnNotFound` for missing ids.
     - Returns :class:`ChurnPrediction` on success.
 
-    Mirrors the Java :class:`com.mirador.ml.ChurnMcpToolService`
+    Mirrors the Java :class:`org.iris.ml.ChurnMcpToolService`
     behaviour exactly so an LLM sees identical shapes regardless of
     which backend handled the call.
     """
@@ -381,7 +381,7 @@ async def predict_customer_churn(
             message=f"churn model not loaded (path={path})",
             hint=(
                 "Provision /etc/models/churn_predictor.onnx via the "
-                "mirador-churn-model ConfigMap (shared ADR-0062), then "
+                "iris-churn-model ConfigMap (shared ADR-0062), then "
                 "restart the pod or call the future hot-reload endpoint."
             ),
         )

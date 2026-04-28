@@ -11,7 +11,7 @@ hitting ``/mcp/`` with ``X-API-Key: demo-api-key-2026`` can :
 Without the header → 401 (matches the existing JWT-no-token path in
 ``tests/integration/test_mcp_auth.py``).
 
-This is the contract that unblocks wiring ``mirador-python`` MCP into
+This is the contract that unblocks wiring ``iris-python`` MCP into
 Claude with a single ``--header X-API-Key: ...`` flag, no login flow.
 """
 

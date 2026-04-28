@@ -35,14 +35,14 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 FROM python:3.14-slim-bookworm AS runtime
 
 # Non-root user (Dockle CIS-DI-0001 + matches Java mirror's spring user)
-RUN groupadd --system --gid 1001 mirador \
- && useradd  --system --uid 1001 --gid mirador --shell /usr/sbin/nologin mirador
+RUN groupadd --system --gid 1001 iris \
+ && useradd  --system --uid 1001 --gid iris --shell /usr/sbin/nologin iris
 
 WORKDIR /app
 
 # Copy venv from builder + app source
-COPY --from=builder --chown=mirador:mirador /app/.venv /app/.venv
-COPY --from=builder --chown=mirador:mirador /app/src /app/src
+COPY --from=builder --chown=iris:iris /app/.venv /app/.venv
+COPY --from=builder --chown=iris:iris /app/src /app/src
 
 # PATH the venv binaries
 ENV PATH="/app/.venv/bin:$PATH" \
@@ -53,7 +53,7 @@ ENV PATH="/app/.venv/bin:$PATH" \
 HEALTHCHECK --interval=10s --timeout=5s --start-period=10s --retries=3 \
     CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8080/actuator/health/liveness').read()" || exit 1
 
-USER mirador
+USER iris
 
 EXPOSE 8080
 

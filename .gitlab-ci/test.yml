@@ -79,15 +79,15 @@ integration-tests:
     # NO DOCKER_HOST override : testcontainers picks up the host socket via
     # /var/run/docker.sock (mounted into the runner). Setting DOCKER_HOST to
     # a tcp:// URL would override the socket detection and fail.
-    POSTGRES_DB: mirador
-    POSTGRES_USER: mirador
-    POSTGRES_PASSWORD: mirador
+    POSTGRES_DB: iris
+    POSTGRES_USER: iris
+    POSTGRES_PASSWORD: iris
     # When tests want to use the GitLab postgres service, IRIS_DB__* picks up
     # the alias hostname.
     IRIS_DB__HOST: postgres
-    IRIS_DB__USER: mirador
-    IRIS_DB__PASSWORD: mirador
-    IRIS_DB__NAME: mirador
+    IRIS_DB__USER: iris
+    IRIS_DB__PASSWORD: iris
+    IRIS_DB__NAME: iris
     # Disable testcontainers' ryuk reaper — it spawns a sidecar container
     # named `testcontainers-ryuk-<UUID>` that lingers between CI jobs on
     # the macbook-local runner ; subsequent jobs hit a 409 Docker conflict

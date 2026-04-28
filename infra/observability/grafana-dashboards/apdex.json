@@ -11,7 +11,7 @@
       "targetBlank": true,
       "title": "← back to SLO Overview",
       "type": "link",
-      "url": "/d/mirador-slo-overview/slo-overview-mirador"
+      "url": "/d/iris-slo-overview/slo-overview-iris"
     }
   ],
   "panels": [
@@ -143,12 +143,12 @@
   "preload": false,
   "refresh": "30s",
   "schemaVersion": 39,
-  "tags": ["slo", "mirador", "sre", "apdex"],
+  "tags": ["slo", "iris", "sre", "apdex"],
   "templating": {"list": []},
   "time": {"from": "now-6h", "to": "now"},
   "timepicker": {},
   "timezone": "browser",
   "title": "Apdex — Iris",
-  "uid": "mirador-py-apdex",
+  "uid": "iris-py-apdex",
   "version": 1
 }

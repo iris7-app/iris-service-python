@@ -1,7 +1,7 @@
 """Static API-key authentication — machine-to-machine fallback to JWT.
 
 Mirrors the Java sibling's
-:java:`com.mirador.auth.ApiKeyAuthenticationFilter`. Reads an
+:java:`org.iris.auth.ApiKeyAuthenticationFilter`. Reads an
 ``X-API-Key`` request header, compares against the configured secret
 (``IRIS_API_KEY`` env, default ``demo-api-key-2026``), and on match :
 

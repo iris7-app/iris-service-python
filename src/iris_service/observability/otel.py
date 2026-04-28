@@ -62,7 +62,7 @@ def init_otel(settings: Settings, app: FastAPI) -> None:
     resource = Resource.create(
         {
             "service.name": settings.otel_service_name,
-            "service.namespace": "mirador",  # groups Python + Java services in Tempo / Mimir
+            "service.namespace": "iris",  # groups Python + Java services in Tempo / Mimir
             "service.version": __version__,
             "deployment.environment": "dev" if settings.dev_mode else "prod",
         }

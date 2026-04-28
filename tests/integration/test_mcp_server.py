@@ -80,7 +80,7 @@ def _initialize_payload(request_id: int = 1) -> dict[str, object]:
         "params": {
             "protocolVersion": "2025-06-18",
             "capabilities": {},
-            "clientInfo": {"name": "mirador-pytest", "version": "0.0.0"},
+            "clientInfo": {"name": "iris-pytest", "version": "0.0.0"},
         },
     }
 

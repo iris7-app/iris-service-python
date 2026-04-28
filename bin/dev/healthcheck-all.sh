@@ -26,9 +26,9 @@ MODE="${1:-human}"
 
 # Each entry : <label>|<probe-command>|<expected-substring>|<required>
 SERVICES=(
-  "Postgres (mirador app db)|docker exec mirador-py-postgres pg_isready -U mirador|accepting connections|1"
-  "Kafka (mirador events)|docker exec mirador-py-kafka kafka-topics.sh --bootstrap-server localhost:9092 --list|.|1"
-  "Redis (recent customers buffer)|docker exec mirador-py-redis redis-cli ping|PONG|1"
+  "Postgres (iris app db)|docker exec iris-py-postgres pg_isready -U iris|accepting connections|1"
+  "Kafka (iris events)|docker exec iris-py-kafka kafka-topics.sh --bootstrap-server localhost:9092 --list|.|1"
+  "Redis (recent customers buffer)|docker exec iris-py-redis redis-cli ping|PONG|1"
   "FastAPI backend (:8080)|curl -sSf -m 3 http://localhost:8080/actuator/health|UP|1"
   "Grafana / LGTM (:3000)|curl -sSf -m 3 http://localhost:3000/api/health|ok|0"
   "Ollama (:11434, opt-in profile=llm)|curl -sSf -m 3 http://localhost:11434/api/tags|.|0"

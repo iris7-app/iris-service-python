@@ -1,4 +1,4 @@
-"""Risk-band classification — mirrors Java :class:`com.mirador.ml.RiskBand`.
+"""Risk-band classification — mirrors Java :class:`org.iris.ml.RiskBand`.
 
 Maps a probability ∈ [0, 1] to one of three bands (LOW / MEDIUM / HIGH)
 that drive the UI affordance (green / orange / red dot). The band

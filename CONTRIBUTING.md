@@ -14,7 +14,7 @@ everyone who reads it later.
 - UI : [gitlab.com/iris-7/iris-ui](https://gitlab.com/iris-7/iris-ui)
 - Shared infra : [gitlab.com/iris-7/iris-service-shared](https://gitlab.com/iris-7/iris-service-shared)
 
-The GitHub mirrors (`github.com/iris7-app/mirador-*`) are read-only.
+The GitHub mirrors (`github.com/iris7-app/iris-*`) are read-only.
 Issues and MRs opened there will not be reviewed.
 
 ## Types of contributions welcome

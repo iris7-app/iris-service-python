@@ -8,14 +8,14 @@ kind: Kustomization
 # Overlays go under infra/k8s/overlays/<env>/ (local / staging / prod).
 # Each overlay can patch the image, replicas, resource limits, etc.
 
-namespace: mirador
+namespace: iris
 
 labels:
   - includeSelectors: true
     pairs:
       app.kubernetes.io/name: iris-service-python
       app.kubernetes.io/component: backend
-      app.kubernetes.io/part-of: mirador
+      app.kubernetes.io/part-of: iris
       app.kubernetes.io/managed-by: kustomize
 
 resources:

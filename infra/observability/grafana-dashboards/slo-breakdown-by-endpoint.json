@@ -62,7 +62,7 @@
       "targetBlank": true,
       "title": "← back to SLO Overview",
       "type": "link",
-      "url": "/d/mirador-slo-overview/slo-overview-mirador"
+      "url": "/d/iris-slo-overview/slo-overview-iris"
     }
   ],
   "panels": [
@@ -202,12 +202,12 @@
   "preload": false,
   "refresh": "30s",
   "schemaVersion": 39,
-  "tags": ["slo", "mirador", "sre", "breakdown"],
+  "tags": ["slo", "iris", "sre", "breakdown"],
   "templating": {"list": []},
   "time": {"from": "now-6h", "to": "now"},
   "timepicker": {},
   "timezone": "browser",
   "title": "SLO Breakdown by Endpoint — Iris",
-  "uid": "mirador-py-slo-breakdown-by-endpoint",
+  "uid": "iris-py-slo-breakdown-by-endpoint",
   "version": 1
 }

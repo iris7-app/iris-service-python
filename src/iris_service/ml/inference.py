@@ -1,7 +1,7 @@
 """Single-customer feature extraction + ONNX inference for churn.
 
-Mirrors the Java pair :class:`com.mirador.ml.ChurnFeatureExtractor`
-+ :class:`com.mirador.ml.ChurnPredictor`. Same 8 features, same
+Mirrors the Java pair :class:`org.iris.ml.ChurnFeatureExtractor`
++ :class:`org.iris.ml.ChurnPredictor`. Same 8 features, same
 canonical order, same graceful-degradation contract — boots without
 the model, returns 503 until the ConfigMap (per shared ADR-0062)
 provides ``/etc/models/churn_predictor.onnx``.
@@ -198,7 +198,7 @@ class ChurnPredictor:
         if not path.is_file():
             logger.warning(
                 "churn_model_not_loaded path=%s — predictions will return 503 "
-                "until the model is provisioned via the mirador-churn-model "
+                "until the model is provisioned via the iris-churn-model "
                 "ConfigMap (shared ADR-0062)",
                 self._model_path,
             )
