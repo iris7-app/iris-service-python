@@ -6,7 +6,7 @@ import httpx
 import pytest
 import respx
 
-from mirador_service.integration.bio_service import BioService
+from iris_service.integration.bio_service import BioService
 
 
 @pytest.mark.asyncio

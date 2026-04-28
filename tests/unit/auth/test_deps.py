@@ -8,13 +8,13 @@ import pytest
 from fastapi import APIRouter, Depends, FastAPI
 from httpx import AsyncClient
 
-from mirador_service.auth.deps import (
+from iris_service.auth.deps import (
     AuthenticatedUser,
     current_user,
     require_role,
 )
-from mirador_service.auth.jwt import issue_access_token
-from mirador_service.config.settings import get_settings
+from iris_service.auth.jwt import issue_access_token
+from iris_service.config.settings import get_settings
 
 
 def _build_probe(app: FastAPI) -> APIRouter:
@@ -70,7 +70,7 @@ async def test_current_user_decodes_valid_access_token(client: AsyncClient, app:
 async def test_current_user_rejects_refresh_token_on_access_route(client: AsyncClient, app: FastAPI) -> None:
     """A refresh token MUST NOT be accepted as an access token."""
     _build_probe(app)
-    from mirador_service.auth.jwt import issue_refresh_token
+    from iris_service.auth.jwt import issue_refresh_token
 
     settings = get_settings()
     refresh, _ = issue_refresh_token(settings.jwt, username="alice", role="ROLE_USER")

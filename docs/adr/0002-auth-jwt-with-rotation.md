@@ -2,11 +2,11 @@
 
 **Status** : Accepted
 **Date** : 2026-04-25
-**Sibling** : `../mirador-service` (Java side, Spring Security)
+**Sibling** : `../iris-service` (Java side, Spring Security)
 
 ## Context
 
-mirador-service-python needs an authentication mechanism that :
+iris-service-python needs an authentication mechanism that :
 - Mirrors the Java side's contract (same /auth/login + /auth/refresh routes,
   same Bearer-token semantics) so the same Angular frontend can talk to either
   backend without code changes.
@@ -94,7 +94,7 @@ handle the snake_case ↔ camelCase mapping.
 
 ### FastAPI dependency wiring
 
-`mirador_service.auth.deps.current_user` extracts + validates the Bearer
+`iris_service.auth.deps.current_user` extracts + validates the Bearer
 token, returns `AppUser`. `require_role("ADMIN")` is a factory returning a
 dependency that 403s on role mismatch. Used like :
 

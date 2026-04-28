@@ -15,7 +15,7 @@
 ; (1) config is a leaf, (2) adapters don't reach into each other directly.
 
 [importlinter]
-root_package = mirador_service
+root_package = iris_service
 
 ; ── Contract 1 : config is a sink, never a source ────────────────────────────
 ;
@@ -24,20 +24,20 @@ root_package = mirador_service
 ; meant to configure" cycle (= test isolation pain + import-time side effects).
 
 [importlinter:contract:config-is-leaf]
-name = mirador_service.config imports nothing else from the project
+name = iris_service.config imports nothing else from the project
 type = forbidden
 source_modules =
-    mirador_service.config
+    iris_service.config
 forbidden_modules =
-    mirador_service.api
-    mirador_service.app
-    mirador_service.auth
-    mirador_service.customer
-    mirador_service.db
-    mirador_service.integration
-    mirador_service.messaging
-    mirador_service.middleware
-    mirador_service.observability
+    iris_service.api
+    iris_service.app
+    iris_service.auth
+    iris_service.customer
+    iris_service.db
+    iris_service.integration
+    iris_service.messaging
+    iris_service.middleware
+    iris_service.observability
 
 ; ── Contract 2 : DB adapter doesn't reach into Kafka adapter ─────────────────
 ;
@@ -50,8 +50,8 @@ forbidden_modules =
 name = db and messaging adapters stay independent (no direct coupling)
 type = independence
 modules =
-    mirador_service.db.base
-    mirador_service.messaging.kafka_client
+    iris_service.db.base
+    iris_service.messaging.kafka_client
 
 ; ── Contract 3 : integration adapters don't import each other ────────────────
 ;
@@ -64,9 +64,9 @@ modules =
 name = Outbound integration adapters (bio, todo, redis) stay independent
 type = independence
 modules =
-    mirador_service.integration.bio_service
-    mirador_service.integration.todo_service
-    mirador_service.integration.redis_client
+    iris_service.integration.bio_service
+    iris_service.integration.todo_service
+    iris_service.integration.redis_client
 
 ; ── Contract 4 : observability is one-way (instrumentation, not consumption)
 ;
@@ -76,14 +76,14 @@ modules =
 ; into our otel.py / logging middleware setup.
 
 [importlinter:contract:observability-is-leaf]
-name = mirador_service.observability is a leaf (instrumentation only)
+name = iris_service.observability is a leaf (instrumentation only)
 type = forbidden
 source_modules =
-    mirador_service.observability
+    iris_service.observability
 forbidden_modules =
-    mirador_service.api
-    mirador_service.auth
-    mirador_service.customer
-    mirador_service.db
-    mirador_service.integration
-    mirador_service.messaging
+    iris_service.api
+    iris_service.auth
+    iris_service.customer
+    iris_service.db
+    iris_service.integration
+    iris_service.messaging

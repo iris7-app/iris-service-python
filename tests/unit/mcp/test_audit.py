@@ -1,11 +1,11 @@
-"""Unit tests for :mod:`mirador_service.mcp.audit`."""
+"""Unit tests for :mod:`iris_service.mcp.audit`."""
 
 from __future__ import annotations
 
 import logging
 from decimal import Decimal
 
-from mirador_service.mcp.audit import AUDIT_ACTION, hash_args, record_tool_call
+from iris_service.mcp.audit import AUDIT_ACTION, hash_args, record_tool_call
 
 
 def test_hash_args_stable_for_same_payload() -> None:
@@ -38,7 +38,7 @@ def test_record_tool_call_emits_info_log(caplog: object) -> None:
 
     cap = caplog  # type: ignore[assignment]
     assert isinstance(cap, pytest.LogCaptureFixture)
-    cap.set_level(logging.INFO, logger="mirador_service.mcp.audit")
+    cap.set_level(logging.INFO, logger="iris_service.mcp.audit")
     record_tool_call(tool_name="t", args={"x": 1}, user="alice", role="ROLE_USER")
     assert any(AUDIT_ACTION in rec.getMessage() for rec in cap.records)
 
@@ -48,7 +48,7 @@ def test_record_tool_call_anonymous_marker(caplog: object) -> None:
 
     cap = caplog  # type: ignore[assignment]
     assert isinstance(cap, pytest.LogCaptureFixture)
-    cap.set_level(logging.INFO, logger="mirador_service.mcp.audit")
+    cap.set_level(logging.INFO, logger="iris_service.mcp.audit")
     record_tool_call(tool_name="t", args={}, user=None, role=None)
     msgs = [rec.getMessage() for rec in cap.records]
     assert any("<anonymous>" in m for m in msgs)
@@ -61,7 +61,7 @@ def test_record_tool_call_carries_extras(caplog: object) -> None:
 
     cap = caplog  # type: ignore[assignment]
     assert isinstance(cap, pytest.LogCaptureFixture)
-    cap.set_level(logging.INFO, logger="mirador_service.mcp.audit")
+    cap.set_level(logging.INFO, logger="iris_service.mcp.audit")
     record_tool_call(tool_name="my_tool", args={"x": "y"}, user="u", role="ROLE_USER")
     rec = next(r for r in cap.records if AUDIT_ACTION in r.getMessage())
     assert rec.tool_name == "my_tool"

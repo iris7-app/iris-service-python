@@ -7,7 +7,7 @@
 ## The 3 chaos endpoints
 
 The Python service ships 3 deliberate-failure endpoints in
-`src/mirador_service/customer/diagnostic_router.py` (no auth, demo-only) :
+`src/iris_service/customer/diagnostic_router.py` (no auth, demo-only) :
 
 | Endpoint | Symptom | SLO it burns |
 |---|---|---|
@@ -29,7 +29,7 @@ in-memory test stack just as well as a full LGTM stack.
 docker compose -f infra/shared/compose/dev-stack.yml up -d
 
 # 2. Start the FastAPI service against it
-uv run uvicorn mirador_service.app:app --reload --port 8000
+uv run uvicorn iris_service.app:app --reload --port 8000
 
 # 3. Open Grafana → SLO Breakdown by Endpoint
 open http://localhost:3001/d/mirador-py-slo-breakdown-by-endpoint
@@ -73,7 +73,7 @@ will surface the marker.
    the corresponding burn-rate timeseries shows the spike inside the
    1h fast-burn window.
 4. **Within ~1 minute** (Sloth's `mwmbr` short window) the
-   `MiradorPyServiceLatencyP99SLO` / `Availability` / `Enrichment`
+   `IrisPyServiceLatencyP99SLO` / `Availability` / `Enrichment`
    alert state flips to firing in Alertmanager.
 
 ## What the demo proves (for a senior architect interview)
@@ -82,7 +82,7 @@ will surface the marker.
   → alert → runbook. Not just "we have Grafana" but "we have an
   acted-upon error budget".
 - **Symmetry across stacks** : same 3 chaos endpoints exist on Java
-  (`mirador-service-java`) — proves the SLO contract is portable, not
+  (`iris-service-java`) — proves the SLO contract is portable, not
   language-specific.
 - **Multi-window multi-burn-rate (MWMBR)** : the chaos burst triggers
   the 1h `× 14.4 fast-burn` window first, then if sustained, the 6h
@@ -98,10 +98,10 @@ rules state in dev).
 
 ## See also
 
-- [SLO Overview dashboard](https://gitlab.com/mirador1/mirador-service-shared/-/blob/main/infra/observability/grafana/dashboards-lgtm/slo-overview.json) — the overview gauge + burn-rate timeseries.
-- [SLO Breakdown by Endpoint](https://gitlab.com/mirador1/mirador-service-python/-/blob/main/infra/observability/grafana-dashboards/slo-breakdown-by-endpoint.json) — annotated dashboard for this demo.
-- [Latency Heatmap](https://gitlab.com/mirador1/mirador-service-python/-/blob/main/infra/observability/grafana-dashboards/latency-heatmap.json) — see the slow-query effect on tail-latency.
-- [Apdex](https://gitlab.com/mirador1/mirador-service-python/-/blob/main/infra/observability/grafana-dashboards/apdex.json) — single-number user-satisfaction score.
+- [SLO Overview dashboard](https://gitlab.com/iris-7/iris-service-shared/-/blob/main/infra/observability/grafana/dashboards-lgtm/slo-overview.json) — the overview gauge + burn-rate timeseries.
+- [SLO Breakdown by Endpoint](https://gitlab.com/iris-7/iris-service-python/-/blob/main/infra/observability/grafana-dashboards/slo-breakdown-by-endpoint.json) — annotated dashboard for this demo.
+- [Latency Heatmap](https://gitlab.com/iris-7/iris-service-python/-/blob/main/infra/observability/grafana-dashboards/latency-heatmap.json) — see the slow-query effect on tail-latency.
+- [Apdex](https://gitlab.com/iris-7/iris-service-python/-/blob/main/infra/observability/grafana-dashboards/apdex.json) — single-number user-satisfaction score.
 - [SLO Review Cadence](review-cadence.md) — when + how to revisit SLO targets.
-- [diagnostic_router.py](https://gitlab.com/mirador1/mirador-service-python/-/blob/main/src/mirador_service/customer/diagnostic_router.py) — the 3 endpoint implementations.
+- [diagnostic_router.py](https://gitlab.com/iris-7/iris-service-python/-/blob/main/src/iris_service/customer/diagnostic_router.py) — the 3 endpoint implementations.
 - [Google SRE Workbook ch. 5 — Alerting on SLOs](https://sre.google/workbook/alerting-on-slos/) — multi-window burn-rate rationale.

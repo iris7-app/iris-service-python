@@ -160,7 +160,7 @@ fi
 
 # ── 6. ADR drift ──
 # Calls the COMMON regenerator via the universal submodule (factored
-# 2026-04-26 into mirador-common per ADR-0001 + ADR-0060). Falls back
+# 2026-04-26 into iris-common per ADR-0001 + ADR-0060). Falls back
 # to the legacy infra/shared/bin/... path for the brief transition
 # window when this repo's submodule SHA hasn't been bumped yet.
 section "6. ADR drift"

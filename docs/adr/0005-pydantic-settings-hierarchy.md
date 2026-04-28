@@ -2,11 +2,11 @@
 
 **Status** : Accepted
 **Date** : 2026-04-25
-**Sibling** : `../mirador-service` (Java side, Spring Boot @ConfigurationProperties)
+**Sibling** : `../iris-service` (Java side, Spring Boot @ConfigurationProperties)
 
 ## Context
 
-The Java mirador-service uses Spring Boot's `@ConfigurationProperties` +
+The Java iris-service uses Spring Boot's `@ConfigurationProperties` +
 `application.yml` profile system to load typed configuration with a clear
 precedence : env vars > application-{profile}.yml > application.yml >
 @Value defaults. The Python mirror needs the same discipline :
@@ -32,19 +32,19 @@ Standard Python options :
 
 ## Decision
 
-`mirador_service/config/settings.py` declares one `Settings` class per
+`iris_service/config/settings.py` declares one `Settings` class per
 sub-section (`DatabaseSettings`, `RedisSettings`, `KafkaSettings`,
 `JwtSettings`) + one top-level `Settings` aggregating them via
 `Field(default_factory=...)`.
 
 ### Env var conventions
 
-- **`MIRADOR_` prefix** — all app vars share one prefix, avoids collisions
+- **`IRIS_` prefix** — all app vars share one prefix, avoids collisions
   with system vars (`HOST`, `PORT`, `USER`).
-- **`__` (double underscore) nested delimiter** — `MIRADOR_DB__HOST`
-  populates `Settings.db.host`. `MIRADOR_KAFKA__BOOTSTRAP_SERVERS` →
+- **`__` (double underscore) nested delimiter** — `IRIS_DB__HOST`
+  populates `Settings.db.host`. `IRIS_KAFKA__BOOTSTRAP_SERVERS` →
   `Settings.kafka.bootstrap_servers`. Configured via
-  `model_config = SettingsConfigDict(env_prefix="MIRADOR_", env_nested_delimiter="__")`.
+  `model_config = SettingsConfigDict(env_prefix="IRIS_", env_nested_delimiter="__")`.
 - **`.env` file** — read in addition to env vars, sane local-dev defaults
   shipped as `.env.example` (committed) ; `.env` itself gitignored. Every
   required var declared in `.env.example` even if it has a default — rule
@@ -111,7 +111,7 @@ config is caught at `mvn spring-boot:run` time, not on first request.
 
 `tests/unit/config/test_settings.py` (TODO — not yet written) should cover :
 - Default values populate without any env vars set.
-- `MIRADOR_DB__HOST` env var overrides `db.host`.
+- `IRIS_DB__HOST` env var overrides `db.host`.
 - Missing required field raises `ValidationError` with the field name.
 - `lru_cache` returns the same instance on repeat calls.
 - `app.dependency_overrides[get_settings]` works in FastAPI tests.

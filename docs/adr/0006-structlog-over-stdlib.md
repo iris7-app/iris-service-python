@@ -2,11 +2,11 @@
 
 **Status** : Accepted
 **Date** : 2026-04-25
-**Sibling** : `../mirador-service` (Java side, logback-spring.xml dual-profile)
+**Sibling** : `../iris-service` (Java side, logback-spring.xml dual-profile)
 
 ## Context
 
-The Java mirador-service uses logback with profile-specific layouts :
+The Java iris-service uses logback with profile-specific layouts :
 - dev : human-readable single-line format with colour codes.
 - prod : JSON one-line-per-event format consumable by Loki without regex.
 
@@ -27,7 +27,7 @@ Standard Python options :
 
 ## Decision
 
-`mirador_service/middleware/logging.py` exposes `configure_logging(*, dev_mode: bool)`
+`iris_service/middleware/logging.py` exposes `configure_logging(*, dev_mode: bool)`
 called from `create_app()` BEFORE any other setup so the boot sequence
 itself logs in the chosen format.
 
@@ -74,7 +74,7 @@ emits :
 
 ```json
 {"event": "created_customer", "id": 42, "email": "x@y.com",
- "request_id": "abc-123", "logger": "mirador_service.customer.router",
+ "request_id": "abc-123", "logger": "iris_service.customer.router",
  "level": "info", "timestamp": "2026-04-25T10:00:00Z"}
 ```
 

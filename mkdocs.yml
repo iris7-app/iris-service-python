@@ -9,13 +9,13 @@
 #   uv run mkdocs serve           → live-reload preview at :8000
 #
 # CI publishes to GitLab Pages on every main push (.gitlab-ci/docs.yml).
-# Reachable at https://mirador1.gitlab.io/mirador-service-python/
+# Reachable at https://iris-7.gitlab.io/iris-service-python/
 
-site_name: Mirador Service Python
-site_description: Python mirror of mirador-service Java backend (FastAPI + Pydantic v2 + SQLAlchemy 2.x async)
-site_url: https://mirador1.gitlab.io/mirador-service-python/
-repo_url: https://gitlab.com/mirador1/mirador-service-python
-repo_name: mirador1/mirador-service-python
+site_name: Iris Service Python
+site_description: Python mirror of iris-service Java backend (FastAPI + Pydantic v2 + SQLAlchemy 2.x async)
+site_url: https://iris-7.gitlab.io/iris-service-python/
+repo_url: https://gitlab.com/iris-7/iris-service-python
+repo_name: iris-7/iris-service-python
 edit_uri: edit/dev/docs/
 
 theme:

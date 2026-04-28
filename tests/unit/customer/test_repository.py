@@ -11,7 +11,7 @@ import pytest
 from sqlalchemy.exc import NoResultFound
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from mirador_service.customer.repository import CustomerRepository
+from iris_service.customer.repository import CustomerRepository
 
 
 @pytest.mark.asyncio

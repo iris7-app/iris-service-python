@@ -1,4 +1,4 @@
-# Mirador-Service-Python — Claude Instructions
+# Iris-Service-Python — Claude Instructions
 
 ## Git Safety
 - NEVER `git reset --hard` without explicit user confirmation. Run `git status` + check unpushed commits first.
@@ -9,7 +9,7 @@
 - When fixing a failing pipeline, read the **actual failure log** (`glab ci trace <job>`) before exploring the whole CI config.
 
 ## Project Verification
-- State explicitly at the start of each response : (1) which repo (mirador-service-python), (2) current branch, (3) remote state.
+- State explicitly at the start of each response : (1) which repo (iris-service-python), (2) current branch, (3) remote state.
 - When resuming mid-session, `git fetch` + `glab mr list` + `glab ci list` before editing.
 
 ## Verify commands before suggesting
@@ -38,16 +38,16 @@ NEVER reach for `allow_failure: true` as the fix. Pick (a) fix the root cause, (
 - **Comments explain why**, not what. Write comments that a future Claude session with no conversation history can understand.
 - After significant feature work, **do a code review pass** : unused imports, `Any` types, silent error handlers, missing types on async calls, missing tests.
 - **Never modify files outside this project** unless explicitly asked.
-- **Reference pipelines/MRs/files as clickable URLs.** When a status update or commit message mentions an MR, pipeline, tag, ADR or audit report, emit it as a markdown link (`[!62](https://gitlab.com/mirador1/mirador-service-python/-/merge_requests/62)`, `[#308](...)`, `[stable-v0.1.0](...)`, `[ADR](file:///<repo>/docs/adr/…md)`).
+- **Reference pipelines/MRs/files as clickable URLs.** When a status update or commit message mentions an MR, pipeline, tag, ADR or audit report, emit it as a markdown link (`[!62](https://gitlab.com/iris-7/iris-service-python/-/merge_requests/62)`, `[#308](...)`, `[stable-v0.1.0](...)`, `[ADR](file:///<repo>/docs/adr/…md)`).
 
 ## Submodule pattern (2-tier flat α — see common ADR-0060)
 
 This repo has **2 git submodules** (since 2026-04-26 split) :
 
-- `infra/common/` → [mirador-common](https://gitlab.com/mirador1/mirador-common) — universal cross-repo conventions (release scripts, ADR drift tooling, Conventional Commits CI template, Renovate base). Consumed by all 4 mirador1 repos including UI.
-- `infra/shared/` → [mirador-service-shared](https://gitlab.com/mirador1/mirador-service-shared) — backend infrastructure (clusters, terraform, K8s, OTel collector, postgres+kafka+redis dev stack, dashboards-lgtm, backend ADRs). Consumed by java + python only (NOT ui).
+- `infra/common/` → [iris-common](https://gitlab.com/iris-7/iris-common) — universal cross-repo conventions (release scripts, ADR drift tooling, Conventional Commits CI template, Renovate base). Consumed by all 4 iris-7 repos including UI.
+- `infra/shared/` → [iris-service-shared](https://gitlab.com/iris-7/iris-service-shared) — backend infrastructure (clusters, terraform, K8s, OTel collector, postgres+kafka+redis dev stack, dashboards-lgtm, backend ADRs). Consumed by java + python only (NOT ui).
 
-**Pattern α (flat 2-submodule)** chosen over β for : independent SHA pinning per consumer, symmetric path everywhere (`infra/common/bin/...`), standard clone (no `--recursive`). Full rationale : [common ADR-0060](https://gitlab.com/mirador1/mirador-common/-/blob/main/docs/adr/0060-flat-vs-transitive-submodule-inheritance.md).
+**Pattern α (flat 2-submodule)** chosen over β for : independent SHA pinning per consumer, symmetric path everywhere (`infra/common/bin/...`), standard clone (no `--recursive`). Full rationale : [common ADR-0060](https://gitlab.com/iris-7/iris-common/-/blob/main/docs/adr/0060-flat-vs-transitive-submodule-inheritance.md).
 
 **Where to find what** :
 - Universal scripts (pre-sync, changelog, gitlab-release, regen-adr-index) → `infra/common/bin/...`
@@ -55,25 +55,25 @@ This repo has **2 git submodules** (since 2026-04-26 split) :
 - Backend deploy manifests → `infra/shared/deploy/...`
 - Backend dev stack compose → `infra/shared/compose/dev-stack.yml`
 
-**Tag prefix for this repo** : `stable-py-v` (per [common ADR-0061](https://gitlab.com/mirador1/mirador-common/-/blob/main/docs/adr/0061-per-repo-tag-namespace-pattern.md) — Python uses prefix-disambiguated namespace from Java's `stable-v`). Run release scripts as : `infra/common/bin/ship/changelog.sh --tag-prefix stable-py-v`.
+**Tag prefix for this repo** : `stable-py-v` (per [common ADR-0061](https://gitlab.com/iris-7/iris-common/-/blob/main/docs/adr/0061-per-repo-tag-namespace-pattern.md) — Python uses prefix-disambiguated namespace from Java's `stable-v`). Run release scripts as : `infra/common/bin/ship/changelog.sh --tag-prefix stable-py-v`.
 
 **Clone instruction** :
 ```bash
-git clone https://gitlab.com/mirador1/mirador-service-python.git
-cd mirador-service-python
+git clone https://gitlab.com/iris-7/iris-service-python.git
+cd iris-service-python
 git submodule update --init   # 2 submodules, NO --recursive needed
 ```
 
 ## Project overview
 
-Python 3.13 service mirroring `../mirador-service` (Java/Spring Boot 4) and
-served behind the Angular `../../js/mirador-ui` frontend (the UI's API client
+Python 3.13 service mirroring `../iris-service` (Java/Spring Boot 4) and
+served behind the Angular `../../js/iris-ui` frontend (the UI's API client
 should work against either backend transparently — same OpenAPI contract).
 
-- **Entry point** : `src/mirador_service/app.py` (FastAPI app factory)
+- **Entry point** : `src/iris_service/app.py` (FastAPI app factory)
 - **Config** : `pyproject.toml` (uv) + `config/` (env-specific) + `.env` (local secrets, gitignored)
-- **Sibling Java backend** : `../mirador-service/`
-- **Sibling UI frontend** : `../../js/mirador-ui/`
+- **Sibling Java backend** : `../iris-service/`
+- **Sibling UI frontend** : `../../js/iris-ui/`
 
 ## Python rules — critical
 
@@ -108,18 +108,18 @@ uv run lint-imports                  # arch tests (import-linter)
 ## Known gotchas
 
 - **MCP server is in-process only.** The `/mcp/` endpoint (mounted by
-  `mirador_service/mcp/mount.py`) ONLY surfaces what the backend
+  `iris_service/mcp/mount.py`) ONLY surfaces what the backend
   already produces in-process — Python `logging` ring buffer,
   `prometheus_client` REGISTRY, FastAPI's auto-OpenAPI, the
   Order/Product/Customer domain. No HTTP clients to Loki / Mimir /
   Grafana / GitLab / kubectl. External infra MCPs live outside
-  this codebase. See [ADR-0062](https://gitlab.com/mirador1/mirador-service-java/-/blob/main/docs/adr/0062-mcp-server-tool-exposure-per-method.md)
+  this codebase. See [ADR-0062](https://gitlab.com/iris-7/iris-service-java/-/blob/main/docs/adr/0062-mcp-server-tool-exposure-per-method.md)
   in the Java sibling for the produces-vs-accesses decision rule.
 - **MCP env vars** :
-  - `MIRADOR_MCP_RING_BUFFER_SIZE` — capacity of the in-process log
+  - `IRIS_MCP_RING_BUFFER_SIZE` — capacity of the in-process log
     ring buffer that feeds the `tail_logs` tool. Default 500.
     Malformed / non-positive values fall back to 500 with a warning.
-  - `MIRADOR_MCP_DISABLE_HOST_GUARD=1` — disables the MCP SDK's
+  - `IRIS_MCP_DISABLE_HOST_GUARD=1` — disables the MCP SDK's
     DNS-rebinding host-header guard. Set this only in tests using
     `httpx.ASGITransport` (synthetic `Host: test`). Production keeps
     the guard ON ; the SDK validates Host against `resource_server_url`.
@@ -134,7 +134,7 @@ uv run lint-imports                  # arch tests (import-linter)
 Default target : Python 3.13.
 Compat targets (informational matrix) : 3.11, 3.12, 3.14 (when released).
 Each compat cell runs the full test suite — same prod-grade requirement as
-the Java sibling project (see `../mirador-service/docs/adr/0060-sb3-compat-prod-grade.md`).
+the Java sibling project (see `../iris-service/docs/adr/0060-sb3-compat-prod-grade.md`).
 
 ## ADRs
 

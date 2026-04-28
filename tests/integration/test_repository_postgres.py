@@ -12,7 +12,7 @@ import pytest
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from mirador_service.customer.repository import CustomerRepository
+from iris_service.customer.repository import CustomerRepository
 
 pytestmark = pytest.mark.integration
 

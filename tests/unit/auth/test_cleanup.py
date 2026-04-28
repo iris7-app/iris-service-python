@@ -8,9 +8,9 @@ import pytest
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from mirador_service.auth.cleanup import cleanup_refresh_tokens
-from mirador_service.auth.models import RefreshToken
-from mirador_service.db.base import reset_engine
+from iris_service.auth.cleanup import cleanup_refresh_tokens
+from iris_service.auth.models import RefreshToken
+from iris_service.db.base import reset_engine
 
 
 @pytest.fixture(autouse=True)
@@ -38,7 +38,7 @@ async def _swap_factory(db_session: AsyncSession, monkeypatch):
         return _SessionContext(db_session)
 
     monkeypatch.setattr(
-        "mirador_service.auth.cleanup.get_session_factory",
+        "iris_service.auth.cleanup.get_session_factory",
         lambda: fake_factory,
     )
     yield

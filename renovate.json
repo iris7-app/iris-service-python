@@ -1,7 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "description": [
-    "Mirador-service-python — automated Python dependency updates.",
+    "Iris-service-python — automated Python dependency updates.",
     "Same posture as the Java mirror (infra/shared/renovate.json) :",
     "minor/patch auto-merge after CI green ; majors require human review.",
     "Python-specific grouping for FastAPI / SQLAlchemy / Pydantic / OTel families."

@@ -13,11 +13,11 @@ from fastapi import FastAPI
 from prometheus_client import CollectorRegistry
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
-from mirador_service.config.settings import get_settings
-from mirador_service.db.base import Base
-from mirador_service.mcp.metrics_registry import MetricsRegistryReader
-from mirador_service.mcp.ring_buffer import RingBufferHandler
-from mirador_service.mcp.tools import Deps, reset_idempotency_cache
+from iris_service.config.settings import get_settings
+from iris_service.db.base import Base
+from iris_service.mcp.metrics_registry import MetricsRegistryReader
+from iris_service.mcp.ring_buffer import RingBufferHandler
+from iris_service.mcp.tools import Deps, reset_idempotency_cache
 
 
 @pytest_asyncio.fixture

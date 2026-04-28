@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from mirador_service.auth.passwords import hash_password, verify_password
+from iris_service.auth.passwords import hash_password, verify_password
 
 
 def test_hash_then_verify_succeeds() -> None:

@@ -1,7 +1,7 @@
 # Docs stage : mkdocs-material build + GitLab Pages publish
 #
 # Mirror of UI's compodoc + svc's javadoc generation. Static site at
-# https://mirador1.gitlab.io/mirador-service-python/ updated on every
+# https://iris-7.gitlab.io/iris-service-python/ updated on every
 # main push. PR builds run mkdocs build but don't publish.
 
 pages:
@@ -23,7 +23,7 @@ pages:
     expire_in: 30 days
   environment:
     name: docs
-    url: https://mirador1.gitlab.io/mirador-service-python/
+    url: https://iris-7.gitlab.io/iris-service-python/
   allow_failure: true  # docs failure doesn't gate pipeline
 
 docs:check:

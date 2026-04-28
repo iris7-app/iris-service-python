@@ -1,10 +1,10 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: mirador-service-python
+  name: iris-service-python
   namespace: mirador
   labels:
-    app.kubernetes.io/name: mirador-service-python
+    app.kubernetes.io/name: iris-service-python
     app.kubernetes.io/component: backend
     app.kubernetes.io/part-of: mirador
 spec:
@@ -14,4 +14,4 @@ spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: mirador-service-python
+      app.kubernetes.io/name: iris-service-python

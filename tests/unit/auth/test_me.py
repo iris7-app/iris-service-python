@@ -5,8 +5,8 @@ from __future__ import annotations
 import pytest
 from httpx import AsyncClient
 
-from mirador_service.auth.jwt import issue_access_token
-from mirador_service.config.settings import get_settings
+from iris_service.auth.jwt import issue_access_token
+from iris_service.config.settings import get_settings
 
 
 @pytest.mark.asyncio
@@ -30,7 +30,7 @@ async def test_me_returns_user_claims_with_valid_token(client: AsyncClient) -> N
 @pytest.mark.asyncio
 async def test_me_rejects_refresh_token(client: AsyncClient) -> None:
     """A refresh token must NOT pass /me (access tokens only)."""
-    from mirador_service.auth.jwt import issue_refresh_token
+    from iris_service.auth.jwt import issue_refresh_token
 
     settings = get_settings()
     refresh, _ = issue_refresh_token(settings.jwt, username="alice", role="ROLE_USER")

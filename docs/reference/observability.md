@@ -1,3 +1,3 @@
 # `observability` — API reference
 
-::: mirador_service.observability
+::: iris_service.observability

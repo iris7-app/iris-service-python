@@ -34,7 +34,7 @@ async def test_info_returns_runtime_metadata(client: AsyncClient) -> None:
     response = await client.get("/actuator/info")
     assert response.status_code == 200
     body = response.json()
-    assert body["service"] == "mirador-service-python"
+    assert body["service"] == "iris-service-python"
     assert "version" in body
     assert body["runtime"]["name"] == "CPython"
 

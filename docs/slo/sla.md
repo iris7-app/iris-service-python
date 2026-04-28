@@ -1,7 +1,7 @@
-# Mirador-service-python — SLA (Service Level Agreement)
+# Iris-service-python — SLA (Service Level Agreement)
 
 > ⚠️ **Portfolio-demo SLA**. Mirror of the Java side's
-> [`sla.md`](https://gitlab.com/mirador1/mirador-service-java/-/blob/main/docs/slo/sla.md)
+> [`sla.md`](https://gitlab.com/iris-7/iris-service-java/-/blob/main/docs/slo/sla.md)
 > with the Python service's specific metric names + endpoints. Same
 > commitments, same review cadence, same architecture (Sloth + multi-
 > window multi-burn-rate per ADR-0058 in the shared submodule).
@@ -21,10 +21,10 @@
   (the metric names differ from Java's `http_server_requests_seconds_*`,
   hence the separate `slo.yaml`).
 - **Recording rules** : Sloth-generated, stored in
-  `mirador-service-shared/deploy/kubernetes/observability-prom/mirador-py-slo.yaml`.
-- **Dashboard** : same `SLO Overview — Mirador` Grafana board ; both
+  `iris-service-shared/deploy/kubernetes/observability-prom/mirador-py-slo.yaml`.
+- **Dashboard** : same `SLO Overview — Iris` Grafana board ; both
   Java + Python burn-rate timeseries are visible side-by-side
-  (filtered by `sloth_service=mirador-service-python` for Python-only).
+  (filtered by `sloth_service=iris-service-python` for Python-only).
 
 ## What we DON'T cover (Python-specific)
 
@@ -41,7 +41,7 @@
 Cadence (monthly compliance pass + quarterly target review +
 post-incident root-cause loop) documented in
 [`review-cadence.md`](review-cadence.md) — thin pointer to the
-cross-language [shared cadence doc](https://gitlab.com/mirador1/mirador-service-shared/-/blob/main/docs/slo/review-cadence.md).
+cross-language [shared cadence doc](https://gitlab.com/iris-7/iris-service-shared/-/blob/main/docs/slo/review-cadence.md).
 Hands-on demo of the burn-rate alerting in
 [`chaos-demo.md`](chaos-demo.md).
 
@@ -50,6 +50,6 @@ Hands-on demo of the burn-rate alerting in
 - [`slo.yaml`](slo.yaml) — Python SLO definitions, source-of-truth.
 - [`review-cadence.md`](review-cadence.md) — review loop entry point.
 - [`chaos-demo.md`](chaos-demo.md) — chaos-driven SLO demo guide.
-- [ADR-0058 in shared](https://gitlab.com/mirador1/mirador-service-shared/-/blob/main/docs/adr/0058-slo-sla-with-sloth.md) — design decisions.
-- [Java SLA](https://gitlab.com/mirador1/mirador-service-java/-/blob/main/docs/slo/sla.md) — sibling service.
+- [ADR-0058 in shared](https://gitlab.com/iris-7/iris-service-shared/-/blob/main/docs/adr/0058-slo-sla-with-sloth.md) — design decisions.
+- [Java SLA](https://gitlab.com/iris-7/iris-service-java/-/blob/main/docs/slo/sla.md) — sibling service.
 - ADR-0007 (industrial Python practices) — coverage/lint/security baseline that supports the SLO discipline.

@@ -1,7 +1,7 @@
 # Changelog
 
-All notable changes to **mirador-service-python** — Python sibling of
-[`mirador-service-java`](https://gitlab.com/mirador1/mirador-service-java),
+All notable changes to **iris-service-python** — Python sibling of
+[`iris-service-java`](https://gitlab.com/iris-7/iris-service-java),
 FastAPI + Pydantic v2 + SQLAlchemy 2.x async.
 
 Format : a lightly-formatted summary per `stable-py-vX.Y.Z` tag.
@@ -96,8 +96,8 @@ Initial Python mirror of the Java backend. FastAPI + Pydantic v2 + SQLAlchemy
 2.x async + Kafka request-reply + Redis ring buffer + OpenTelemetry +
 JWT auth + structured logging.
 
-[stable-py-v0.6.2]: https://gitlab.com/mirador1/mirador-service-python/-/tags/stable-py-v0.6.2
-[stable-py-v0.6.1]: https://gitlab.com/mirador1/mirador-service-python/-/tags/stable-py-v0.6.1
-[stable-py-v0.6.0]: https://gitlab.com/mirador1/mirador-service-python/-/tags/stable-py-v0.6.0
-[stable-v0.5.0]: https://gitlab.com/mirador1/mirador-service-python/-/tags/stable-v0.5.0
-[stable-v0.1.0]: https://gitlab.com/mirador1/mirador-service-python/-/tags/stable-v0.1.0
+[stable-py-v0.6.2]: https://gitlab.com/iris-7/iris-service-python/-/tags/stable-py-v0.6.2
+[stable-py-v0.6.1]: https://gitlab.com/iris-7/iris-service-python/-/tags/stable-py-v0.6.1
+[stable-py-v0.6.0]: https://gitlab.com/iris-7/iris-service-python/-/tags/stable-py-v0.6.0
+[stable-v0.5.0]: https://gitlab.com/iris-7/iris-service-python/-/tags/stable-v0.5.0
+[stable-v0.1.0]: https://gitlab.com/iris-7/iris-service-python/-/tags/stable-v0.1.0

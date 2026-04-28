@@ -48,7 +48,7 @@
       "targets": [
         {
           "datasource": {"type": "prometheus", "uid": "prometheus"},
-          "expr": "(\n  sum(rate(starlette_request_duration_seconds_bucket{job=\"mirador-service-python\",le=\"0.5\"}[5m]))\n  +\n  sum(rate(starlette_request_duration_seconds_bucket{job=\"mirador-service-python\",le=\"2\"}[5m]))\n) / 2 /\n  sum(rate(starlette_requests_total{job=\"mirador-service-python\"}[5m]))",
+          "expr": "(\n  sum(rate(starlette_request_duration_seconds_bucket{job=\"iris-service-python\",le=\"0.5\"}[5m]))\n  +\n  sum(rate(starlette_request_duration_seconds_bucket{job=\"iris-service-python\",le=\"2\"}[5m]))\n) / 2 /\n  sum(rate(starlette_requests_total{job=\"iris-service-python\"}[5m]))",
           "legendFormat": "Apdex 5m",
           "refId": "A"
         }
@@ -81,19 +81,19 @@
       "targets": [
         {
           "datasource": {"type": "prometheus", "uid": "prometheus"},
-          "expr": "sum(rate(starlette_request_duration_seconds_bucket{job=\"mirador-service-python\",le=\"0.5\"}[5m])) /\nsum(rate(starlette_requests_total{job=\"mirador-service-python\"}[5m]))",
+          "expr": "sum(rate(starlette_request_duration_seconds_bucket{job=\"iris-service-python\",le=\"0.5\"}[5m])) /\nsum(rate(starlette_requests_total{job=\"iris-service-python\"}[5m]))",
           "legendFormat": "satisfied",
           "refId": "A"
         },
         {
           "datasource": {"type": "prometheus", "uid": "prometheus"},
-          "expr": "(\n  sum(rate(starlette_request_duration_seconds_bucket{job=\"mirador-service-python\",le=\"2\"}[5m]))\n  -\n  sum(rate(starlette_request_duration_seconds_bucket{job=\"mirador-service-python\",le=\"0.5\"}[5m]))\n) /\n  sum(rate(starlette_requests_total{job=\"mirador-service-python\"}[5m]))",
+          "expr": "(\n  sum(rate(starlette_request_duration_seconds_bucket{job=\"iris-service-python\",le=\"2\"}[5m]))\n  -\n  sum(rate(starlette_request_duration_seconds_bucket{job=\"iris-service-python\",le=\"0.5\"}[5m]))\n) /\n  sum(rate(starlette_requests_total{job=\"iris-service-python\"}[5m]))",
           "legendFormat": "tolerating",
           "refId": "B"
         },
         {
           "datasource": {"type": "prometheus", "uid": "prometheus"},
-          "expr": "(\n  sum(rate(starlette_requests_total{job=\"mirador-service-python\"}[5m]))\n  -\n  sum(rate(starlette_request_duration_seconds_bucket{job=\"mirador-service-python\",le=\"2\"}[5m]))\n) /\n  sum(rate(starlette_requests_total{job=\"mirador-service-python\"}[5m]))",
+          "expr": "(\n  sum(rate(starlette_requests_total{job=\"iris-service-python\"}[5m]))\n  -\n  sum(rate(starlette_request_duration_seconds_bucket{job=\"iris-service-python\",le=\"2\"}[5m]))\n) /\n  sum(rate(starlette_requests_total{job=\"iris-service-python\"}[5m]))",
           "legendFormat": "frustrated",
           "refId": "C"
         }
@@ -131,7 +131,7 @@
       "targets": [
         {
           "datasource": {"type": "prometheus", "uid": "prometheus"},
-          "expr": "(\n  sum(rate(starlette_request_duration_seconds_bucket{job=\"mirador-service-python\",le=\"0.5\"}[5m]))\n  +\n  sum(rate(starlette_request_duration_seconds_bucket{job=\"mirador-service-python\",le=\"2\"}[5m]))\n) / 2 /\n  sum(rate(starlette_requests_total{job=\"mirador-service-python\"}[5m]))",
+          "expr": "(\n  sum(rate(starlette_request_duration_seconds_bucket{job=\"iris-service-python\",le=\"0.5\"}[5m]))\n  +\n  sum(rate(starlette_request_duration_seconds_bucket{job=\"iris-service-python\",le=\"2\"}[5m]))\n) / 2 /\n  sum(rate(starlette_requests_total{job=\"iris-service-python\"}[5m]))",
           "legendFormat": "Apdex 5m",
           "refId": "A"
         }
@@ -148,7 +148,7 @@
   "time": {"from": "now-6h", "to": "now"},
   "timepicker": {},
   "timezone": "browser",
-  "title": "Apdex — Mirador",
+  "title": "Apdex — Iris",
   "uid": "mirador-py-apdex",
   "version": 1
 }

@@ -6,7 +6,7 @@
         "enable": true,
         "iconColor": "rgba(255, 96, 0, 0.9)",
         "name": "Chaos — slow-query",
-        "expr": "changes(starlette_requests_total{job=\"mirador-service-python\",path_template=\"/customers/diagnostic/slow-query\"}[1m]) > 0",
+        "expr": "changes(starlette_requests_total{job=\"iris-service-python\",path_template=\"/customers/diagnostic/slow-query\"}[1m]) > 0",
         "step": "1m",
         "tagKeys": "path_template",
         "titleFormat": "Chaos: slow-query",
@@ -18,7 +18,7 @@
         "enable": true,
         "iconColor": "rgba(220, 53, 69, 0.9)",
         "name": "Chaos — db-failure",
-        "expr": "changes(starlette_requests_total{job=\"mirador-service-python\",path_template=\"/customers/diagnostic/db-failure\"}[1m]) > 0",
+        "expr": "changes(starlette_requests_total{job=\"iris-service-python\",path_template=\"/customers/diagnostic/db-failure\"}[1m]) > 0",
         "step": "1m",
         "tagKeys": "path_template",
         "titleFormat": "Chaos: db-failure",
@@ -30,7 +30,7 @@
         "enable": true,
         "iconColor": "rgba(108, 117, 125, 0.9)",
         "name": "Chaos — kafka-timeout",
-        "expr": "changes(starlette_requests_total{job=\"mirador-service-python\",path_template=\"/customers/diagnostic/kafka-timeout\"}[1m]) > 0",
+        "expr": "changes(starlette_requests_total{job=\"iris-service-python\",path_template=\"/customers/diagnostic/kafka-timeout\"}[1m]) > 0",
         "step": "1m",
         "tagKeys": "path_template",
         "titleFormat": "Chaos: kafka-timeout",
@@ -42,7 +42,7 @@
         "enable": true,
         "iconColor": "rgba(255, 193, 7, 0.9)",
         "name": "Real 5xx (catch-all)",
-        "expr": "changes(starlette_requests_total{job=\"mirador-service-python\",path_template=~\"/customers.*\",path_template!~\"/customers/diagnostic/(slow-query|db-failure|kafka-timeout)\",status=~\"5..\"}[1m]) > 0",
+        "expr": "changes(starlette_requests_total{job=\"iris-service-python\",path_template=~\"/customers.*\",path_template!~\"/customers/diagnostic/(slow-query|db-failure|kafka-timeout)\",status=~\"5..\"}[1m]) > 0",
         "step": "1m",
         "tagKeys": "path_template,status",
         "titleFormat": "Real 5xx",
@@ -93,7 +93,7 @@
       "targets": [
         {
           "datasource": {"type": "prometheus", "uid": "prometheus"},
-          "expr": "topk(10,\n  sum by (path_template) (rate(starlette_requests_total{job=\"mirador-service-python\",status=~\"5..\"}[5m]))\n  /\n  sum by (path_template) (rate(starlette_requests_total{job=\"mirador-service-python\"}[5m]))\n)",
+          "expr": "topk(10,\n  sum by (path_template) (rate(starlette_requests_total{job=\"iris-service-python\",status=~\"5..\"}[5m]))\n  /\n  sum by (path_template) (rate(starlette_requests_total{job=\"iris-service-python\"}[5m]))\n)",
           "legendFormat": "{{ path_template }}",
           "refId": "A"
         }
@@ -128,7 +128,7 @@
       "targets": [
         {
           "datasource": {"type": "prometheus", "uid": "prometheus"},
-          "expr": "topk(10,\n  histogram_quantile(0.99,\n    sum by (path_template, le) (rate(starlette_request_duration_seconds_bucket{job=\"mirador-service-python\"}[5m]))\n  )\n)",
+          "expr": "topk(10,\n  histogram_quantile(0.99,\n    sum by (path_template, le) (rate(starlette_request_duration_seconds_bucket{job=\"iris-service-python\"}[5m]))\n  )\n)",
           "legendFormat": "{{ path_template }}",
           "refId": "A"
         }
@@ -155,7 +155,7 @@
       "targets": [
         {
           "datasource": {"type": "prometheus", "uid": "prometheus"},
-          "expr": "topk(10, sum by (path_template) (rate(starlette_requests_total{job=\"mirador-service-python\"}[5m])))",
+          "expr": "topk(10, sum by (path_template) (rate(starlette_requests_total{job=\"iris-service-python\"}[5m])))",
           "legendFormat": "{{ path_template }}",
           "refId": "A"
         }
@@ -190,7 +190,7 @@
       "targets": [
         {
           "datasource": {"type": "prometheus", "uid": "prometheus"},
-          "expr": "topk(10,\n  sum by (path_template) (rate(starlette_requests_total{job=\"mirador-service-python\",status=~\"5..\"}[5m]))\n  /\n  ignoring (path_template) group_left sum(rate(starlette_requests_total{job=\"mirador-service-python\"}[5m]))\n)",
+          "expr": "topk(10,\n  sum by (path_template) (rate(starlette_requests_total{job=\"iris-service-python\",status=~\"5..\"}[5m]))\n  /\n  ignoring (path_template) group_left sum(rate(starlette_requests_total{job=\"iris-service-python\"}[5m]))\n)",
           "legendFormat": "{{ path_template }}",
           "refId": "A"
         }
@@ -207,7 +207,7 @@
   "time": {"from": "now-6h", "to": "now"},
   "timepicker": {},
   "timezone": "browser",
-  "title": "SLO Breakdown by Endpoint — Mirador",
+  "title": "SLO Breakdown by Endpoint — Iris",
   "uid": "mirador-py-slo-breakdown-by-endpoint",
   "version": 1
 }

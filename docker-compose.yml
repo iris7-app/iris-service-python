@@ -1,4 +1,4 @@
-# Mirador-service-python — local dev stack.
+# Iris-service-python — local dev stack.
 #
 # Mirror of the Java side's docker-compose.yml minus the JVM-specific tools
 # (Sonar, Maven site). Brings up :
@@ -79,7 +79,7 @@ services:
     ports:
       - "3000:3000"   # Grafana UI
       - "4317:4317"   # OTLP gRPC
-      - "4318:4318"   # OTLP HTTP — what mirador_service.observability.otel uses
+      - "4318:4318"   # OTLP HTTP — what iris_service.observability.otel uses
     environment:
       GF_SECURITY_ADMIN_USER: admin
       GF_SECURITY_ADMIN_PASSWORD: admin

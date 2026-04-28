@@ -11,7 +11,7 @@ pytest.importorskip("torch", reason="ChurnMLP tests need [ml] extra")
 
 import torch
 
-from mirador_service.ml.model import N_FEATURES, ChurnMLP, predict_proba
+from iris_service.ml.model import N_FEATURES, ChurnMLP, predict_proba
 
 
 def test_forward_returns_logits_shape() -> None:

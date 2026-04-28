@@ -1,4 +1,4 @@
-# Architecture Decision Records — `mirador-service-python`
+# Architecture Decision Records — `iris-service-python`
 
 This directory captures the **why** of every architectural choice that
 spans more than one file. Format follows [Michael Nygard's lightweight
@@ -7,7 +7,7 @@ ADR template](https://cognitect.com/blog/2011/11/15/documenting-architecture-dec
 For **cross-cutting decisions** that bind the Java + Python repos
 together (e.g. observability stack choice, Sloth for SLOs, Renovate
 base preset), see the shared submodule's
-[`infra/shared/docs/adr/`](https://gitlab.com/mirador1/mirador-service-shared/-/tree/main/docs/adr/).
+[`infra/shared/docs/adr/`](https://gitlab.com/iris-7/iris-service-shared/-/tree/main/docs/adr/).
 
 ## Status snapshot
 
@@ -33,7 +33,7 @@ base preset), see the shared submodule's
 ## Flat index
 
 The table below is **auto-regenerated** by
-[`bin/dev/regen-adr-index.sh`](https://gitlab.com/mirador1/mirador-service-python/-/blob/main/bin/dev/regen-adr-index.sh).
+[`bin/dev/regen-adr-index.sh`](https://gitlab.com/iris-7/iris-service-python/-/blob/main/bin/dev/regen-adr-index.sh).
 Do not edit between the markers — run the script after adding /
 modifying an ADR (the `stability-check.sh` preflight catches drift
 in CI).
@@ -41,7 +41,7 @@ in CI).
 <!-- ADR-INDEX:START -->
 | ID | Status | Title |
 |---|---|---|
-| 0001 | Accepted | [Python stack choice for mirador-service-python](0001-python-stack-choice.md) |
+| 0001 | Accepted | [Python stack choice for iris-service-python](0001-python-stack-choice.md) |
 | 0002 | Accepted | [Auth — JWT access + refresh token rotation, bcrypt password hashing](0002-auth-jwt-with-rotation.md) |
 | 0003 | Accepted | [Observability stack — OpenTelemetry SDK + Prometheus + structlog](0003-observability-stack.md) |
 | 0004 | Accepted | [Kafka request-reply pattern via aiokafka + correlation-id futures](0004-kafka-request-reply-pattern.md) |
@@ -72,6 +72,6 @@ in CI).
 
 ## See also
 
-- [`https://gitlab.com/mirador1/mirador-service-python/-/blob/main/bin/dev/regen-adr-index.sh`](https://gitlab.com/mirador1/mirador-service-python/-/blob/main/bin/dev/regen-adr-index.sh) — regenerator
-- [`https://gitlab.com/mirador1/mirador-service-python/-/blob/main/bin/dev/stability-check.sh`](https://gitlab.com/mirador1/mirador-service-python/-/blob/main/bin/dev/stability-check.sh) — preflight (catches drift)
-- [shared/docs/adr/](https://gitlab.com/mirador1/mirador-service-shared/-/tree/main/docs/adr/) — cross-cutting ADRs
+- [`https://gitlab.com/iris-7/iris-service-python/-/blob/main/bin/dev/regen-adr-index.sh`](https://gitlab.com/iris-7/iris-service-python/-/blob/main/bin/dev/regen-adr-index.sh) — regenerator
+- [`https://gitlab.com/iris-7/iris-service-python/-/blob/main/bin/dev/stability-check.sh`](https://gitlab.com/iris-7/iris-service-python/-/blob/main/bin/dev/stability-check.sh) — preflight (catches drift)
+- [shared/docs/adr/](https://gitlab.com/iris-7/iris-service-shared/-/tree/main/docs/adr/) — cross-cutting ADRs

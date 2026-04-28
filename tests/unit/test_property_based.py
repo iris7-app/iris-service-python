@@ -27,7 +27,7 @@ from hypothesis import HealthCheck, given, settings
 from hypothesis import strategies as st
 from pydantic import ValidationError
 
-from mirador_service.auth.jwt import (
+from iris_service.auth.jwt import (
     ACCESS_TOKEN,
     REFRESH_TOKEN,
     JwtError,
@@ -35,12 +35,12 @@ from mirador_service.auth.jwt import (
     issue_access_token,
     issue_refresh_token,
 )
-from mirador_service.config.settings import JwtSettings
-from mirador_service.customer.dtos import (
+from iris_service.config.settings import JwtSettings
+from iris_service.customer.dtos import (
     CustomerCreate,
     CustomerResponse,
 )
-from mirador_service.customer.recent_buffer import MAX_SIZE, RecentCustomerBuffer
+from iris_service.customer.recent_buffer import MAX_SIZE, RecentCustomerBuffer
 
 # ── JWT round-trip ────────────────────────────────────────────────────────────
 

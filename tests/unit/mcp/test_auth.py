@@ -1,4 +1,4 @@
-"""Unit tests for :mod:`mirador_service.mcp.auth`."""
+"""Unit tests for :mod:`iris_service.mcp.auth`."""
 
 from __future__ import annotations
 
@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from mirador_service.auth.jwt import issue_access_token, issue_refresh_token
-from mirador_service.config.settings import get_settings
-from mirador_service.mcp.auth import (
+from iris_service.auth.jwt import issue_access_token, issue_refresh_token
+from iris_service.config.settings import get_settings
+from iris_service.mcp.auth import (
     ROLE_ADMIN,
     ROLE_USER,
     McpAuthError,

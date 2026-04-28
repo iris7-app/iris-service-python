@@ -33,12 +33,12 @@
 ```
 
 Bonus dual-export to GitLab Observability (https://130289716.otel.gitlab-o11y.com:14318)
-— see [ADR-0003](https://gitlab.com/mirador1/mirador-service-python/-/blob/main/docs/adr/0003-observability-stack.md).
+— see [ADR-0003](https://gitlab.com/iris-7/iris-service-python/-/blob/main/docs/adr/0003-observability-stack.md).
 
 ## Module map
 
 ```
-src/mirador_service/
+src/iris_service/
 ├── app.py                    # FastAPI factory + lifespan (startup/shutdown)
 ├── api/
 │   ├── actuator.py           # health/liveness/readiness/info/prometheus

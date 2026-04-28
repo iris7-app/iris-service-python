@@ -1,6 +1,6 @@
 """ONNX export round-trip tests — proves cross-language inference parity.
 
-Per [shared ADR-0060](https://gitlab.com/mirador1/mirador-service-shared/-/blob/main/docs/adr/0060-onnx-cross-language-ml-inference.md)
+Per [shared ADR-0060](https://gitlab.com/iris-7/iris-service-shared/-/blob/main/docs/adr/0060-onnx-cross-language-ml-inference.md)
 §"Verification protocol" : the ONNX runtime running the same .onnx
 file must yield identical predictions to PyTorch eager mode (≤ 1e-6
 floating-point tolerance).
@@ -22,7 +22,7 @@ import numpy as np
 import onnxruntime as ort  # type: ignore[import-untyped]
 import torch
 
-from mirador_service.ml.model import N_FEATURES, ChurnMLP, export_to_onnx
+from iris_service.ml.model import N_FEATURES, ChurnMLP, export_to_onnx
 
 
 def test_onnx_export_creates_valid_file() -> None:

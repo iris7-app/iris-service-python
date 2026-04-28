@@ -1,3 +1,3 @@
 # `auth` — API reference
 
-::: mirador_service.auth
+::: iris_service.auth

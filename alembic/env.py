@@ -26,10 +26,10 @@ from alembic import context
 # Import every model module so its ORM classes are registered on Base.metadata.
 # Without these explicit imports, autogenerate would compare against an empty
 # metadata and either silently produce a no-op migration or worse, drop tables.
-from mirador_service.auth import models as auth_models  # noqa: F401
-from mirador_service.config.settings import get_settings
-from mirador_service.customer import models as customer_models  # noqa: F401
-from mirador_service.db.base import Base
+from iris_service.auth import models as auth_models  # noqa: F401
+from iris_service.config.settings import get_settings
+from iris_service.customer import models as customer_models  # noqa: F401
+from iris_service.db.base import Base
 
 config = context.config
 

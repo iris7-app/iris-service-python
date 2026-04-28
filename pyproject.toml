@@ -1,7 +1,7 @@
 [project]
-name = "mirador-service"
+name = "iris-service"
 version = "0.1.0"
-description = "Mirador customer service — Python mirror of mirador-service Java (FastAPI + Pydantic v2 + SQLAlchemy 2.x async)"
+description = "Iris customer service — Python mirror of iris-service Java (FastAPI + Pydantic v2 + SQLAlchemy 2.x async)"
 readme = "README.md"
 authors = [
     { name = "Benoît Besson", email = "benoit.besson@gmail.com" }
@@ -149,7 +149,7 @@ ml = [
 ]
 
 [project.scripts]
-mirador-service = "mirador_service.app:run"
+iris-service = "iris_service.app:run"
 
 [build-system]
 requires = ["uv_build>=0.11.2,<0.12.0"]
@@ -189,10 +189,10 @@ max-complexity = 10
 
 [tool.ruff.lint.isort]
 # Pin the project's first-party module so import grouping is stable.
-# `mirador_service` is the only namespace ; `bin/` (shell scripts) is no
+# `iris_service` is the only namespace ; `bin/` (shell scripts) is no
 # longer a Python module after the 2026-04-27 ML phase A move that
-# relocated `bin/ml/` → `src/mirador_service/ml/` for tooling-friendliness.
-known-first-party = ["mirador_service"]
+# relocated `bin/ml/` → `src/iris_service/ml/` for tooling-friendliness.
+known-first-party = ["iris_service"]
 
 [tool.mypy]
 python_version = "3.14"
@@ -227,7 +227,7 @@ module = [
 ]
 ignore_missing_imports = true
 
-# mirador_service.ml.* — the ML training package mixes pandas dynamic
+# iris_service.ml.* — the ML training package mixes pandas dynamic
 # DataFrame access (`df["col"]` returns object), torch's nn.Module
 # subclass-with-Any, and dict-typed config from pyproject. Strict mypy
 # flags every interaction (assignment, __sub__, range()) as "object
@@ -236,7 +236,7 @@ ignore_missing_imports = true
 # codebase. Re-tighten when pandas-stubs ships first-class support
 # (tracked in pandas-stubs#XXXX).
 [[tool.mypy.overrides]]
-module = ["mirador_service.ml.*"]
+module = ["iris_service.ml.*"]
 disable_error_code = [
     "misc",            # nn.Module subclass-with-Any
     "assignment",      # pandas object → int re-assignment
@@ -255,7 +255,7 @@ disable_error_code = [
 # strict mode for ALL real business logic in mcp/ (the wrappers are pure
 # dispatch — type errors surface in the WRAPPED functions, which stay typed).
 [[tool.mypy.overrides]]
-module = ["mirador_service.mcp.tools"]
+module = ["iris_service.mcp.tools"]
 disable_error_code = ["untyped-decorator"]
 
 [tool.pytest.ini_options]
@@ -272,7 +272,7 @@ disable_error_code = ["untyped-decorator"]
 # (need pytest-benchmark + slow). Run via the dedicated CI jobs :
 #   pytest tests/integration -m integration
 #   pytest tests/benchmarks --benchmark-only -m benchmarks
-addopts = "-ra --strict-markers -m 'not integration and not benchmarks' --cov=mirador_service --cov-report=term-missing --cov-report=html --cov-report=xml --cov-fail-under=90"
+addopts = "-ra --strict-markers -m 'not integration and not benchmarks' --cov=iris_service --cov-report=term-missing --cov-report=html --cov-report=xml --cov-fail-under=90"
 testpaths = ["tests"]
 asyncio_mode = "auto"
 markers = [
@@ -286,7 +286,7 @@ source = ["src"]
 omit = [
     "*/migrations/*",
     "*/conftest.py",
-    # mirador_service/ml/* — split per file :
+    # iris_service/ml/* — split per file :
     #
     # The TRAINING side (model.py, seed_demo_data.py, train_churn.py,
     # feature_engineering.py) requires the opt-in [ml] extra (torch +
@@ -300,10 +300,10 @@ omit = [
     # container). These files are tested by tests/ml/test_inference*,
     # test_risk_band*, test_router_churn* WITHOUT the [ml] extra, so
     # they DO contribute to the global coverage gate.
-    "*/mirador_service/ml/feature_engineering.py",
-    "*/mirador_service/ml/model.py",
-    "*/mirador_service/ml/seed_demo_data.py",
-    "*/mirador_service/ml/train_churn.py",
+    "*/iris_service/ml/feature_engineering.py",
+    "*/iris_service/ml/model.py",
+    "*/iris_service/ml/seed_demo_data.py",
+    "*/iris_service/ml/train_churn.py",
 ]
 # greenlet : SQLAlchemy async uses greenlets internally to bridge async ↔
 # sync. Without this hook coverage misses every line invoked via
@@ -328,7 +328,7 @@ concurrency = ["greenlet", "thread"]
 # edit `paths_to_mutate` here, then `uv run mutmut run`. Document any
 # surviving mutant as a test-gap ticket in TASKS.md.
 [tool.mutmut]
-paths_to_mutate = "src/mirador_service/auth"
+paths_to_mutate = "src/iris_service/auth"
 tests_dir = "tests/unit/auth"
 
 [tool.coverage.report]

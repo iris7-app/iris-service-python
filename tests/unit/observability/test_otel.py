@@ -11,8 +11,8 @@ import pytest
 from fastapi import FastAPI
 from opentelemetry import metrics, trace
 
-from mirador_service.config.settings import Settings
-from mirador_service.observability.otel import init_otel, shutdown_otel
+from iris_service.config.settings import Settings
+from iris_service.observability.otel import init_otel, shutdown_otel
 
 
 @pytest.fixture

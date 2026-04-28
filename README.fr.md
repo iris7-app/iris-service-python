@@ -1,4 +1,4 @@
-# mirador-service-python
+# iris-service-python
 
 <sub>[English](README.md) · **Français**</sub>
 
@@ -15,11 +15,11 @@
 > - 📊 **Observabilité** — Traces + logs + métriques OpenTelemetry → stack LGTM (Tempo / Loki / Mimir / Grafana) + exporter `starlette-prometheus` + 3 SLOs as code via Sloth (miroir Java) + alerting multi-burn-rate + 4 dashboards (vue d'ensemble SLO, Apdex, heatmap latence, breakdown SLO par `path_template`) + annotations chaos-driven sur les SLO + 3 runbooks.
 > - ✅ **Qualité** — `pytest --cov-fail-under=90` gate bloquant (~308 tests unit + integration, 94.59 % de couverture sur la suite complète) + `mypy --strict` + `ruff check` + `ruff format --check` + `import-linter` (l'ArchUnit Python) + tests de propriétés Hypothesis + Testcontainers (Postgres) + asgi-lifespan + 19 tests dédiés au middleware X-API-Key.
 > - 🔄 **CI/CD** — GitLab CI 9 jobs sur `lint / test / integration / package / sonar / pages` + matrice de compat Python 3.12 / 3.13 / 3.14 (manuel) + Conventional Commits (lefthook + commitlint) + auto-merge avec `--remove-source-branch=false` + gate dur pip-audit + import-linter + Renovate hebdo + push miroir GitHub sur tag.
-> - 🏛 **Architecture** — Feature-slicing sous `src/mirador_service/{customer, order, product, mcp, auth, …}` (miroir de la structure de package Java) + exposition MCP `@tool` par méthode (ADR-0062, règle "produces vs accesses" — ZÉRO client HTTP vers Loki / Mimir / Grafana / GitLab / kubectl dans ce jar Python) + sous-modules polyrepo flat α (ADR-0060) + 7 non-négociables Clean Code.
+> - 🏛 **Architecture** — Feature-slicing sous `src/iris_service/{customer, order, product, mcp, auth, …}` (miroir de la structure de package Java) + exposition MCP `@tool` par méthode (ADR-0062, règle "produces vs accesses" — ZÉRO client HTTP vers Loki / Mimir / Grafana / GitLab / kubectl dans ce jar Python) + sous-modules polyrepo flat α (ADR-0060) + 7 non-négociables Clean Code.
 > - 🛠 **DevX** — `uv` (astral, 100× plus rapide que pip) + hooks Lefthook commit-msg + pre-push + `bin/dev/api-smoke.sh` (flows Hurl) + tâches programmées pour TODO datés + integration-tests + audit flip-gates sonarcloud (critère 5-greens-consecutifs tracé dans `TASKS.md`) + Renovate + template CI Conventional Commits (partagé via `infra/common/`).
 
-[![pipeline](https://gitlab.com/mirador1/mirador-service-python/badges/main/pipeline.svg)](https://gitlab.com/mirador1/mirador-service-python/-/pipelines)
-[![coverage](https://img.shields.io/badge/coverage-90.21%25-success)](https://gitlab.com/mirador1/mirador-service-python/-/pipelines)
+[![pipeline](https://gitlab.com/iris-7/iris-service-python/badges/main/pipeline.svg)](https://gitlab.com/iris-7/iris-service-python/-/pipelines)
+[![coverage](https://img.shields.io/badge/coverage-90.21%25-success)](https://gitlab.com/iris-7/iris-service-python/-/pipelines)
 [![Python 3.14](https://img.shields.io/badge/Python-3.14_+_3.13_3.12-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.136-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 ![SLO 99.5%](https://img.shields.io/badge/SLO-99.5%25_+_burn_rate-2D7FF9)
@@ -27,7 +27,7 @@
 
 ## Ce que ce projet démontre
 
-Miroir Python de [`mirador-service-java`](https://gitlab.com/mirador1/mirador-service-java) —
+Miroir Python de [`iris-service-java`](https://gitlab.com/iris-7/iris-service-java) —
 mêmes préoccupations backend industrielles, exprimées dans la stack Python moderne :
 
 - **Pipeline d'onboarding client industriel** (registration → validation → enrichissement
@@ -56,9 +56,9 @@ pour la baseline de 13 décisions + [documentation SLO/SLA](docs/slo/).
 ## TL;DR pour les recruteurs (lecture 60 sec)
 
 - **Démonstrateur polyrepo** : implémentation Python du même backend industriel servi par
-  [`mirador-service-java`](https://gitlab.com/mirador1/mirador-service-java). Infra +
+  [`iris-service-java`](https://gitlab.com/iris-7/iris-service-java). Infra +
   observabilité + templates CI partagés via le submodule git
-  [`mirador-service-shared`](https://gitlab.com/mirador1/mirador-service-shared).
+  [`iris-service-shared`](https://gitlab.com/iris-7/iris-service-shared).
 - **mypy --strict sur 41 fichiers source** : Final / Literal / TypeAlias / aliases PEP 695,
   pas d'Any implicite, pas de defs non typées.
 - **Couverture 90.21%** avec gate dur `--cov-fail-under=90` ; 127 tests unitaires + property-based
@@ -79,7 +79,7 @@ pour la baseline de 13 décisions + [documentation SLO/SLA](docs/slo/).
 | **Supply chain sécurité** | JWT (pyjwt) + rotation bcrypt 5.x, **gate dur pip-audit** (3 CVEs attrapés pendant le dev), gitleaks secret scan, exit-tickets datés `--ignore-vuln`, règles OWASP via ruff bandit. | Le pinning, c'est la moitié — savoir quand une version pinnée devient vulnérable, c'est l'autre moitié. |
 | **Observabilité** | OTel SDK → Collector → LGTM ; logs JSON structlog ; métriques starlette-prometheus ; **3 SLOs as code via Sloth** avec alerting multi-window multi-burn-rate (Google SRE Workbook). (ADR-0012) | « Sommes-nous dans les clous ce mois-ci ? » devient une question objective avec un dashboard Grafana. |
 | **Modernisation outillage** | `uv` remplace pip + setuptools + virtualenv + pyenv (5-10× plus rapide, lockfile cross-platform). Syntaxe de typage PEP 695. (ADR-0009) | Reste à la pointe de l'outillage Python ; démontre la capacité à évaluer + adopter les nouveaux leaders de l'écosystème. |
-| **Parité Java** | Mêmes 3 SLOs, même contrat Kafka, même baseline sécurité que le frère Java. Le submodule partagé (`mirador-service-shared`) enforce le plancher commun. | Démontre la capacité à garder plusieurs implémentations stack cohérentes sans verrouillage monorepo. |
+| **Parité Java** | Mêmes 3 SLOs, même contrat Kafka, même baseline sécurité que le frère Java. Le submodule partagé (`iris-service-shared`) enforce le plancher commun. | Démontre la capacité à garder plusieurs implémentations stack cohérentes sans verrouillage monorepo. |
 
 ## Pile technique
 
@@ -113,10 +113,10 @@ pour la baseline de 13 décisions + [documentation SLO/SLA](docs/slo/).
 uv sync --all-extras
 
 # Lancer le serveur dev (hot reload)
-uv run mirador-service
+uv run iris-service
 
 # Ou avec uvicorn explicite
-uv run uvicorn mirador_service.app:app --reload --port 8080
+uv run uvicorn iris_service.app:app --reload --port 8080
 
 # Lancer les tests
 uv run pytest
@@ -132,7 +132,7 @@ bin/demo-up.sh
 ## Structure du projet
 
 ```
-src/mirador_service/
+src/iris_service/
   api/            # Routers FastAPI (= controllers Spring)
   auth/           # JWT + utilisateur injecté par dépendance (= Spring Security)
   customer/       # Domaine Customer (CRUD + RecentCustomerBuffer)
@@ -149,7 +149,7 @@ tests/
 
 alembic/          # Migrations DB (= Flyway)
 infra/            # docker-compose, postgres init, stack observabilité
-infra/shared/     # Submodule mirador-service-shared (dev-stack + CI templates + ...)
+infra/shared/     # Submodule iris-service-shared (dev-stack + CI templates + ...)
 infra/k8s/        # Manifests Kubernetes (Deployment + Service + HPA + PDB)
 docs/             # Documentation mkdocs (autodoc API + ADRs + ops)
 docs/adr/         # Architecture Decision Records (6 ADRs)
@@ -183,8 +183,8 @@ bin/              # Scripts d'ops (run.sh, demo-up.sh, etc.)
 
 ## Intégration IA via MCP
 
-Miroir de [ADR-0062](https://gitlab.com/mirador1/mirador-service-java/-/blob/main/docs/adr/0062-mcp-server-tool-exposure-per-method.md)
-du frère Java — Mirador expose un serveur
+Miroir de [ADR-0062](https://gitlab.com/iris-7/iris-service-java/-/blob/main/docs/adr/0062-mcp-server-tool-exposure-per-method.md)
+du frère Java — Iris expose un serveur
 [Model Context Protocol](https://modelcontextprotocol.io/) in-process sur
 `/mcp/`. Un client LLM (Claude Desktop, `claude mcp add`, l'Inspecteur MCP)
 se connecte avec le même JWT que l'API REST et obtient un catalogue typé
@@ -208,16 +208,16 @@ matrix CI informationnelle. Python 3.11 abandonné 2026-04-25 (EOL 2027-10).
 
 ## Projets sœurs
 
-- [`../mirador-service-java`](../mirador-service-java) — backend Java/Spring Boot 4 (canonique)
-- [`../../js/mirador-ui`](../../js/mirador-ui) — frontend Angular 21 (fonctionne contre l'un ou l'autre backend)
-- [`../mirador-service-shared`](../mirador-service-shared) — infrastructure partagée (dev-stack docker-compose + templates CI + scripts budget + ADRs cross-cutting)
+- [`../iris-service-java`](../iris-service-java) — backend Java/Spring Boot 4 (canonique)
+- [`../../js/iris-ui`](../../js/iris-ui) — frontend Angular 21 (fonctionne contre l'un ou l'autre backend)
+- [`../iris-service-shared`](../iris-service-shared) — infrastructure partagée (dev-stack docker-compose + templates CI + scripts budget + ADRs cross-cutting)
 
 ## Documentation
 
-- 📚 Site mkdocs : https://mirador1.gitlab.io/mirador-service-python/ (publié sur GitLab Pages à chaque push main)
+- 📚 Site mkdocs : https://iris-7.gitlab.io/iris-service-python/ (publié sur GitLab Pages à chaque push main)
 - 📋 ADRs : `docs/adr/` (6 records — choix de stack, auth, Kafka, observabilité, settings, logging)
-- 🔬 Java sibling : https://gitlab.com/mirador1/mirador-service-java
-- 🌐 Mirroir GitHub : https://github.com/mirador1/mirador-service-python
+- 🔬 Java sibling : https://gitlab.com/iris-7/iris-service-java
+- 🌐 Mirroir GitHub : https://github.com/iris7-app/iris-service-python
 
 ## Licence
 

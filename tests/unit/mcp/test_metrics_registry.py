@@ -1,4 +1,4 @@
-"""Unit tests for :mod:`mirador_service.mcp.metrics_registry`."""
+"""Unit tests for :mod:`iris_service.mcp.metrics_registry`."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from hypothesis import given, settings
 from hypothesis import strategies as st
 from prometheus_client import CollectorRegistry, Counter, Gauge, Histogram
 
-from mirador_service.mcp.metrics_registry import (
+from iris_service.mcp.metrics_registry import (
     DEFAULT_CACHE_MAXSIZE,
     DEFAULT_CACHE_TTL_SECONDS,
     MetricsRegistryReader,

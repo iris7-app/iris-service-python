@@ -13,7 +13,7 @@ from decimal import Decimal
 import pytest
 from pydantic import ValidationError
 
-from mirador_service.mcp.dtos import (
+from iris_service.mcp.dtos import (
     TOOL_NAMES,
     CancelResult,
     ChaosResult,

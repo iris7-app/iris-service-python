@@ -2,16 +2,16 @@
 
 **Status** : Accepted
 **Date** : 2026-04-25
-**Cross-cutting** : See [`mirador-service-shared/docs/adr/0058-slo-sla-with-sloth.md`](https://gitlab.com/mirador1/mirador-service-shared/-/blob/main/docs/adr/0058-slo-sla-with-sloth.md)
+**Cross-cutting** : See [`iris-service-shared/docs/adr/0058-slo-sla-with-sloth.md`](https://gitlab.com/iris-7/iris-service-shared/-/blob/main/docs/adr/0058-slo-sla-with-sloth.md)
 for the cross-stack design rationale (Sloth vs Pyrra vs OpenSLO, multi-window
 multi-burn-rate alerting pattern, dashboard structure). This ADR captures
 the Python-specific implementation.
-**Sibling** : `mirador-service-java/docs/slo/slo.yaml` (Java SLO definitions
+**Sibling** : `iris-service-java/docs/slo/slo.yaml` (Java SLO definitions
 with Micrometer metric names).
 
 ## Context
 
-Per ADR-0007 §"selected paths" + ADR-0058 (shared), Mirador adopted Sloth
+Per ADR-0007 §"selected paths" + ADR-0058 (shared), Iris adopted Sloth
 for declarative SLO definitions. Both Java + Python services need their own
 `slo.yaml` because :
 - Metric names differ : Java uses Micrometer's
@@ -40,7 +40,7 @@ docs/slo/slo.yaml
 /tmp/mirador-py-slo-rules.yaml (Sloth raw output)
         │  python3 docs/slo/wrap-as-prometheusrule.py
         ▼
-mirador-service-shared/deploy/kubernetes/observability-prom/mirador-py-slo.yaml
+iris-service-shared/deploy/kubernetes/observability-prom/mirador-py-slo.yaml
         │  (PrometheusRule CRD with `release: prometheus-stack` label)
         ▼
         kube-prometheus-stack operator picks up + Prometheus loads rules

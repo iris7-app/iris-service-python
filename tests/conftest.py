@@ -16,9 +16,9 @@ from httpx import ASGITransport, AsyncClient
 from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
-from mirador_service.app import create_app
-from mirador_service.db.base import Base, get_db_session
-from mirador_service.integration.redis_client import get_redis
+from iris_service.app import create_app
+from iris_service.db.base import Base, get_db_session
+from iris_service.integration.redis_client import get_redis
 
 
 @pytest_asyncio.fixture

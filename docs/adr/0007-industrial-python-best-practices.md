@@ -2,7 +2,7 @@
 
 **Status** : Accepted
 **Date** : 2026-04-25
-**Sibling** : `../mirador-service-java` (Java side, Spring Boot 4 — uses
+**Sibling** : `../iris-service-java` (Java side, Spring Boot 4 — uses
 compile-time type system + Spotless + Checkstyle + SpotBugs + PMD)
 
 ## Context
@@ -85,9 +85,9 @@ input search at low marginal cost.
 ### 5. Architectural boundaries : import-linter
 
 `.importlinter` config enforces hexagonal-lite layering :
-- `mirador_service.api.*` may import from `mirador_service.{customer,auth,messaging}` (use cases)
-- `mirador_service.{customer,auth,messaging}.*` may import from `mirador_service.{db,integration,config}` (adapters)
-- `mirador_service.config.*` imports nothing else from the project
+- `iris_service.api.*` may import from `iris_service.{customer,auth,messaging}` (use cases)
+- `iris_service.{customer,auth,messaging}.*` may import from `iris_service.{db,integration,config}` (adapters)
+- `iris_service.config.*` imports nothing else from the project
 - No circular deps allowed
 
 CI fails if any import violates the contract.
@@ -111,7 +111,7 @@ Bypass via `LEFTHOOK=0` (emergency) or `--no-verify` (single commit).
 
 ### 8. Secrets : env-vars + .env.example key parity
 
-- All secrets via `MIRADOR_*` env vars (`pydantic-settings` BaseSettings).
+- All secrets via `IRIS_*` env vars (`pydantic-settings` BaseSettings).
 - `.env.example` committed with placeholder values, `.env` gitignored.
 - Lefthook checks `.env` and `.env.example` keep the same KEYS (values
   may differ).

@@ -23,11 +23,11 @@
 > - 📊 **Observabilité** — OpenTelemetry traces + logs + metrics → LGTM stack (Tempo / Loki / Mimir / Grafana) + `starlette-prometheus` exporter + 3 SLOs as code via Sloth (mirror Java) + multi-burn-rate alerting + 4 dashboards (SLO overview, Apdex, latency heatmap, SLO breakdown by `path_template`) + chaos-driven SLO demo annotations + 3 runbooks.
 > - ✅ **Qualité** — `pytest --cov-fail-under=90` blocking gate (~308 unit + integration tests, 94.59 % coverage on full suite) + `mypy --strict` + `ruff check` + `ruff format --check` + `import-linter` (Python's ArchUnit) + Hypothesis property-based tests + Testcontainers (Postgres) + asgi-lifespan + 19 dedicated tests for the X-API-Key middleware.
 > - 🔄 **CI/CD** — GitLab CI 9 jobs across `lint / test / integration / package / sonar / pages` stages + compat matrix Python 3.12 / 3.13 / 3.14 (manual) + Conventional Commits (lefthook + commitlint) + auto-merge with `--remove-source-branch=false` + pip-audit hard gate + import-linter + Renovate weekly bumps + GitHub mirror push on tag.
-> - 🏛 **Architecture** — Feature-slicing under `src/mirador_service/{customer, order, product, mcp, auth, …}` (mirrors Java's package structure) + per-method MCP `@tool` exposure (ADR-0062, "produces vs accesses" rule — NO HTTP clients to Loki / Mimir / Grafana / GitLab / kubectl in this Python jar) + polyrepo flat α submodules (ADR-0060) + Clean Code 7 non-negotiables.
+> - 🏛 **Architecture** — Feature-slicing under `src/iris_service/{customer, order, product, mcp, auth, …}` (mirrors Java's package structure) + per-method MCP `@tool` exposure (ADR-0062, "produces vs accesses" rule — NO HTTP clients to Loki / Mimir / Grafana / GitLab / kubectl in this Python jar) + polyrepo flat α submodules (ADR-0060) + Clean Code 7 non-negotiables.
 > - 🛠 **DevX** — `uv` (astral, 100× faster than pip) + Lefthook commit-msg + pre-push hooks + `bin/dev/api-smoke.sh` (Hurl flows) + scheduled tasks for dated TODOs + integration-tests + sonarcloud flip-gates audit (5-consecutive-green criterion tracked in `TASKS.md`) + Renovate + Conventional Commits CI template (shared via `infra/common/`).
 
-[![pipeline](https://gitlab.com/mirador1/mirador-service-python/badges/main/pipeline.svg)](https://gitlab.com/mirador1/mirador-service-python/-/pipelines)
-[![coverage](https://img.shields.io/badge/coverage-90.21%25-success)](https://gitlab.com/mirador1/mirador-service-python/-/pipelines)
+[![pipeline](https://gitlab.com/iris-7/iris-service-python/badges/main/pipeline.svg)](https://gitlab.com/iris-7/iris-service-python/-/pipelines)
+[![coverage](https://img.shields.io/badge/coverage-90.21%25-success)](https://gitlab.com/iris-7/iris-service-python/-/pipelines)
 [![Python 3.14](https://img.shields.io/badge/Python-3.14_+_3.13_3.12-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.136-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 ![SLO 99.5%](https://img.shields.io/badge/SLO-99.5%25_+_burn_rate-2D7FF9)
@@ -35,7 +35,7 @@
 
 ## What this project proves
 
-Python mirror of [`mirador-service-java`](https://gitlab.com/mirador1/mirador-service-java) —
+Python mirror of [`iris-service-java`](https://gitlab.com/iris-7/iris-service-java) —
 same industrial-grade backend concerns, expressed in the modern Python stack :
 
 - **Industrial Customer onboarding pipeline** (registration → validation → external
@@ -65,9 +65,9 @@ for the 13-decision baseline + [SLO/SLA documentation](docs/slo/).
 ## TL;DR for hiring managers (60 sec read)
 
 - **Polyrepo demonstrator** : Python implementation of the same industrial backend
-  served by [`mirador-service-java`](https://gitlab.com/mirador1/mirador-service-java).
-  Shared infra + observability + CI templates via [`mirador-service-shared`](https://gitlab.com/mirador1/mirador-service-shared)
-  git submodule (see [polyrepo-vs-monorepo ADR](https://gitlab.com/mirador1/mirador-service-shared/-/blob/main/docs/adr/0057-polyrepo-vs-monorepo.md)).
+  served by [`iris-service-java`](https://gitlab.com/iris-7/iris-service-java).
+  Shared infra + observability + CI templates via [`iris-service-shared`](https://gitlab.com/iris-7/iris-service-shared)
+  git submodule (see [polyrepo-vs-monorepo ADR](https://gitlab.com/iris-7/iris-service-shared/-/blob/main/docs/adr/0057-polyrepo-vs-monorepo.md)).
 - **mypy --strict on 41 source files** : Final / Literal / TypeAlias / PEP 695
   type aliases, no implicit Any, no untyped defs.
 - **Coverage 90.21%** with `--cov-fail-under=90` hard gate ; 127 unit tests +
@@ -88,7 +88,7 @@ for the 13-decision baseline + [SLO/SLA documentation](docs/slo/).
 | **Security supply chain** | JWT (pyjwt) + bcrypt 5.x rotation, **pip-audit hard gate** (3 CVEs caught during dev), gitleaks secret scan, dated `--ignore-vuln` exit-tickets, OWASP rules via ruff bandit. | Pinning is half — knowing when a pinned version becomes vulnerable is the other half. |
 | **Observability** | OTel SDK → Collector → LGTM ; structlog JSON logs ; starlette-prometheus metrics ; **3 SLOs as code via Sloth** with multi-window multi-burn-rate alerting (Google SRE Workbook). (ADR-0012) | "Are we within contract this month ?" is an objective question with a Grafana dashboard. |
 | **Tooling modernization** | `uv` replaces pip + setuptools + virtualenv + pyenv (5-10× faster, cross-platform lockfile). PEP 695 type syntax. (ADR-0009) | Stays on the bleeding edge of Python tooling ; demonstrates ability to evaluate + adopt new ecosystem leaders. |
-| **Java parity** | Same 3 SLOs, same Kafka contract, same security baseline as the Java sibling. Shared submodule (`mirador-service-shared`) enforces the common floor. | Demonstrates ability to keep multiple stack implementations consistent without monorepo lock-in. |
+| **Java parity** | Same 3 SLOs, same Kafka contract, same security baseline as the Java sibling. Shared submodule (`iris-service-shared`) enforces the common floor. | Demonstrates ability to keep multiple stack implementations consistent without monorepo lock-in. |
 
 ## Tech stack
 
@@ -122,10 +122,10 @@ for the 13-decision baseline + [SLO/SLA documentation](docs/slo/).
 uv sync --all-extras
 
 # Run dev server (hot reload)
-uv run mirador-service
+uv run iris-service
 
 # Or with explicit uvicorn
-uv run uvicorn mirador_service.app:app --reload --port 8080
+uv run uvicorn iris_service.app:app --reload --port 8080
 
 # Run tests
 uv run pytest
@@ -138,7 +138,7 @@ uv run mypy src
 ## Project layout
 
 ```
-src/mirador_service/
+src/iris_service/
   api/            # FastAPI routers (= Spring controllers)
   auth/           # JWT + dependency-injected user (= Spring Security)
   customer/       # Customer domain (CRUD + RecentCustomerBuffer)
@@ -179,8 +179,8 @@ bin/              # ops scripts (run.sh, demo-up, etc.)
 
 ## AI integration via MCP
 
-Mirrors the Java sibling's [ADR-0062](https://gitlab.com/mirador1/mirador-service-java/-/blob/main/docs/adr/0062-mcp-server-tool-exposure-per-method.md)
-— Mirador exposes an in-process [Model Context Protocol](https://modelcontextprotocol.io/)
+Mirrors the Java sibling's [ADR-0062](https://gitlab.com/iris-7/iris-service-java/-/blob/main/docs/adr/0062-mcp-server-tool-exposure-per-method.md)
+— Iris exposes an in-process [Model Context Protocol](https://modelcontextprotocol.io/)
 server at `/mcp/`. An LLM client (Claude Desktop, `claude mcp add`,
 the MCP Inspector) connects with the same JWT the REST API uses and
 gets a typed catalogue of 14 tools without any new HTTP plumbing.
@@ -217,7 +217,7 @@ preserved). Each tool call writes a structured audit log line
 
 ```bash
 # 1. Start the service
-uv run mirador-service                # or: docker compose up
+uv run iris-service                # or: docker compose up
 
 # 2. Mint a JWT
 TOKEN=$(curl -s -X POST http://localhost:8080/auth/login \
@@ -250,7 +250,7 @@ claude mcp add --transport http mirador http://localhost:8080/mcp/
 ### Auth
 
 The MCP endpoint goes through the same `decode_token()` path as REST
-(see `mirador_service/auth/jwt.py`). `get_health_detail` and
+(see `iris_service/auth/jwt.py`). `get_health_detail` and
 `trigger_chaos_experiment` are admin-only ; all other tools accept
 any authenticated user. Admin tokens carry both `ROLE_USER` and
 `ROLE_ADMIN` scopes (admin = superset).
@@ -262,8 +262,8 @@ overlay shims if needed.
 
 ## Sibling projects
 
-- [`../mirador-service`](../mirador-service) — Java/Spring Boot 4 backend (canonical)
-- [`../../js/mirador-ui`](../../js/mirador-ui) — Angular 21 frontend (works against either backend)
+- [`../iris-service`](../iris-service) — Java/Spring Boot 4 backend (canonical)
+- [`../../js/iris-ui`](../../js/iris-ui) — Angular 21 frontend (works against either backend)
 
 ## License
 

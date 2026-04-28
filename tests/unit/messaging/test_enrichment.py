@@ -8,11 +8,11 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from mirador_service.messaging.dtos import (
+from iris_service.messaging.dtos import (
     CustomerEnrichReply,
     CustomerEnrichRequest,
 )
-from mirador_service.messaging.enrichment import (
+from iris_service.messaging.enrichment import (
     EnrichmentService,
     compute_enrichment,
 )

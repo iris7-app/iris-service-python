@@ -2,7 +2,7 @@
 
 **Status** : Accepted
 **Date** : 2026-04-25
-**Sibling** : `mirador-service-java` (sync HTTP layer + async Kafka — mirror
+**Sibling** : `iris-service-java` (sync HTTP layer + async Kafka — mirror
 of this decision in the JVM idiom)
 
 ## Context

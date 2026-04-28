@@ -1,6 +1,6 @@
 # Runbook — SLO Availability burn rate
 
-**Triggered by** : `MiradorPyServiceAvailabilitySLO` page or ticket alert
+**Triggered by** : `IrisPyServiceAvailabilitySLO` page or ticket alert
 (see [`docs/slo/slo.yaml`](../slo/slo.yaml)).
 
 **SLO** : 99% of HTTP requests succeed (non-5xx) over 30d. Budget = 432 min/month.
@@ -24,7 +24,7 @@ If ticket : slow drift, not an emergency but needs investigation.
 2. **Confirm the burn rate** is still elevated (not a transient spike).
 3. **Open Tempo trace search** with `status_code >= 500` filter,
    last 15 min — find a representative failing trace.
-4. **Open Loki** with `{job="mirador-service"} |= "ERROR"` last 15 min,
+4. **Open Loki** with `{job="iris-service"} |= "ERROR"` last 15 min,
    look for repeated error signatures.
 5. If the failures cluster on **one endpoint** : that endpoint is the
    incident root. If they spread across all endpoints : likely an
@@ -42,11 +42,11 @@ If ticket : slow drift, not an emergency but needs investigation.
 
 ## Recovery actions
 
-- **Restart the affected pod** : `kubectl rollout restart deployment/mirador-service`
+- **Restart the affected pod** : `kubectl rollout restart deployment/iris-service`
   (last resort — usually fixes transient state, masks root cause).
-- **Scale out** if request rate spike : `kubectl scale deployment/mirador-service --replicas=3`.
+- **Scale out** if request rate spike : `kubectl scale deployment/iris-service --replicas=3`.
 - **Rollback** if the incident started after a deploy :
-  `kubectl rollout undo deployment/mirador-service`.
+  `kubectl rollout undo deployment/iris-service`.
 - **Open a circuit breaker** manually if a downstream is hosed (use
   tenacity actuator endpoint).
 
@@ -70,5 +70,5 @@ If ticket : slow drift, not an emergency but needs investigation.
 
 - [SLA promise](../slo/sla.md)
 - [SLO definition](../slo/slo.yaml)
-- [ADR-0058 SLO/SLA via Sloth](https://gitlab.com/mirador1/mirador-service-shared/-/blob/main/docs/adr/0058-slo-sla-with-sloth.md)
+- [ADR-0058 SLO/SLA via Sloth](https://gitlab.com/iris-7/iris-service-shared/-/blob/main/docs/adr/0058-slo-sla-with-sloth.md)
 - [Google SRE Workbook ch. 9 — Incident response](https://sre.google/workbook/incident-response/)

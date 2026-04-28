@@ -15,14 +15,14 @@ from typing import Any
 import numpy as np
 import pytest
 
-from mirador_service.customer.models import Customer
-from mirador_service.ml.inference import (
+from iris_service.customer.models import Customer
+from iris_service.ml.inference import (
     N_FEATURES,
     ChurnPredictor,
     extract_features,
 )
-from mirador_service.order.models import Order, OrderStatus
-from mirador_service.order.order_line_models import OrderLine, OrderLineStatus
+from iris_service.order.models import Order, OrderStatus
+from iris_service.order.order_line_models import OrderLine, OrderLineStatus
 
 NOW = datetime(2026, 4, 27, tzinfo=UTC)
 

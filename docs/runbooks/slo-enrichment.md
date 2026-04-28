@@ -1,6 +1,6 @@
 # Runbook — SLO Enrichment success burn rate
 
-**Triggered by** : `MiradorPyEnrichmentSuccessSLO` page or ticket alert.
+**Triggered by** : `IrisPyEnrichmentSuccessSLO` page or ticket alert.
 
 **SLO** : 99.5% of `/customers/{id}/enrich` calls succeed (no 504 timeout)
 over 30d. Tightest SLO in the project — flagship business flow.

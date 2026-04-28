@@ -6,7 +6,7 @@ import httpx
 import pytest
 import respx
 
-from mirador_service.integration.todo_service import TodoService
+from iris_service.integration.todo_service import TodoService
 
 
 @pytest.mark.asyncio

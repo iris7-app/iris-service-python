@@ -1,11 +1,11 @@
 """Hypothesis property tests for Order invariants from shared ADR-0059.
 
-Mirrors `mirador-service-java`'s `OrderInvariantsPropertyTest.java` :
+Mirrors `iris-service-java`'s `OrderInvariantsPropertyTest.java` :
 each test captures one invariant, Hypothesis explores the input space,
 shrinks failures to the smallest counter-example.
 
 ADR-0059 reference :
-https://gitlab.com/mirador1/mirador-service-shared/-/blob/main/docs/adr/0059-customer-order-product-data-model.md
+https://gitlab.com/iris-7/iris-service-shared/-/blob/main/docs/adr/0059-customer-order-product-data-model.md
 """
 
 from __future__ import annotations
@@ -16,9 +16,9 @@ from hypothesis import given
 from hypothesis import strategies as st
 from pydantic import ValidationError
 
-from mirador_service.order.order_line_models import OrderLine, OrderLineStatus
-from mirador_service.order.totals import compute_total
-from mirador_service.product.dtos import ProductCreate
+from iris_service.order.order_line_models import OrderLine, OrderLineStatus
+from iris_service.order.totals import compute_total
+from iris_service.product.dtos import ProductCreate
 
 
 def _line(quantity: int, unit_price: Decimal) -> OrderLine:
@@ -99,7 +99,7 @@ def test_total_linear_in_quantity(lines: list[OrderLine]) -> None:
 # ── Invariants 4 & 5 : status transitions ──────────────────────────
 
 
-from mirador_service.order.models import OrderStatus  # noqa: E402
+from iris_service.order.models import OrderStatus  # noqa: E402
 
 
 def _is_valid_order_transition(src: OrderStatus, dst: OrderStatus) -> bool:

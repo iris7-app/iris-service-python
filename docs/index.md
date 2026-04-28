@@ -1,6 +1,6 @@
-# Mirador Service Python
+# Iris Service Python
 
-Python mirror of [`mirador-service-java`](https://gitlab.com/mirador1/mirador-service-java)
+Python mirror of [`iris-service-java`](https://gitlab.com/iris-7/iris-service-java)
 — FastAPI + Pydantic v2 + SQLAlchemy 2.x async + Kafka + Redis + OpenTelemetry +
 **Sloth-defined SLOs**.
 
@@ -23,9 +23,9 @@ Python mirror of [`mirador-service-java`](https://gitlab.com/mirador1/mirador-se
 ## TL;DR for hiring managers (60 sec read)
 
 - **Polyrepo demonstrator** : Python implementation of the same industrial backend
-  served by [`mirador-service-java`](https://gitlab.com/mirador1/mirador-service-java).
+  served by [`iris-service-java`](https://gitlab.com/iris-7/iris-service-java).
   Shared infra + observability + CI templates via the
-  [`mirador-service-shared`](https://gitlab.com/mirador1/mirador-service-shared)
+  [`iris-service-shared`](https://gitlab.com/iris-7/iris-service-shared)
   git submodule.
 - **mypy --strict on 41 source files** : Final / Literal / TypeAlias / PEP 695,
   no implicit `Any`, no untyped defs.
@@ -42,17 +42,17 @@ production target = 3.12 (oldest with PEP 695 + ergonomic Final/Literal).
 
 For the comprehensive description (tech stack table, endpoint list, MCP tool
 catalogue, full senior-architect matrix, sibling-projects map, deep dives), see the
-[main README](https://gitlab.com/mirador1/mirador-service-python/-/blob/main/README.md).
+[main README](https://gitlab.com/iris-7/iris-service-python/-/blob/main/README.md).
 
 ## Quick links
 
 - 📚 [API Reference](reference/app.md) — auto-generated from docstrings
 - 🏗 [Architecture overview](architecture/overview.md)
 - 📋 [ADRs](architecture/adrs.md) (12 records — stack, auth, Kafka, observability, settings, logging, industrial practices, async-first, uv, SQLAlchemy, hypothesis, Sloth SLO)
-- 📊 [SLO definitions](https://gitlab.com/mirador1/mirador-service-python/-/blob/main/docs/slo/slo.yaml) + [SLA promise](https://gitlab.com/mirador1/mirador-service-python/-/blob/main/docs/slo/sla.md)
-- 📖 [Runbooks](https://gitlab.com/mirador1/mirador-service-python/-/tree/main/docs/runbooks)
-- 🛠 [README (full)](https://gitlab.com/mirador1/mirador-service-python/-/blob/main/README.md)
-- 🔬 [Java sibling](https://gitlab.com/mirador1/mirador-service-java) | [UI](https://gitlab.com/mirador1/mirador-ui) | [shared infra](https://gitlab.com/mirador1/mirador-service-shared)
+- 📊 [SLO definitions](https://gitlab.com/iris-7/iris-service-python/-/blob/main/docs/slo/slo.yaml) + [SLA promise](https://gitlab.com/iris-7/iris-service-python/-/blob/main/docs/slo/sla.md)
+- 📖 [Runbooks](https://gitlab.com/iris-7/iris-service-python/-/tree/main/docs/runbooks)
+- 🛠 [README (full)](https://gitlab.com/iris-7/iris-service-python/-/blob/main/README.md)
+- 🔬 [Java sibling](https://gitlab.com/iris-7/iris-service-java) | [UI](https://gitlab.com/iris-7/iris-ui) | [shared infra](https://gitlab.com/iris-7/iris-service-shared)
 
 ## Quick start
 
@@ -61,7 +61,7 @@ catalogue, full senior-architect matrix, sibling-projects map, deep dives), see 
 uv sync --all-extras
 
 # Run dev server (hot reload)
-uv run mirador-service
+uv run iris-service
 
 # Or via the bin script
 bin/run.sh
@@ -70,8 +70,8 @@ bin/run.sh
 bin/demo-up.sh
 ```
 
-See the [main README](https://gitlab.com/mirador1/mirador-service-python/-/blob/main/README.md)
+See the [main README](https://gitlab.com/iris-7/iris-service-python/-/blob/main/README.md)
 for the full setup guide, the tech stack table, the endpoint list, and the
-[14-tool MCP catalogue](https://gitlab.com/mirador1/mirador-service-python/-/blob/main/README.md#ai-integration-via-mcp).
+[14-tool MCP catalogue](https://gitlab.com/iris-7/iris-service-python/-/blob/main/README.md#ai-integration-via-mcp).
 </content>
 </invoke>

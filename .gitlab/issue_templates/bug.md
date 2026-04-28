@@ -17,7 +17,7 @@ Steps to reproduce (commands, clicks, API calls):
 
 ## Environment
 
-- **Mirador version / tag / commit SHA**:
+- **Iris version / tag / commit SHA**:
 - **Deploy target**: `local (compose)` / `kind` / `GKE` / `other`
 - **Python version** (if building locally): `python --version` (or `uv run python --version`)
 - **OS / arch**: `uname -a`

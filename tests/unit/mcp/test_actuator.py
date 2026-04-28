@@ -1,4 +1,4 @@
-"""Unit tests for :mod:`mirador_service.mcp.actuator` builders."""
+"""Unit tests for :mod:`iris_service.mcp.actuator` builders."""
 
 from __future__ import annotations
 
@@ -6,8 +6,8 @@ import pytest
 from fastapi import FastAPI
 from sqlalchemy.exc import OperationalError
 
-from mirador_service.config.settings import Settings
-from mirador_service.mcp.actuator import (
+from iris_service.config.settings import Settings
+from iris_service.mcp.actuator import (
     REDACTED_VALUE,
     build_env_snapshot,
     build_health_snapshot,
@@ -16,7 +16,7 @@ from mirador_service.mcp.actuator import (
     is_secret_key,
     redact_value,
 )
-from mirador_service.mcp.dtos import OpenApiSummary
+from iris_service.mcp.dtos import OpenApiSummary
 
 # ── Redaction ─────────────────────────────────────────────────────────────────
 

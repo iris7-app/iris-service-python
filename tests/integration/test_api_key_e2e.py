@@ -27,10 +27,10 @@ from httpx import ASGITransport, AsyncClient
 
 # DNS-rebinding guard relax — same pattern as tests/integration/test_mcp_auth.py.
 # httpx.ASGITransport synthesises Host: test which the SDK rejects by default.
-os.environ["MIRADOR_MCP_DISABLE_HOST_GUARD"] = "1"
+os.environ["IRIS_MCP_DISABLE_HOST_GUARD"] = "1"
 
-from mirador_service.app import create_app
-from mirador_service.config.settings import get_settings
+from iris_service.app import create_app
+from iris_service.config.settings import get_settings
 
 pytestmark = pytest.mark.integration
 
