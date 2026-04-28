@@ -1,12 +1,12 @@
-# ADR-0001 : Python stack choice for mirador-service-python
+# ADR-0001 : Python stack choice for iris-service-python
 
 **Status** : Accepted
 **Date** : 2026-04-25
-**Sibling project** : `../mirador-service` (Java/Spring Boot 4 — canonical)
+**Sibling project** : `../iris-service` (Java/Spring Boot 4 — canonical)
 
 ## Context
 
-User asked for a Python mirror of the Java mirador-service to demonstrate that
+User asked for a Python mirror of the Java iris-service to demonstrate that
 the same industrial-demo philosophy (observability, security, event-driven,
 caching, CI/CD discipline) can be built equally well on the Python ecosystem.
 
@@ -54,7 +54,7 @@ versions ; renovate-style updates handled via dedicated MR.
 
 ## Cross-references
 
-- `../mirador-service/docs/adr/0060-sb3-compat-prod-grade.md` — same prod-grade
+- `../iris-service/docs/adr/0060-sb3-compat-prod-grade.md` — same prod-grade
   philosophy applies here for compat versions (Python 3.11/3.12/3.13/3.14)
 - `pyproject.toml` — pinned versions
 - `CLAUDE.md` — claude session rules + tech stack reminder

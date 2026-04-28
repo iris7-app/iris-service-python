@@ -9,12 +9,12 @@ import pytest
 from fastapi import FastAPI
 from httpx import AsyncClient
 
-from mirador_service.messaging.dtos import (
+from iris_service.messaging.dtos import (
     CustomerEnrichReply,
     CustomerEnrichRequest,
 )
-from mirador_service.messaging.enrichment import EnrichmentService
-from mirador_service.messaging.kafka_client import get_enrichment_service
+from iris_service.messaging.enrichment import EnrichmentService
+from iris_service.messaging.kafka_client import get_enrichment_service
 
 if TYPE_CHECKING:
     pass

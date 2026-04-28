@@ -1,42 +1,42 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: mirador-service-python-config
+  name: iris-service-python-config
   namespace: mirador
   labels:
-    app.kubernetes.io/name: mirador-service-python
+    app.kubernetes.io/name: iris-service-python
     app.kubernetes.io/component: backend
     app.kubernetes.io/part-of: mirador
 data:
   # Server
-  MIRADOR_SERVER_HOST: "0.0.0.0"
-  MIRADOR_SERVER_PORT: "8080"
-  MIRADOR_DEV_MODE: "false"
+  IRIS_SERVER_HOST: "0.0.0.0"
+  IRIS_SERVER_PORT: "8080"
+  IRIS_DEV_MODE: "false"
 
   # Database (host overridden per overlay — base assumes in-cluster postgres)
-  MIRADOR_DB__HOST: "postgres.mirador.svc.cluster.local"
-  MIRADOR_DB__PORT: "5432"
-  MIRADOR_DB__NAME: "mirador"
-  MIRADOR_DB__USER: "mirador"
-  # MIRADOR_DB__PASSWORD lives in the Secret, NOT here
+  IRIS_DB__HOST: "postgres.mirador.svc.cluster.local"
+  IRIS_DB__PORT: "5432"
+  IRIS_DB__NAME: "mirador"
+  IRIS_DB__USER: "mirador"
+  # IRIS_DB__PASSWORD lives in the Secret, NOT here
 
   # Redis
-  MIRADOR_REDIS__HOST: "redis.mirador.svc.cluster.local"
-  MIRADOR_REDIS__PORT: "6379"
-  MIRADOR_REDIS__DB: "0"
+  IRIS_REDIS__HOST: "redis.mirador.svc.cluster.local"
+  IRIS_REDIS__PORT: "6379"
+  IRIS_REDIS__DB: "0"
 
   # Kafka
-  MIRADOR_KAFKA__BOOTSTRAP_SERVERS: "kafka.mirador.svc.cluster.local:9092"
-  MIRADOR_KAFKA__CUSTOMER_REQUEST_TOPIC: "customer.enrich.request"
-  MIRADOR_KAFKA__CUSTOMER_REPLY_TOPIC: "customer.enrich.reply"
-  MIRADOR_KAFKA__ENRICH_TIMEOUT_SECONDS: "5"
+  IRIS_KAFKA__BOOTSTRAP_SERVERS: "kafka.mirador.svc.cluster.local:9092"
+  IRIS_KAFKA__CUSTOMER_REQUEST_TOPIC: "customer.enrich.request"
+  IRIS_KAFKA__CUSTOMER_REPLY_TOPIC: "customer.enrich.reply"
+  IRIS_KAFKA__ENRICH_TIMEOUT_SECONDS: "5"
 
   # JWT
-  # MIRADOR_JWT__SECRET lives in the Secret, NOT here
-  MIRADOR_JWT__ALGORITHM: "HS256"
-  MIRADOR_JWT__ACCESS_TOKEN_EXPIRE_MINUTES: "15"
-  MIRADOR_JWT__REFRESH_TOKEN_EXPIRE_DAYS: "30"
+  # IRIS_JWT__SECRET lives in the Secret, NOT here
+  IRIS_JWT__ALGORITHM: "HS256"
+  IRIS_JWT__ACCESS_TOKEN_EXPIRE_MINUTES: "15"
+  IRIS_JWT__REFRESH_TOKEN_EXPIRE_DAYS: "30"
 
   # Observability — OTLP HTTP endpoint to the LGTM Collector in the cluster
-  MIRADOR_OTEL_ENDPOINT: "http://otel-collector.observability.svc.cluster.local:4318"
-  MIRADOR_OTEL_SERVICE_NAME: "mirador-service-python"
+  IRIS_OTEL_ENDPOINT: "http://otel-collector.observability.svc.cluster.local:4318"
+  IRIS_OTEL_SERVICE_NAME: "iris-service-python"

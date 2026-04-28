@@ -16,11 +16,11 @@ import asyncio
 import pytest
 from aiokafka import AIOKafkaConsumer, AIOKafkaProducer
 
-from mirador_service.messaging.dtos import (
+from iris_service.messaging.dtos import (
     CustomerEnrichReply,
     CustomerEnrichRequest,
 )
-from mirador_service.messaging.enrichment import EnrichmentService
+from iris_service.messaging.enrichment import EnrichmentService
 
 pytestmark = pytest.mark.integration
 

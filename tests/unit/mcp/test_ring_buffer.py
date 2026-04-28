@@ -1,4 +1,4 @@
-"""Unit tests for :mod:`mirador_service.mcp.ring_buffer`."""
+"""Unit tests for :mod:`iris_service.mcp.ring_buffer`."""
 
 from __future__ import annotations
 
@@ -7,8 +7,8 @@ import os
 
 import pytest
 
-from mirador_service.mcp import ring_buffer
-from mirador_service.mcp.ring_buffer import (
+from iris_service.mcp import ring_buffer
+from iris_service.mcp.ring_buffer import (
     DEFAULT_RING_BUFFER_SIZE,
     RingBufferHandler,
     attach_ring_buffer,
@@ -28,25 +28,25 @@ def _reset_singleton() -> None:
 
 
 def test_capacity_default_when_env_unset(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.delenv("MIRADOR_MCP_RING_BUFFER_SIZE", raising=False)
+    monkeypatch.delenv("IRIS_MCP_RING_BUFFER_SIZE", raising=False)
     h = RingBufferHandler()
     assert h.capacity == DEFAULT_RING_BUFFER_SIZE
 
 
 def test_capacity_from_env(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setenv("MIRADOR_MCP_RING_BUFFER_SIZE", "42")
+    monkeypatch.setenv("IRIS_MCP_RING_BUFFER_SIZE", "42")
     h = RingBufferHandler()
     assert h.capacity == 42
 
 
 def test_capacity_invalid_env_falls_back(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setenv("MIRADOR_MCP_RING_BUFFER_SIZE", "not-an-int")
+    monkeypatch.setenv("IRIS_MCP_RING_BUFFER_SIZE", "not-an-int")
     h = RingBufferHandler()
     assert h.capacity == DEFAULT_RING_BUFFER_SIZE
 
 
 def test_capacity_negative_env_falls_back(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setenv("MIRADOR_MCP_RING_BUFFER_SIZE", "-5")
+    monkeypatch.setenv("IRIS_MCP_RING_BUFFER_SIZE", "-5")
     h = RingBufferHandler()
     assert h.capacity == DEFAULT_RING_BUFFER_SIZE
 
@@ -177,6 +177,6 @@ def test_emit_handles_exception_gracefully() -> None:
 
 def test_env_var_name() -> None:
     """Sanity : the env var name in the module matches what CLAUDE.md docs."""
-    assert ring_buffer._ENV_VAR == "MIRADOR_MCP_RING_BUFFER_SIZE"
+    assert ring_buffer._ENV_VAR == "IRIS_MCP_RING_BUFFER_SIZE"
     # Also cross-check with os.environ (no leakage from previous test).
     os.environ.pop(ring_buffer._ENV_VAR, None)

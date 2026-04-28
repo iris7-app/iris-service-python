@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =============================================================================
-# bin/dev/mirador-doctor — single-command "tout va bien ?" for Python side.
+# bin/dev/iris-doctor — single-command "tout va bien ?" for Python side.
 #
 # Mirror of the Java side's mirador-doctor. Runs every cheap check in one
 # sweep so you know within ~10 s if your dev environment is healthy. Designed
@@ -13,9 +13,9 @@
 #   ❌ red     — fix before pushing
 #
 # Usage :
-#   bin/dev/mirador-doctor
-#   bin/dev/mirador-doctor --fast        # skip pytest + pip-audit (the slow ones)
-#   bin/dev/mirador-doctor --no-network  # skip pip-audit (which queries PyPI)
+#   bin/dev/iris-doctor
+#   bin/dev/iris-doctor --fast        # skip pytest + pip-audit (the slow ones)
+#   bin/dev/iris-doctor --no-network  # skip pip-audit (which queries PyPI)
 # =============================================================================
 
 set -u

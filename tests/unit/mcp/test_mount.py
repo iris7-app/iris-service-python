@@ -1,4 +1,4 @@
-"""Unit tests for :mod:`mirador_service.mcp.mount`.
+"""Unit tests for :mod:`iris_service.mcp.mount`.
 
 Verifies the wiring contract :
 - the mount path is /mcp (matches Java sibling + ADR-0062)
@@ -12,9 +12,9 @@ from __future__ import annotations
 
 import pytest
 
-from mirador_service.app import create_app
-from mirador_service.mcp.dtos import TOOL_NAMES
-from mirador_service.mcp.mount import MCP_MOUNT_PATH, mount_mcp_server
+from iris_service.app import create_app
+from iris_service.mcp.dtos import TOOL_NAMES
+from iris_service.mcp.mount import MCP_MOUNT_PATH, mount_mcp_server
 
 
 def test_mount_path_is_canonical() -> None:

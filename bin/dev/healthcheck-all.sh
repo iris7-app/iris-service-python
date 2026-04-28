@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =============================================================================
-# bin/dev/healthcheck-all.sh — one-glance status of every Mirador local service.
+# bin/dev/healthcheck-all.sh — one-glance status of every Iris local service.
 #
 # Mirror of the Java side's healthcheck-all.sh, adapted for the Python stack.
 # Probes the same dev infrastructure (Postgres + Kafka + Redis + LGTM + Ollama)
@@ -65,7 +65,7 @@ if [ "$MODE" = "--json" ]; then
     done | sed '$ s/,$//'
     echo "}"
 else
-    printf "${BOLD}Mirador-py healthcheck — %s${NC}\n" "$(date +%H:%M:%S)"
+    printf "${BOLD}Iris-py healthcheck — %s${NC}\n" "$(date +%H:%M:%S)"
     printf "${DIM}Required marked with ✗ on failure ; optional with ○${NC}\n\n"
     for r in "${results[@]}"; do
         IFS='|' read -r status label <<< "$r"

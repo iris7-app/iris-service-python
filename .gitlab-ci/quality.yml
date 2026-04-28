@@ -1,11 +1,11 @@
 # Quality stage : SonarCloud analysis (mirror of svc sonarcloud job)
 #
-# Reuses the existing SonarCloud organization `mirador1` (svc + UI projects
-# already imported). The Python project key is `mirador1_mirador-service-python`.
+# Reuses the existing SonarCloud organization `iris-7` (svc + UI projects
+# already imported). The Python project key is `iris-7_iris-service-python`.
 #
 # Setup (one-time, manual via SonarCloud UI) :
 #   1. Visit https://sonarcloud.io/projects/create → import GitLab project
-#      `mirador1/mirador-service-python` into the `mirador1` org.
+#      `iris-7/iris-service-python` into the `iris-7` org.
 #   2. Generate a token at https://sonarcloud.io/account/security
 #   3. Set GitLab CI variable `SONAR_TOKEN` (group-level, masked).
 #
@@ -32,7 +32,7 @@ pip-audit:
   script:
     # Audit the active virtualenv (= what uv actually installed). pip-audit
     # returns non-zero on ANY vuln — no --strict flag needed (that's the
-    # default). The trailing "Skip Reason" line for our own mirador-service
+    # default). The trailing "Skip Reason" line for our own iris-service
     # package is informational, doesn't break the exit code.
     #
     # No --ignore-vuln flags currently carried — CVE-2026-3219 (pip 26.0.1)
@@ -74,9 +74,9 @@ sonarcloud:
   script:
     - sonar-scanner
         -Dsonar.host.url=https://sonarcloud.io
-        -Dsonar.organization=mirador1
-        -Dsonar.projectKey=mirador1_mirador-service-python
-        -Dsonar.projectName="Mirador Service (Python)"
+        -Dsonar.organization=iris-7
+        -Dsonar.projectKey=iris-7_iris-service-python
+        -Dsonar.projectName="Iris Service (Python)"
         -Dsonar.sources=src
         -Dsonar.tests=tests
         -Dsonar.python.coverage.reportPaths=coverage.xml

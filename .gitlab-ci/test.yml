@@ -17,7 +17,7 @@ unit-tests:
   <<: *uv-base
   stage: test
   script:
-    - uv run pytest tests/unit -v --junitxml=junit-unit.xml --cov=mirador_service --cov-report=xml
+    - uv run pytest tests/unit -v --junitxml=junit-unit.xml --cov=iris_service --cov-report=xml
   artifacts:
     when: always
     reports:
@@ -72,7 +72,7 @@ integration-tests:
   services:
     # Postgres service for tests that prefer GitLab-provided over testcontainers.
     # Currently unused (testcontainers spawn their own) but available for
-    # tests that flip to env-driven DSN via MIRADOR_DB__* in CI.
+    # tests that flip to env-driven DSN via IRIS_DB__* in CI.
     - name: postgres:16.6-alpine
       alias: postgres
   variables:
@@ -82,12 +82,12 @@ integration-tests:
     POSTGRES_DB: mirador
     POSTGRES_USER: mirador
     POSTGRES_PASSWORD: mirador
-    # When tests want to use the GitLab postgres service, MIRADOR_DB__* picks up
+    # When tests want to use the GitLab postgres service, IRIS_DB__* picks up
     # the alias hostname.
-    MIRADOR_DB__HOST: postgres
-    MIRADOR_DB__USER: mirador
-    MIRADOR_DB__PASSWORD: mirador
-    MIRADOR_DB__NAME: mirador
+    IRIS_DB__HOST: postgres
+    IRIS_DB__USER: mirador
+    IRIS_DB__PASSWORD: mirador
+    IRIS_DB__NAME: mirador
     # Disable testcontainers' ryuk reaper — it spawns a sidecar container
     # named `testcontainers-ryuk-<UUID>` that lingers between CI jobs on
     # the macbook-local runner ; subsequent jobs hit a 409 Docker conflict

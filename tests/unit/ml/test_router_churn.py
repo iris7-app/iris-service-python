@@ -21,8 +21,8 @@ import pytest
 from fastapi import FastAPI
 from httpx import AsyncClient
 
-from mirador_service.ml.inference import N_FEATURES, ChurnPredictor
-from mirador_service.ml.predictor_singleton import get_churn_predictor
+from iris_service.ml.inference import N_FEATURES, ChurnPredictor
+from iris_service.ml.predictor_singleton import get_churn_predictor
 
 
 class _StubPredictor:

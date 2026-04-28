@@ -2,11 +2,11 @@
 
 **Status** : Accepted
 **Date** : 2026-04-25
-**Sibling** : `../mirador-service` (Java side, Spring Kafka ReplyingKafkaTemplate)
+**Sibling** : `../iris-service` (Java side, Spring Kafka ReplyingKafkaTemplate)
 
 ## Context
 
-The Java mirador-service demonstrates the **request-reply pattern over Kafka**
+The Java iris-service demonstrates the **request-reply pattern over Kafka**
 via Spring's `ReplyingKafkaTemplate` — a synchronous HTTP request triggers a
 Kafka round-trip and blocks the thread until the reply arrives, with a
 configurable timeout. It's the canonical pattern for async-fronted services
@@ -34,7 +34,7 @@ Python ecosystem options :
 
 ### Architecture
 
-`mirador_service/messaging/` :
+`iris_service/messaging/` :
 
 - **dtos.py** — wire DTOs (`CustomerEnrichRequest`, `CustomerEnrichReply`,
   `EnrichedCustomerResponse`). Pydantic v2 with `populate_by_name=True` so

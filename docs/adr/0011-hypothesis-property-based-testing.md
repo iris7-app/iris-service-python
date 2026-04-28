@@ -2,7 +2,7 @@
 
 **Status** : Accepted
 **Date** : 2026-04-25
-**Sibling** : `mirador-service-java` uses jqwik for property-based tests
+**Sibling** : `iris-service-java` uses jqwik for property-based tests
 (same paradigm, JVM idiom).
 
 ## Context

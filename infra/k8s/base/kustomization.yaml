@@ -13,7 +13,7 @@ namespace: mirador
 labels:
   - includeSelectors: true
     pairs:
-      app.kubernetes.io/name: mirador-service-python
+      app.kubernetes.io/name: iris-service-python
       app.kubernetes.io/component: backend
       app.kubernetes.io/part-of: mirador
       app.kubernetes.io/managed-by: kustomize
@@ -28,5 +28,5 @@ resources:
   - poddisruptionbudget.yaml
 
 images:
-  - name: registry.gitlab.com/mirador1/mirador-service-python
+  - name: registry.gitlab.com/iris-7/iris-service-python
     newTag: latest                # overlays pin to a specific stable-vX.Y.Z tag

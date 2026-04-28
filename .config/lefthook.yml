@@ -1,7 +1,7 @@
 # =============================================================================
 # lefthook.yml — Git hooks configuration (Python flavour)
 #
-# Mirror of mirador-service Java's lefthook config (see svc .config/lefthook.yml
+# Mirror of iris-service Java's lefthook config (see svc .config/lefthook.yml
 # for the full rationale). Adapted for Python tooling : ruff + mypy + pytest
 # instead of mvn + checkstyle + maven-surefire.
 #

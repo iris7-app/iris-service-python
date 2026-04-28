@@ -15,12 +15,12 @@ from fastapi import FastAPI
 from httpx import ASGITransport, AsyncClient
 
 # Same host-guard bootstrap as test_mcp_server.py — see that module.
-os.environ["MIRADOR_MCP_DISABLE_HOST_GUARD"] = "1"
+os.environ["IRIS_MCP_DISABLE_HOST_GUARD"] = "1"
 
-from mirador_service.app import create_app
-from mirador_service.auth.jwt import issue_access_token
-from mirador_service.config.settings import get_settings
-from mirador_service.mcp.auth import ROLE_ADMIN, ROLE_USER
+from iris_service.app import create_app
+from iris_service.auth.jwt import issue_access_token
+from iris_service.config.settings import get_settings
+from iris_service.mcp.auth import ROLE_ADMIN, ROLE_USER
 
 pytestmark = pytest.mark.integration
 

@@ -2,7 +2,7 @@
 
 ## Reporting a vulnerability
 
-Mirador-service-python is the **Python sibling** of [`mirador-service-java`](https://gitlab.com/mirador1/mirador-service-java),
+Iris-service-python is the **Python sibling** of [`iris-service-java`](https://gitlab.com/iris-7/iris-service-java),
 a portfolio demo project — not a production system with real users.
 It still takes security seriously because the same code and configuration
 patterns are used by others as reference.
@@ -11,12 +11,12 @@ patterns are used by others as reference.
 
 Instead, report them privately :
 
-- **Email** : security@mirador1.com (monitored)
+- **Email** : security@iris-7.com (monitored)
 - **GitLab** : open a
-  [confidential issue](https://gitlab.com/mirador1/mirador-service-python/-/issues/new?issue[confidential]=true)
+  [confidential issue](https://gitlab.com/iris-7/iris-service-python/-/issues/new?issue[confidential]=true)
   — only maintainers can see it.
 - **GitHub** : the mirror accepts
-  [security advisories](https://github.com/mirador1/mirador-service-python/security/advisories/new)
+  [security advisories](https://github.com/iris7-app/iris-service-python/security/advisories/new)
   (private to maintainers).
 
 Include, at minimum :

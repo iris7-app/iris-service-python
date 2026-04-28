@@ -1,3 +1,3 @@
 # `customer` — API reference
 
-::: mirador_service.customer
+::: iris_service.customer

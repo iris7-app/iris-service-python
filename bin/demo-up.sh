@@ -16,7 +16,7 @@ REPO_ROOT="$(git rev-parse --show-toplevel)"
 cd "$REPO_ROOT"
 
 # Bring up .env from .env.example if missing — first-run convenience so the
-# user doesn't get cryptic "MIRADOR_DB__PASSWORD missing" errors.
+# user doesn't get cryptic "IRIS_DB__PASSWORD missing" errors.
 if [[ ! -f .env ]]; then
   echo "▶ creating .env from .env.example (first-run convenience)"
   cp .env.example .env

@@ -1,3 +1,3 @@
 # `integration` — API reference
 
-::: mirador_service.integration
+::: iris_service.integration

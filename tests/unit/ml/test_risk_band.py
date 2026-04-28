@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import pytest
 
-from mirador_service.ml.risk_band import RiskBand, classify_risk
+from iris_service.ml.risk_band import RiskBand, classify_risk
 
 
 class TestClassifyAtLowBoundary:

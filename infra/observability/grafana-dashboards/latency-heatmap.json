@@ -52,7 +52,7 @@
       "targets": [
         {
           "datasource": {"type": "prometheus", "uid": "prometheus"},
-          "expr": "sum by (le) (rate(starlette_request_duration_seconds_bucket{job=\"mirador-service-python\"}[1m]))",
+          "expr": "sum by (le) (rate(starlette_request_duration_seconds_bucket{job=\"iris-service-python\"}[1m]))",
           "format": "heatmap",
           "legendFormat": "{{ le }}",
           "refId": "A"
@@ -84,7 +84,7 @@
       "targets": [
         {
           "datasource": {"type": "prometheus", "uid": "prometheus"},
-          "expr": "sum by (le) (rate(starlette_request_duration_seconds_bucket{job=\"mirador-service-python\",path_template=\"$path_template\"}[1m]))",
+          "expr": "sum by (le) (rate(starlette_request_duration_seconds_bucket{job=\"iris-service-python\",path_template=\"$path_template\"}[1m]))",
           "format": "heatmap",
           "legendFormat": "{{ le }}",
           "refId": "A"
@@ -103,12 +103,12 @@
       {
         "current": {"selected": false, "text": "/customers", "value": "/customers"},
         "datasource": {"type": "prometheus", "uid": "prometheus"},
-        "definition": "label_values(starlette_requests_total{job=\"mirador-service-python\"}, path_template)",
+        "definition": "label_values(starlette_requests_total{job=\"iris-service-python\"}, path_template)",
         "includeAll": false,
         "multi": false,
         "name": "path_template",
         "options": [],
-        "query": {"query": "label_values(starlette_requests_total{job=\"mirador-service-python\"}, path_template)", "refId": "PrometheusVariableQueryEditor-VariableQuery"},
+        "query": {"query": "label_values(starlette_requests_total{job=\"iris-service-python\"}, path_template)", "refId": "PrometheusVariableQueryEditor-VariableQuery"},
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -120,7 +120,7 @@
   "time": {"from": "now-6h", "to": "now"},
   "timepicker": {},
   "timezone": "browser",
-  "title": "Latency Heatmap — Mirador",
+  "title": "Latency Heatmap — Iris",
   "uid": "mirador-py-latency-heatmap",
   "version": 1
 }

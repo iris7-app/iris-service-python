@@ -4,7 +4,7 @@
 > C (Python inference) ✅ shipped. Phases D (UI), E (drift SLO),
 > F (ConfigMap promotion) in progress.
 
-The `mirador-service-python` backend exposes the same Customer
+The `iris-service-python` backend exposes the same Customer
 Churn prediction as the Java sibling — same feature contract, same
 ONNX model file, same wire shape. The "interchangeable backends"
 contract from common ADR-0008 extends to ML predictions :
@@ -17,25 +17,25 @@ indistinguishable from the UI's perspective.
 ┌─ HTTP / MCP request : customer_id ─────────────────────────────────┐
 │                                                                     │
 │  POST /customers/{id}/churn-prediction        predict_customer_churn│
-│  (mirador_service.ml.router)                  (mirador_service.mcp.tools) │
+│  (iris_service.ml.router)                  (iris_service.mcp.tools) │
 │         │                                       │                   │
 │         │  loads :                              │                   │
 │         │   • Customer (SQLAlchemy)             │                   │
 │         │   • Orders (select where customer_id) │                   │
 │         │   • OrderLines (select where order_id IN …)               │
 │         ▼                                       ▼                   │
-│         mirador_service.ml.inference.extract_features               │
+│         iris_service.ml.inference.extract_features               │
 │         (8-feature numpy.float32 vector — see ADR-0061)             │
 │                       │                                             │
 │                       ▼                                             │
-│         mirador_service.ml.inference.ChurnPredictor                 │
+│         iris_service.ml.inference.ChurnPredictor                 │
 │         (ONNX Runtime in-process — same .onnx file as Java)         │
 │                       │                                             │
 │                       ▼ raw logit                                   │
 │         sigmoid(logit) → probability ∈ [0, 1]                       │
 │                       │                                             │
 │                       ▼                                             │
-│         mirador_service.ml.dtos.ChurnPrediction                     │
+│         iris_service.ml.dtos.ChurnPrediction                     │
 │  (customer_id, probability, risk_band, top_features, model_version, │
 │   predicted_at)                                                     │
 └─────────────────────────────────────────────────────────────────────┘
@@ -98,22 +98,22 @@ claude
 
 ## Model provisioning
 
-Per [shared ADR-0062](https://gitlab.com/mirador1/mirador-service-shared/-/blob/main/docs/adr/0062-mlflow-registry-configmap-promotion.md),
+Per [shared ADR-0062](https://gitlab.com/iris-7/iris-service-shared/-/blob/main/docs/adr/0062-mlflow-registry-configmap-promotion.md),
 the ONNX artefact is distributed via a Kubernetes ConfigMap. Pods
 mount it read-only at `/etc/models/churn_predictor.onnx`.
 
 **Configuration env vars** (mirror Java's `application.yml`) :
 
-- `MIRADOR_CHURN_MODEL_PATH` (default `/etc/models/churn_predictor.onnx`)
-- `MIRADOR_CHURN_MODEL_VERSION` (default `unspecified`) — surfaced
+- `IRIS_CHURN_MODEL_PATH` (default `/etc/models/churn_predictor.onnx`)
+- `IRIS_CHURN_MODEL_VERSION` (default `unspecified`) — surfaced
   in every `ChurnPrediction` response for audit + drift correlation
 
 **Local dev** : the training pipeline writes to
 `./.models/churn_predictor.onnx` by default. Override via :
 
 ```bash
-export MIRADOR_CHURN_MODEL_PATH="$(pwd)/.models/churn_predictor.onnx"
-uv run mirador-service
+export IRIS_CHURN_MODEL_PATH="$(pwd)/.models/churn_predictor.onnx"
+uv run iris-service
 ```
 
 **Production promotion** is `bin/ml/promote_to_configmap.sh`
@@ -137,7 +137,7 @@ If the ONNX file is missing :
 - `ChurnPredictor.is_ready()` returns `False`.
 - REST endpoint returns `503` with the ConfigMap hint.
 - MCP tool returns `ChurnServiceUnavailable` with a hint.
-- All other Mirador endpoints (Customer / Order / Product / MCP /
+- All other Iris endpoints (Customer / Order / Product / MCP /
   actuator-equivalent) keep working unchanged.
 
 This pattern lets us deploy the Python service before the model is
@@ -147,16 +147,16 @@ promotion.
 
 ## Cross-language parity
 
-The 8 features + their canonical order (per [shared ADR-0061](https://gitlab.com/mirador1/mirador-service-shared/-/blob/main/docs/adr/0061-customer-churn-prediction.md)
+The 8 features + their canonical order (per [shared ADR-0061](https://gitlab.com/iris-7/iris-service-shared/-/blob/main/docs/adr/0061-customer-churn-prediction.md)
 §"Feature engineering") are the contract — both
-[`mirador_service.ml.inference.extract_features`](https://gitlab.com/mirador1/mirador-service-python/-/blob/main/src/mirador_service/ml/inference.py)
+[`iris_service.ml.inference.extract_features`](https://gitlab.com/iris-7/iris-service-python/-/blob/main/src/iris_service/ml/inference.py)
 (Python runtime, single-customer) and the Java
-[`ChurnFeatureExtractor`](https://gitlab.com/mirador1/mirador-service-java/-/blob/main/src/main/java/com/mirador/ml/ChurnFeatureExtractor.java)
+[`ChurnFeatureExtractor`](https://gitlab.com/iris-7/iris-service-java/-/blob/main/src/main/java/com/mirador/ml/ChurnFeatureExtractor.java)
 implement the same logic. Tests on both sides assert determinism
 on golden inputs.
 
 A separate training-side
-[`feature_engineering.build_features`](https://gitlab.com/mirador1/mirador-service-python/-/blob/main/src/mirador_service/ml/feature_engineering.py)
+[`feature_engineering.build_features`](https://gitlab.com/iris-7/iris-service-python/-/blob/main/src/iris_service/ml/feature_engineering.py)
 operates on pandas DataFrames (vectorised across millions of
 customers). At inference time we use the lightweight per-customer
 extractor since pandas would only add overhead for one row.
@@ -183,14 +183,14 @@ themselves via `pytest.importorskip` when `--extra ml` is absent.
 
 | Phase | Repo | Scope |
 |---|---|---|
-| **D** | mirador-ui | `/insights/churn` page : top-10 at-risk + search-by-id + drift |
-| **E** | mirador-service-shared | MLflow tracking + drift SLO + dashboard + runbook |
-| **F** | mirador-service-shared | `bin/ml/promote_to_configmap.sh` + K8s volumeMount + Argo CD GitOps |
+| **D** | iris-ui | `/insights/churn` page : top-10 at-risk + search-by-id + drift |
+| **E** | iris-service-shared | MLflow tracking + drift SLO + dashboard + runbook |
+| **F** | iris-service-shared | `bin/ml/promote_to_configmap.sh` + K8s volumeMount + Argo CD GitOps |
 
 ## References
 
-- [shared ADR-0060 — ONNX cross-language inference](https://gitlab.com/mirador1/mirador-service-shared/-/blob/main/docs/adr/0060-onnx-cross-language-ml-inference.md)
-- [shared ADR-0061 — Customer Churn pipeline](https://gitlab.com/mirador1/mirador-service-shared/-/blob/main/docs/adr/0061-customer-churn-prediction.md)
-- [shared ADR-0062 — MLflow registry + ConfigMap promotion](https://gitlab.com/mirador1/mirador-service-shared/-/blob/main/docs/adr/0062-mlflow-registry-configmap-promotion.md)
-- [Java sibling — Phase B feature documentation](https://gitlab.com/mirador1/mirador-service-java/-/blob/main/docs/ml/churn-prediction.md)
+- [shared ADR-0060 — ONNX cross-language inference](https://gitlab.com/iris-7/iris-service-shared/-/blob/main/docs/adr/0060-onnx-cross-language-ml-inference.md)
+- [shared ADR-0061 — Customer Churn pipeline](https://gitlab.com/iris-7/iris-service-shared/-/blob/main/docs/adr/0061-customer-churn-prediction.md)
+- [shared ADR-0062 — MLflow registry + ConfigMap promotion](https://gitlab.com/iris-7/iris-service-shared/-/blob/main/docs/adr/0062-mlflow-registry-configmap-promotion.md)
+- [Java sibling — Phase B feature documentation](https://gitlab.com/iris-7/iris-service-java/-/blob/main/docs/ml/churn-prediction.md)
 - [ONNX Runtime Python API](https://onnxruntime.ai/docs/api/python/api_summary.html)

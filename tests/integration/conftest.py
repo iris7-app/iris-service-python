@@ -23,7 +23,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_asyn
 from testcontainers.kafka import KafkaContainer
 from testcontainers.postgres import PostgresContainer
 
-from mirador_service.db.base import Base
+from iris_service.db.base import Base
 
 
 @pytest.fixture(scope="session")

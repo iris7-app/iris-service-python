@@ -6,8 +6,8 @@ import pytest
 from httpx import AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from mirador_service.auth.models import AppUser
-from mirador_service.auth.passwords import hash_password
+from iris_service.auth.models import AppUser
+from iris_service.auth.passwords import hash_password
 
 
 @pytest.fixture

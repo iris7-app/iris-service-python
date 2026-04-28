@@ -17,11 +17,11 @@ from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 
-from mirador_service.auth import cleanup
-from mirador_service.auth.passwords import verify_password
-from mirador_service.db import base as db_base
-from mirador_service.integration import redis_client
-from mirador_service.messaging.customer_event import (
+from iris_service.auth import cleanup
+from iris_service.auth.passwords import verify_password
+from iris_service.db import base as db_base
+from iris_service.integration import redis_client
+from iris_service.messaging.customer_event import (
     CustomerCreatedEvent,
     publish_customer_created,
 )
@@ -176,7 +176,7 @@ def test_get_todo_service_returns_singleton() -> None:
     across calls — same httpx pool reused. Reset baseline to exercise both
     branches (None → instantiate, not-None → return).
     """
-    from mirador_service.customer import enrichment_router
+    from iris_service.customer import enrichment_router
 
     enrichment_router._todo_service = None
     instance1 = enrichment_router.get_todo_service()
@@ -186,7 +186,7 @@ def test_get_todo_service_returns_singleton() -> None:
 
 def test_get_bio_service_returns_singleton() -> None:
     """Same singleton contract for BioService (Ollama client)."""
-    from mirador_service.customer import enrichment_router
+    from iris_service.customer import enrichment_router
 
     enrichment_router._bio_service = None
     instance1 = enrichment_router.get_bio_service()

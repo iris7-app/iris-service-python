@@ -2,7 +2,7 @@
 
 Exercises three scenarios :
 
-1. ``X-API-Key`` matches ``MIRADOR_API_KEY`` → ``current_user`` returns
+1. ``X-API-Key`` matches ``IRIS_API_KEY`` → ``current_user`` returns
    the synthetic admin principal without any JWT in flight.
 2. ``X-API-Key`` missing → fall through to JWT path (or 401 if no JWT).
 3. ``X-API-Key`` present but doesn't match → fall through to JWT path
@@ -27,14 +27,14 @@ import pytest
 from fastapi import APIRouter, Depends, FastAPI
 from httpx import AsyncClient
 
-from mirador_service.auth.api_key import API_KEY_USERNAME
-from mirador_service.auth.deps import (
+from iris_service.auth.api_key import API_KEY_USERNAME
+from iris_service.auth.deps import (
     AuthenticatedUser,
     current_user,
     require_role,
 )
-from mirador_service.auth.jwt import issue_access_token
-from mirador_service.config.settings import get_settings
+from iris_service.auth.jwt import issue_access_token
+from iris_service.config.settings import get_settings
 
 
 def _build_probe(app: FastAPI) -> APIRouter:

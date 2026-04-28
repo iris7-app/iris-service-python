@@ -6,7 +6,7 @@ import time
 
 import pytest
 
-from mirador_service.auth.jwt import (
+from iris_service.auth.jwt import (
     ACCESS_TOKEN,
     REFRESH_TOKEN,
     JwtError,
@@ -14,7 +14,7 @@ from mirador_service.auth.jwt import (
     issue_access_token,
     issue_refresh_token,
 )
-from mirador_service.config.settings import JwtSettings
+from iris_service.config.settings import JwtSettings
 
 
 @pytest.fixture

@@ -1,13 +1,13 @@
 """Integration tests for invariant 6 of shared ADR-0059 — cascade safety.
 
-Mirrors `mirador-service-java`'s `OrderCascadeITest`. Exercises the REAL
+Mirrors `iris-service-java`'s `OrderCascadeITest`. Exercises the REAL
 FK constraints from alembic 0003 (orders) + 0004 (order_line) :
 
   order_line.order_id   REFERENCES orders(id)  ON DELETE CASCADE
   order_line.product_id REFERENCES product(id) ON DELETE RESTRICT
 
 ADR-0059 :
-https://gitlab.com/mirador1/mirador-service-shared/-/blob/main/docs/adr/0059-customer-order-product-data-model.md
+https://gitlab.com/iris-7/iris-service-shared/-/blob/main/docs/adr/0059-customer-order-product-data-model.md
 """
 
 from __future__ import annotations
@@ -19,10 +19,10 @@ from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from mirador_service.customer.models import Customer
-from mirador_service.order.models import Order, OrderStatus
-from mirador_service.order.order_line_models import OrderLine, OrderLineStatus
-from mirador_service.product.models import Product
+from iris_service.customer.models import Customer
+from iris_service.order.models import Order, OrderStatus
+from iris_service.order.order_line_models import OrderLine, OrderLineStatus
+from iris_service.product.models import Product
 
 pytestmark = pytest.mark.integration
 

@@ -1,4 +1,4 @@
-# Mirador-service-python SLO definitions — Sloth format.
+# Iris-service-python SLO definitions — Sloth format.
 # Mirror of the Java side's slo.yaml ; same 3 SLOs, adjusted for Python's
 # starlette-prometheus metric names.
 #
@@ -11,11 +11,11 @@
 # - https://sloth.dev/specs/v1/
 
 version: "prometheus/v1"
-service: "mirador-service-python"
+service: "iris-service-python"
 labels:
   team: "mirador"
   tier: "demo"
-  app: "mirador-service-python"
+  app: "iris-service-python"
 slos:
   # ───── SLO 1 : Availability ────────────────────────────────────────────────
   - name: "availability"
@@ -25,16 +25,16 @@ slos:
       events:
         # starlette_requests_total has labels (method, path_template, status_code)
         error_query: |
-          sum(rate(starlette_requests_total{job="mirador-service-python",status_code=~"5.."}[{{.window}}]))
+          sum(rate(starlette_requests_total{job="iris-service-python",status_code=~"5.."}[{{.window}}]))
         total_query: |
-          sum(rate(starlette_requests_total{job="mirador-service-python"}[{{.window}}]))
+          sum(rate(starlette_requests_total{job="iris-service-python"}[{{.window}}]))
     alerting:
-      name: MiradorPyServiceAvailabilitySLO
+      name: IrisPyServiceAvailabilitySLO
       labels:
         category: "availability"
       annotations:
         summary: "Availability SLO error budget burning"
-        runbook_url: "https://gitlab.com/mirador1/mirador-service-python/-/blob/main/docs/runbooks/slo-availability.md"
+        runbook_url: "https://gitlab.com/iris-7/iris-service-python/-/blob/main/docs/runbooks/slo-availability.md"
       page_alert:
         labels:
           severity: critical
@@ -53,19 +53,19 @@ slos:
         # starlette_request_duration_seconds_bucket with le="0.5"
         error_query: |
           (
-            sum(rate(starlette_request_duration_seconds_count{job="mirador-service-python"}[{{.window}}]))
+            sum(rate(starlette_request_duration_seconds_count{job="iris-service-python"}[{{.window}}]))
             -
-            sum(rate(starlette_request_duration_seconds_bucket{job="mirador-service-python",le="0.5"}[{{.window}}]))
+            sum(rate(starlette_request_duration_seconds_bucket{job="iris-service-python",le="0.5"}[{{.window}}]))
           )
         total_query: |
-          sum(rate(starlette_request_duration_seconds_count{job="mirador-service-python"}[{{.window}}]))
+          sum(rate(starlette_request_duration_seconds_count{job="iris-service-python"}[{{.window}}]))
     alerting:
-      name: MiradorPyServiceLatencyP99SLO
+      name: IrisPyServiceLatencyP99SLO
       labels:
         category: "latency"
       annotations:
         summary: "Latency SLO error budget burning (p99 > 500ms)"
-        runbook_url: "https://gitlab.com/mirador1/mirador-service-python/-/blob/main/docs/runbooks/slo-latency.md"
+        runbook_url: "https://gitlab.com/iris-7/iris-service-python/-/blob/main/docs/runbooks/slo-latency.md"
       page_alert:
         labels:
           severity: critical
@@ -82,16 +82,16 @@ slos:
     sli:
       events:
         error_query: |
-          sum(rate(starlette_requests_total{job="mirador-service-python",path_template=~".*enrich.*",status_code="504"}[{{.window}}]))
+          sum(rate(starlette_requests_total{job="iris-service-python",path_template=~".*enrich.*",status_code="504"}[{{.window}}]))
         total_query: |
-          sum(rate(starlette_requests_total{job="mirador-service-python",path_template=~".*enrich.*"}[{{.window}}]))
+          sum(rate(starlette_requests_total{job="iris-service-python",path_template=~".*enrich.*"}[{{.window}}]))
     alerting:
-      name: MiradorPyEnrichmentSuccessSLO
+      name: IrisPyEnrichmentSuccessSLO
       labels:
         category: "business"
       annotations:
         summary: "Enrichment endpoint timing out — Kafka may be down"
-        runbook_url: "https://gitlab.com/mirador1/mirador-service-python/-/blob/main/docs/runbooks/slo-enrichment.md"
+        runbook_url: "https://gitlab.com/iris-7/iris-service-python/-/blob/main/docs/runbooks/slo-enrichment.md"
       page_alert:
         labels:
           severity: critical

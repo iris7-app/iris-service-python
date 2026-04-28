@@ -1,4 +1,4 @@
-# TASKS — mirador-service-python
+# TASKS — iris-service-python
 
 Open work only. Per `~/.claude/CLAUDE.md` rules : Python-only items
 here ; done items removed (use `git tag -l` for history).
@@ -7,12 +7,12 @@ here ; done items removed (use `git tag -l` for history).
 
 ## 🌀 IRIS REBRAND (in flight 2026-04-28)
 
-Coordinated rename Mirador → Iris. See full context + phases in
-[Java TASKS.md](https://gitlab.com/mirador1/mirador-service-java/-/blob/main/TASKS.md#-iris-rebrand-in-flight-2026-04-28).
+Coordinated rename Iris → Iris. See full context + phases in
+[Java TASKS.md](https://gitlab.com/iris-7/iris-service-java/-/blob/main/TASKS.md#-iris-rebrand-in-flight-2026-04-28).
 
 Python-side scope :
 
-- **Code-level** : `mirador_service` → `iris_service` package
+- **Code-level** : `iris_service` → `iris_service` package
   (102 files, 1226 refs). Affects FastAPI router prefixes, alembic
   migration revision IDs comments, OTel resource attributes,
   pydantic settings keys, MCP tool names, import-linter contracts.
@@ -23,7 +23,7 @@ Python-side scope :
 ## 🚫 Blocked / partial — UPDATED 2026-04-28
 
 - 🟢 **Wire mutmut in CI** : mutmut 3.5.0 installed + configured
-  (`[tool.mutmut]` targeting `src/mirador_service/auth`), but
+  (`[tool.mutmut]` targeting `src/iris_service/auth`), but
   walks parent FS on `run` and chokes on macOS `.VolumeIcon.icns`.
   **Workaround possible** : the bug is macOS-specific ; in Linux
   CI it should work. Could be wired as a manual GitLab CI job
@@ -45,14 +45,14 @@ Python-side scope :
     testcontainers spawn on the host docker socket, but the network
     routing between them is broken.
   - ❌ Plus 1 obsolete MCP test : `test_list_tools_returns_14`
-    expects 14 tools but the runtime registers 15 ([test_mcp_server.py](src/mirador_service/integration/test_mcp_server.py)) — quick fix.
+    expects 14 tools but the runtime registers 15 ([test_mcp_server.py](src/iris_service/integration/test_mcp_server.py)) — quick fix.
   - To unblock : (1) fix the test count assertion ; (2) investigate
     runner config for proper network bridging OR switch to GitLab
     `services:` for postgres + kafka.
 
 - 🚫 **Flip sonarcloud required** :
   - ✅ `SONAR_TOKEN` IS set at group level (verified 2026-04-28
-    via `glab api groups/mirador1/variables`)
+    via `glab api groups/iris-7/variables`)
   - The `sonarcloud` job should be running ; if it appears
     rule-skipped on the latest pipeline, check the rules
     block in `.gitlab-ci/quality.yml`.
@@ -67,7 +67,7 @@ Python-side scope :
 Quick wins SHIPPED 2026-04-25 : 3 SLOs (Sloth) + multi-burn-rate +
 Grafana dashboard + ADR-0058 + sla.md.
 
-Iteration-2 SHIPPED 2026-04-27 in [stable-py-v0.6.8](https://gitlab.com/mirador1/mirador-service-python/-/tags/stable-py-v0.6.8) :
+Iteration-2 SHIPPED 2026-04-27 in [stable-py-v0.6.8](https://gitlab.com/iris-7/iris-service-python/-/tags/stable-py-v0.6.8) :
 - ✅ SLO breakdown / latency heatmap / Apdex dashboards
 - ✅ Chaos-driven SLO demo wiring
 - ✅ 3 runbooks
@@ -76,8 +76,8 @@ Iteration-2 SHIPPED 2026-04-27 in [stable-py-v0.6.8](https://gitlab.com/mirador1
 ## 🎨 README polish
 
 Major sync wave **shipped 2026-04-27** :
-- ✅ README.fr.md mastery block + 8-row matrix ([!41](https://gitlab.com/mirador1/mirador-service-python/-/merge_requests/41))
-- ✅ mkdocs landing refresh ([!42](https://gitlab.com/mirador1/mirador-service-python/-/merge_requests/42))
+- ✅ README.fr.md mastery block + 8-row matrix ([!41](https://gitlab.com/iris-7/iris-service-python/-/merge_requests/41))
+- ✅ mkdocs landing refresh ([!42](https://gitlab.com/iris-7/iris-service-python/-/merge_requests/42))
 
 Remaining :
 - 🟢 **Customer\* rename** — covered by the Customer rename chip
@@ -85,10 +85,10 @@ Remaining :
 
 ## 🎯 Surface fonctionnelle — entités e-commerce
 
-Foundation **shippée 2026-04-26** dans [stable-py-v0.6.4](https://gitlab.com/mirador1/mirador-service-python/-/tags/stable-py-v0.6.4) :
+Foundation **shippée 2026-04-26** dans [stable-py-v0.6.4](https://gitlab.com/iris-7/iris-service-python/-/tags/stable-py-v0.6.4) :
 - ✅ Alembic 0002/0003/0004 + ORM SQLAlchemy 2.x async
 - ✅ Pydantic v2 schemas + FastAPI routers
-- ✅ Feature-sliced `src/mirador_service/{order,product}/` ⚠️ to rename to `iris_service`
+- ✅ Feature-sliced `src/iris_service/{order,product}/` ⚠️ to rename to `iris_service`
 
 Wave **shippée 2026-04-27** :
 - ✅ ADR data model (shared ADR-0059)

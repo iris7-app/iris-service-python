@@ -1,7 +1,7 @@
-# Contributing to Mirador-service-python
+# Contributing to Iris-service-python
 
-First : thank you. Mirador-service-python is the **Python sibling** of
-[`mirador-service-java`](https://gitlab.com/mirador1/mirador-service-java) —
+First : thank you. Iris-service-python is the **Python sibling** of
+[`iris-service-java`](https://gitlab.com/iris-7/iris-service-java) —
 contributions improve the "real-world how-to-operate-this-thing" value for
 everyone who reads it later.
 
@@ -9,19 +9,19 @@ everyone who reads it later.
 
 **GitLab is the canonical source.** Contributions happen there.
 
-- Python service : [gitlab.com/mirador1/mirador-service-python](https://gitlab.com/mirador1/mirador-service-python)
-- Java service : [gitlab.com/mirador1/mirador-service-java](https://gitlab.com/mirador1/mirador-service-java)
-- UI : [gitlab.com/mirador1/mirador-ui](https://gitlab.com/mirador1/mirador-ui)
-- Shared infra : [gitlab.com/mirador1/mirador-service-shared](https://gitlab.com/mirador1/mirador-service-shared)
+- Python service : [gitlab.com/iris-7/iris-service-python](https://gitlab.com/iris-7/iris-service-python)
+- Java service : [gitlab.com/iris-7/iris-service-java](https://gitlab.com/iris-7/iris-service-java)
+- UI : [gitlab.com/iris-7/iris-ui](https://gitlab.com/iris-7/iris-ui)
+- Shared infra : [gitlab.com/iris-7/iris-service-shared](https://gitlab.com/iris-7/iris-service-shared)
 
-The GitHub mirrors (`github.com/mirador1/mirador-*`) are read-only.
+The GitHub mirrors (`github.com/iris7-app/mirador-*`) are read-only.
 Issues and MRs opened there will not be reviewed.
 
 ## Types of contributions welcome
 
 | Type | How to start |
 |---|---|
-| **Bug report** | Open a [GitLab issue](https://gitlab.com/mirador1/mirador-service-python/-/issues/new) with the "bug" template. Include : Python version, repro steps, expected vs actual, log excerpt with `request_id`. |
+| **Bug report** | Open a [GitLab issue](https://gitlab.com/iris-7/iris-service-python/-/issues/new) with the "bug" template. Include : Python version, repro steps, expected vs actual, log excerpt with `request_id`. |
 | **Security vulnerability** | **Do not open a public issue.** See [`SECURITY.md`](SECURITY.md). |
 | **Documentation fix / clarification** | Open an MR directly. Docs-only MRs are merged fastest. |
 | **New ADR proposal** | Open an MR adding `docs/adr/NNNN-<slug>.md` (Michael Nygard format). Discussion happens in the MR. |
@@ -34,8 +34,8 @@ Issues and MRs opened there will not be reviewed.
 
 ```bash
 # Clone (with the shared infra submodule)
-git clone --recurse-submodules https://gitlab.com/mirador1/mirador-service-python.git
-cd mirador-service-python
+git clone --recurse-submodules https://gitlab.com/iris-7/iris-service-python.git
+cd iris-service-python
 
 # Install dependencies (uv handles Python 3.14 install too)
 uv sync --all-extras
@@ -44,9 +44,9 @@ uv sync --all-extras
 lefthook install --config .config/lefthook.yml
 
 # Run dev server (hot reload)
-uv run mirador-service
+uv run iris-service
 # or with explicit uvicorn :
-uv run uvicorn mirador_service.app:app --reload --port 8080
+uv run uvicorn iris_service.app:app --reload --port 8080
 ```
 
 Full demo (Postgres + Redis + Kafka + LGTM observability stack) :
@@ -58,7 +58,7 @@ docker compose -f compose/dev-stack.yml up -d
 cd ../..
 
 # Run the app against it
-uv run mirador-service
+uv run iris-service
 ```
 
 ## Quality bar (CI gates that must pass)
@@ -133,4 +133,4 @@ For any non-trivial trade-off (new library, new pattern, deprecation) :
 - [SECURITY](SECURITY.md) — vulnerability disclosure
 - [ADR index](docs/adr/) — 12 records (architectural decisions)
 - [SLO definitions](docs/slo/slo.yaml) + [SLA](docs/slo/sla.md)
-- [Java sibling CONTRIBUTING.md](https://gitlab.com/mirador1/mirador-service-java/-/blob/main/CONTRIBUTING.md) — same patterns, different stack
+- [Java sibling CONTRIBUTING.md](https://gitlab.com/iris-7/iris-service-java/-/blob/main/CONTRIBUTING.md) — same patterns, different stack

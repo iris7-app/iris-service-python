@@ -2,7 +2,7 @@
 
 **Status** : Accepted
 **Date** : 2026-04-25
-**Sibling** : `mirador-service-java` uses Spring Data JPA / Hibernate — same
+**Sibling** : `iris-service-java` uses Spring Data JPA / Hibernate — same
 pattern (ORM + repository abstraction + transaction management).
 
 ## Context
@@ -17,7 +17,7 @@ The Python async ecosystem has 4 mainstream ORM-ish libraries :
 | **SQLModel** | Pydantic + SQLAlchemy hybrid | ✓ | Alembic | ✓ |
 | **Raw asyncpg** | Manual SQL strings | manual | manual | n/a |
 
-Mirador-service needs : Postgres, ACID transactions, schema migrations,
+Iris-service needs : Postgres, ACID transactions, schema migrations,
 strict mypy compatibility, and parity with the Java side's Spring Data
 JPA repository pattern.
 

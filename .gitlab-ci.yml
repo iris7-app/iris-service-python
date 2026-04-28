@@ -1,4 +1,4 @@
-# Mirror of mirador-service Java pipeline (modular structure under .gitlab-ci/).
+# Mirror of iris-service Java pipeline (modular structure under .gitlab-ci/).
 # Lanes :
 # ┌─ REGULAR (every MR + main push) ─────────────────────────────────────────┐
 # │   lint        ruff + mypy                                                │

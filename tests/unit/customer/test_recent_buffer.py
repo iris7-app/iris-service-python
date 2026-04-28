@@ -6,8 +6,8 @@ import pytest
 from httpx import AsyncClient
 from redis.asyncio import Redis
 
-from mirador_service.customer.dtos import CustomerResponse
-from mirador_service.customer.recent_buffer import KEY, MAX_SIZE, RecentCustomerBuffer
+from iris_service.customer.dtos import CustomerResponse
+from iris_service.customer.recent_buffer import KEY, MAX_SIZE, RecentCustomerBuffer
 
 
 @pytest.mark.asyncio

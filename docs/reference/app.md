@@ -1,3 +1,3 @@
 # `app` — API reference
 
-::: mirador_service.app
+::: iris_service.app

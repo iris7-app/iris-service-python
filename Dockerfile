@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 # Multi-stage build : (1) build venv with uv, (2) thin runtime image.
-# Mirrors mirador-service Java's `build-jar` + `Dockerfile` 2-stage pattern.
+# Mirrors iris-service Java's `build-jar` + `Dockerfile` 2-stage pattern.
 
 # ── Stage 1 : Build (with uv) ────────────────────────────────────────────────
 FROM ghcr.io/astral-sh/uv:python3.14-bookworm-slim AS builder
@@ -65,4 +65,4 @@ CMD ["gunicorn", \
      "--worker-class=uvicorn.workers.UvicornWorker", \
      "--access-logfile=-", \
      "--error-logfile=-", \
-     "mirador_service.app:app"]
+     "iris_service.app:app"]

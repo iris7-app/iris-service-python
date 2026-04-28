@@ -12,9 +12,9 @@ from decimal import Decimal
 
 import pytest
 
-from mirador_service.customer.models import Customer
-from mirador_service.mcp.auth import ROLE_ADMIN, ROLE_USER, McpForbiddenError, McpUser, set_current_user
-from mirador_service.mcp.dtos import (
+from iris_service.customer.models import Customer
+from iris_service.mcp.auth import ROLE_ADMIN, ROLE_USER, McpForbiddenError, McpUser, set_current_user
+from iris_service.mcp.dtos import (
     CancelResult,
     ChaosResult,
     Customer360,
@@ -28,7 +28,7 @@ from mirador_service.mcp.dtos import (
     OrderRef,
     ProductLowStock,
 )
-from mirador_service.mcp.tools import (
+from iris_service.mcp.tools import (
     Deps,
     cancel_order,
     create_order,
@@ -46,8 +46,8 @@ from mirador_service.mcp.tools import (
     tail_logs,
     trigger_chaos_experiment,
 )
-from mirador_service.order.models import Order, OrderStatus
-from mirador_service.product.models import Product
+from iris_service.order.models import Order, OrderStatus
+from iris_service.product.models import Product
 
 # ── Seed helpers ──────────────────────────────────────────────────────────────
 

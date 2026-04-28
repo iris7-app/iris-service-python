@@ -11,7 +11,7 @@ async def test_quality_returns_aggregated_signals(client: AsyncClient) -> None:
     response = await client.get("/actuator/quality")
     assert response.status_code == 200
     body = response.json()
-    assert body["service"] == "mirador-service-python"
+    assert body["service"] == "iris-service-python"
     assert "version" in body
     assert "signals" in body
     signals = body["signals"]

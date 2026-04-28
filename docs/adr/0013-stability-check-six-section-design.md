@@ -2,7 +2,7 @@
 
 **Status** : Accepted
 **Date** : 2026-04-26
-**Sibling project** : `../mirador-service-java/bin/dev/stability-check.sh`
+**Sibling project** : `../iris-service-java/bin/dev/stability-check.sh`
                        (different design — multi-repo aggregator with `bin/dev/sections/*.sh`)
 
 ## Context
@@ -134,8 +134,8 @@ shell-script layer.
 
 ## References
 
-- [Python stability-check.sh source](https://gitlab.com/mirador1/mirador-service-python/-/blob/main/bin/dev/stability-check.sh)
-- [Java's stability-check.sh + sections](https://gitlab.com/mirador1/mirador-service-java/-/tree/main/bin/dev) — different design, same goal
-- [common ADR-0001 — submodule pattern](https://gitlab.com/mirador1/mirador-common/-/blob/main/docs/adr/0001-shared-repo-via-submodule.md)
+- [Python stability-check.sh source](https://gitlab.com/iris-7/iris-service-python/-/blob/main/bin/dev/stability-check.sh)
+- [Java's stability-check.sh + sections](https://gitlab.com/iris-7/iris-service-java/-/tree/main/bin/dev) — different design, same goal
+- [common ADR-0001 — submodule pattern](https://gitlab.com/iris-7/iris-common/-/blob/main/docs/adr/0001-shared-repo-via-submodule.md)
 - [ADR-0014](0014-coverage-floor-and-property-based-testing.md) — the coverage threshold this script enforces
 - [ADR-0007](0007-industrial-python-best-practices.md) — broader Python quality bar

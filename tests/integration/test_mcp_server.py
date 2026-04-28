@@ -23,12 +23,12 @@ from httpx import ASGITransport, AsyncClient
 # would otherwise be rejected. Read straight from os.environ inside the
 # mount layer (bypasses the lru_cache around get_settings()), so tests
 # that toggle env mid-session still take effect.
-os.environ["MIRADOR_MCP_DISABLE_HOST_GUARD"] = "1"
+os.environ["IRIS_MCP_DISABLE_HOST_GUARD"] = "1"
 
-from mirador_service.app import create_app
-from mirador_service.auth.jwt import issue_access_token
-from mirador_service.config.settings import get_settings
-from mirador_service.mcp.auth import ROLE_USER
+from iris_service.app import create_app
+from iris_service.auth.jwt import issue_access_token
+from iris_service.config.settings import get_settings
+from iris_service.mcp.auth import ROLE_USER
 
 pytestmark = pytest.mark.integration
 

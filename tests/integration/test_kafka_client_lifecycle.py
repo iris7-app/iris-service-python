@@ -26,9 +26,9 @@ import asyncio
 import pytest
 from aiokafka import AIOKafkaProducer
 
-from mirador_service.config.settings import KafkaSettings
-from mirador_service.messaging import kafka_client
-from mirador_service.messaging.dtos import (
+from iris_service.config.settings import KafkaSettings
+from iris_service.messaging import kafka_client
+from iris_service.messaging.dtos import (
     CustomerEnrichRequest,
 )
 

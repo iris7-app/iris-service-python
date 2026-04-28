@@ -1,17 +1,17 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: mirador-service-python
+  name: iris-service-python
   namespace: mirador
   labels:
-    app.kubernetes.io/name: mirador-service-python
+    app.kubernetes.io/name: iris-service-python
     app.kubernetes.io/component: backend
     app.kubernetes.io/part-of: mirador
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: mirador-service-python
+    name: iris-service-python
   minReplicas: 2
   maxReplicas: 6
   metrics:

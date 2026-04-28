@@ -1,3 +1,3 @@
 # `middleware` — API reference
 
-::: mirador_service.middleware
+::: iris_service.middleware

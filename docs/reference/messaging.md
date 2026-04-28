@@ -1,3 +1,3 @@
 # `messaging` — API reference
 
-::: mirador_service.messaging
+::: iris_service.messaging

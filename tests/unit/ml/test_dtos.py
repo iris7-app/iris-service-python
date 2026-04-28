@@ -6,12 +6,12 @@ from datetime import UTC, datetime
 
 import pytest
 
-from mirador_service.ml.dtos import (
+from iris_service.ml.dtos import (
     ChurnNotFound,
     ChurnPrediction,
     ChurnServiceUnavailable,
 )
-from mirador_service.ml.risk_band import RiskBand
+from iris_service.ml.risk_band import RiskBand
 
 
 class TestChurnPrediction:

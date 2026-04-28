@@ -2,15 +2,15 @@
 
 **Status** : Accepted
 **Date** : 2026-04-25
-**Sibling ADR** : `../mirador-service/docs/adr/<observability-related>` (Java side, Micrometer-based)
+**Sibling ADR** : `../iris-service/docs/adr/<observability-related>` (Java side, Micrometer-based)
 
 ## Context
 
-The Java mirador-service uses **Micrometer + OpenTelemetry agent** for metrics
+The Java iris-service uses **Micrometer + OpenTelemetry agent** for metrics
 + traces, exporting via OTLP (HTTP) to the LGTM stack
 (Loki + Grafana + Tempo + Mimir, single container `grafana/otel-lgtm`).
 
-For mirador-service-python we need :
+For iris-service-python we need :
 - Cross-language trace correlation (a span in Python must propagate to a sibling
   Java service via W3C `traceparent` headers, and vice-versa).
 - Metrics that surface in the same Grafana dashboards as the Java service
@@ -28,17 +28,17 @@ Python ecosystem choices :
 
 ## Decision
 
-`src/mirador_service/observability/otel.py` exposes :
+`src/iris_service/observability/otel.py` exposes :
 - `init_otel(settings, app)` — wires tracer + meter + auto-instrumentation, called from app.lifespan startup.
 - `shutdown_otel()` — flushes pending spans before process exit, called from app.lifespan shutdown.
 
 OTLP HTTP exporter targets `http://localhost:4318` by default (LGTM container's
-OTel collector port), overridable via `MIRADOR_OTEL_ENDPOINT`.
+OTel collector port), overridable via `IRIS_OTEL_ENDPOINT`.
 
 Resource attributes :
-- `service.name` = `mirador-service-python` (configurable via `MIRADOR_OTEL_SERVICE_NAME`)
-- `service.version` = `mirador_service.__version__`
-- `deployment.environment` = `dev` if `MIRADOR_DEV_MODE=true`, else `prod`
+- `service.name` = `iris-service-python` (configurable via `IRIS_OTEL_SERVICE_NAME`)
+- `service.version` = `iris_service.__version__`
+- `deployment.environment` = `dev` if `IRIS_DEV_MODE=true`, else `prod`
 
 Auto-instrumentation enabled for : FastAPI, SQLAlchemy, Redis, aiokafka. Each
 adds spans + attributes following OTel semantic conventions, so dashboards
@@ -81,7 +81,7 @@ Cross-service traces work bidirectionally :
 
 ## Alternatives considered
 
-- **Auto-instrument zero-code** (`opentelemetry-instrument python -m mirador_service.app`)
+- **Auto-instrument zero-code** (`opentelemetry-instrument python -m iris_service.app`)
   — rejected : harder to control init order, harder to debug, requires running
   through a wrapper which complicates Docker entrypoint.
 - **Datadog APM** — vendor lock-in, ignored OTLP standard for years.

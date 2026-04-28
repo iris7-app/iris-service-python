@@ -1,6 +1,6 @@
 # Runbook — SLO Latency p99 burn rate
 
-**Triggered by** : `MiradorPyServiceLatencyP99SLO` page or ticket alert.
+**Triggered by** : `IrisPyServiceLatencyP99SLO` page or ticket alert.
 
 **SLO** : 99% of HTTP requests complete in < 500ms (p99) over 30d.
 

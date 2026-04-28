@@ -14,7 +14,7 @@ from __future__ import annotations
 import pytest
 from fastapi import HTTPException
 
-from mirador_service.messaging import kafka_client
+from iris_service.messaging import kafka_client
 
 
 def test_get_enrichment_service_raises_503_when_kafka_down() -> None:
