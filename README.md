@@ -18,13 +18,6 @@
 > - <span style="color: #af52de">●</span> **Quality** — `pytest --cov-fail-under=90` blocking gate (~308 unit + integration tests, 92% coverage) + `mypy --strict` + `ruff check` + `ruff format --check` + `import-linter` + Hypothesis property-based tests + Testcontainers + asgi-lifespan.
 >
 > _Plus complementary dimensions : Fonctionnel (Customer onboarding & enrichment via Ollama LLM), DevX (uv, lefthook, api-smoke.sh)._
-> - 🧠 **Fonctionnel** — Customer onboarding & enrichment (JSONPlaceholder lookup + Ollama LLM bio generation) + Order / Product / OrderLine domain (6 invariants from shared ADR-0059, enforced via 8 Hypothesis property-based tests) + Kafka audit events + diagnostic incident endpoints (`slow-query`, `db-failure`, `kafka-timeout`).
-> - ☁️ **Infrastructure & Cloud** — Docker image (412 MB on debian-slim ; alpine blocked on pydantic_core / cryptography / bcrypt musl wheels) + GKE deploy via the same chart family as the Java sibling + Workload Identity Federation + Postgres asyncpg + Kafka aiokafka + Redis async client.
-> - 📊 **Observabilité** — OpenTelemetry traces + logs + metrics → LGTM stack (Tempo / Loki / Mimir / Grafana) + `starlette-prometheus` exporter + 3 SLOs as code via Sloth (mirror Java) + multi-burn-rate alerting + 4 dashboards (SLO overview, Apdex, latency heatmap, SLO breakdown by `path_template`) + chaos-driven SLO demo annotations + 3 runbooks.
-> - ✅ **Qualité** — `pytest --cov-fail-under=90` blocking gate (~308 unit + integration tests, 94.59 % coverage on full suite) + `mypy --strict` + `ruff check` + `ruff format --check` + `import-linter` (Python's ArchUnit) + Hypothesis property-based tests + Testcontainers (Postgres) + asgi-lifespan + 19 dedicated tests for the X-API-Key middleware.
-> - 🔄 **CI/CD** — GitLab CI 9 jobs across `lint / test / integration / package / sonar / pages` stages + compat matrix Python 3.12 / 3.13 / 3.14 (manual) + Conventional Commits (lefthook + commitlint) + auto-merge with `--remove-source-branch=false` + pip-audit hard gate + import-linter + Renovate weekly bumps + GitHub mirror push on tag.
-> - 🏛 **Architecture** — Feature-slicing under `src/iris_service/{customer, order, product, mcp, auth, …}` (mirrors Java's package structure) + per-method MCP `@tool` exposure (ADR-0062, "produces vs accesses" rule — NO HTTP clients to Loki / Mimir / Grafana / GitLab / kubectl in this Python jar) + polyrepo flat α submodules (ADR-0060) + Clean Code 7 non-negotiables.
-> - 🛠 **DevX** — `uv` (astral, 100× faster than pip) + Lefthook commit-msg + pre-push hooks + `bin/dev/api-smoke.sh` (Hurl flows) + scheduled tasks for dated TODOs + integration-tests + sonarcloud flip-gates audit (5-consecutive-green criterion tracked in `TASKS.md`) + Renovate + Conventional Commits CI template (shared via `infra/common/`).
 
 [![pipeline](https://gitlab.com/iris-7/iris-service-python/badges/main/pipeline.svg)](https://gitlab.com/iris-7/iris-service-python/-/pipelines)
 [![coverage](https://img.shields.io/badge/coverage-90.21%25-success)](https://gitlab.com/iris-7/iris-service-python/-/pipelines)
@@ -244,7 +237,7 @@ curl -s -X POST http://localhost:8080/mcp/ \
 
 Or wire the service to your local Claude Desktop / Claude CLI :
 ```
-claude mcp add --transport http mirador http://localhost:8080/mcp/
+claude mcp add --transport http iris http://localhost:8080/mcp/
 ```
 
 ### Auth
