@@ -39,12 +39,12 @@ deploy:staging:
     - kubectl apply -k infra/k8s/base
     # Pin the Deployment's image to the just-built tag (overrides
     # kustomization.yaml's `newTag: latest` default).
-    - kubectl set image -n mirador deployment/iris-service-python
+    - kubectl set image -n iris deployment/iris-service-python
         app="$CI_REGISTRY_IMAGE:$REGISTRY_IMAGE_TAG"
-    - kubectl rollout status -n mirador deployment/iris-service-python --timeout=5m
+    - kubectl rollout status -n iris deployment/iris-service-python --timeout=5m
   environment:
     name: staging
-    url: https://staging.mirador.example.com
+    url: https://staging.iris.example.com
   allow_failure: true  # TODO 2026-05-25 — flip when staging cluster exists
 
 deploy:prod:
@@ -61,9 +61,9 @@ deploy:prod:
   script:
     - kubectl config use-context "$KUBE_CONTEXT"
     - kubectl apply -k infra/k8s/base
-    - kubectl set image -n mirador deployment/iris-service-python
+    - kubectl set image -n iris deployment/iris-service-python
         app="$CI_REGISTRY_IMAGE:$REGISTRY_IMAGE_TAG"
-    - kubectl rollout status -n mirador deployment/iris-service-python --timeout=5m
+    - kubectl rollout status -n iris deployment/iris-service-python --timeout=5m
   environment:
     name: production
-    url: https://api.mirador.example.com
+    url: https://api.iris.example.com

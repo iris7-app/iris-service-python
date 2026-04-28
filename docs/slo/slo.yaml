@@ -3,7 +3,7 @@
 # starlette-prometheus metric names.
 #
 # Generate :
-#   sloth generate -i docs/slo/slo.yaml -o /tmp/mirador-py-slo-rules.yaml
+#   sloth generate -i docs/slo/slo.yaml -o /tmp/iris-py-slo-rules.yaml
 #   python3 docs/slo/wrap-as-prometheusrule.py
 #
 # References :
@@ -13,7 +13,7 @@
 version: "prometheus/v1"
 service: "iris-service-python"
 labels:
-  team: "mirador"
+  team: "iris"
   tier: "demo"
   app: "iris-service-python"
 slos:

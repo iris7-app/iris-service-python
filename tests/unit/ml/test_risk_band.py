@@ -1,6 +1,6 @@
 """Risk-band classification — boundary contract tests.
 
-Mirrors :class:`com.mirador.ml.RiskBandTest` from the Java sibling
+Mirrors :class:`org.iris.ml.RiskBandTest` from the Java sibling
 exactly. Same boundary semantics ensure the UI sees the same band
 regardless of which backend served the prediction (the
 "interchangeable backends" contract from common ADR-0008).

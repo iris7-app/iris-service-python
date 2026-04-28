@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- mirador-service-python (FastAPI / Python 3.13) — BLUE variant per
+  <!-- iris-service-python (FastAPI / Python 3.13) — BLUE variant per
        Python brand (#3776AB).  Watchtower silhouette mirrors the
-       mirador-service + mirador-ui logos for visual sibling identity ;
+       iris-service-java + iris-ui logos for visual sibling identity ;
        only the colour scheme differs to flag repo at-a-glance in the
        GitLab group sidebar. -->
   <rect width="32" height="32" rx="7" fill="#3776AB"/>

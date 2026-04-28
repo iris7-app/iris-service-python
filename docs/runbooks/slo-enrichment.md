@@ -32,7 +32,7 @@ or processing took > 5s.
    ```
    kubectl exec -it kafka-0 -- kafka-consumer-groups.sh \
      --bootstrap-server localhost:9092 \
-     --group mirador-enrich-handler --describe
+     --group iris-enrich-handler --describe
    ```
    Look at `LAG` column — if growing, consumer can't keep up.
 4. **Check the in-flight pending replies** in the EnrichmentService
@@ -57,7 +57,7 @@ or processing took > 5s.
 - **Reset consumer offset** to latest if reprocessing isn't critical
   (loses in-flight requests but unblocks the queue) :
   ```
-  kafka-consumer-groups.sh --reset-offsets --group mirador-enrich-handler \
+  kafka-consumer-groups.sh --reset-offsets --group iris-enrich-handler \
     --topic customer.enrich.request --to-latest --execute
   ```
 - **Scale Kafka brokers** if broker CPU is the bottleneck.

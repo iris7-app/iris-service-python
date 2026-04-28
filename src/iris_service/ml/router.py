@@ -1,6 +1,6 @@
 """FastAPI router — POST /customers/{id}/churn-prediction.
 
-Mirrors the Java :class:`com.mirador.ml.ChurnController` :
+Mirrors the Java :class:`org.iris.ml.ChurnController` :
 
 - 200 + :class:`ChurnPrediction` on success.
 - 404 if the customer doesn't exist.
@@ -65,7 +65,7 @@ async def predict_customer_churn(
 ) -> ChurnPrediction:
     """Compute the churn probability for ``customer_id``.
 
-    Same logic as :class:`com.mirador.ml.ChurnController` :
+    Same logic as :class:`org.iris.ml.ChurnController` :
 
     1. 503 early-return if the predictor isn't ready (model file
        missing — operator hint points at the ConfigMap from
@@ -82,7 +82,7 @@ async def predict_customer_churn(
             detail=(
                 "Churn model not loaded yet. Provision "
                 "/etc/models/churn_predictor.onnx via the "
-                "mirador-churn-model ConfigMap (shared ADR-0062)."
+                "iris-churn-model ConfigMap (shared ADR-0062)."
             ),
         )
 

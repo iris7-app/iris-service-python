@@ -1,6 +1,6 @@
 """Pydantic DTOs for the churn-prediction REST + MCP surface.
 
-Mirrors the Java records :class:`com.mirador.ml.ChurnPredictionDto`
+Mirrors the Java records :class:`org.iris.ml.ChurnPredictionDto`
 + the soft-error DTOs (:class:`ChurnMcpToolService.NotFoundDto` and
 :class:`ChurnMcpToolService.ServiceUnavailableDto`) so the same
 JSON shapes appear from both backends — a property the
@@ -30,7 +30,7 @@ class ChurnPrediction(BaseModel):
     )
     risk_band: RiskBand = Field(
         ...,
-        description="LOW / MEDIUM / HIGH — derived via mirador.churn.risk-thresholds.",
+        description="LOW / MEDIUM / HIGH — derived via iris.churn.risk-thresholds.",
     )
     top_features: list[str] = Field(
         default_factory=list,

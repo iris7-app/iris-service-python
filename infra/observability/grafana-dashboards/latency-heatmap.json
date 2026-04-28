@@ -11,7 +11,7 @@
       "targetBlank": true,
       "title": "← back to SLO Overview",
       "type": "link",
-      "url": "/d/mirador-slo-overview/slo-overview-mirador"
+      "url": "/d/iris-slo-overview/slo-overview-iris"
     }
   ],
   "panels": [
@@ -97,7 +97,7 @@
   "preload": false,
   "refresh": "30s",
   "schemaVersion": 39,
-  "tags": ["slo", "mirador", "sre", "latency"],
+  "tags": ["slo", "iris", "sre", "latency"],
   "templating": {
     "list": [
       {
@@ -121,6 +121,6 @@
   "timepicker": {},
   "timezone": "browser",
   "title": "Latency Heatmap — Iris",
-  "uid": "mirador-py-latency-heatmap",
+  "uid": "iris-py-latency-heatmap",
   "version": 1
 }

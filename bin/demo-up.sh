@@ -8,7 +8,7 @@
 #    but leaves the infra up ; run `bin/demo-down.sh` to tear infra down too).
 #
 # Idempotent : re-running brings any-down services back up without losing
-# postgres data (named volume mirador-py-pgdata persists).
+# postgres data (named volume iris-py-pgdata persists).
 
 set -euo pipefail
 
@@ -29,7 +29,7 @@ echo "▶ waiting for postgres health..."
 # Retry up to ~60s — postgres is fast but kafka pulls a 700 MB image on
 # first run which can stall the docker daemon.
 for i in $(seq 1 60); do
-  if docker exec mirador-py-postgres pg_isready -U mirador -d mirador &>/dev/null; then
+  if docker exec iris-py-postgres pg_isready -U iris -d iris &>/dev/null; then
     echo "  ✔ postgres healthy after ${i}s"
     break
   fi
@@ -46,7 +46,7 @@ uv run alembic upgrade head
 echo "▶ services up :"
 echo "  • API           : http://localhost:8080         (Swagger : /docs)"
 echo "  • Grafana       : http://localhost:3000         (admin / admin)"
-echo "  • Postgres      : localhost:5432                (mirador / mirador)"
+echo "  • Postgres      : localhost:5432                (iris / iris)"
 echo "  • Redis         : localhost:6379"
 echo "  • Kafka         : localhost:9092"
 echo ""

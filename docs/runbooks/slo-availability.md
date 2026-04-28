@@ -19,7 +19,7 @@ If ticket : slow drift, not an emergency but needs investigation.
 ## First 5 minutes (page only)
 
 1. **Open the SLO Overview dashboard** :
-   https://grafana.local/d/mirador-slo-overview/slo-overview-mirador
+   https://grafana.local/d/iris-slo-overview/slo-overview-iris
    (or the live one at the deployed Grafana endpoint).
 2. **Confirm the burn rate** is still elevated (not a transient spike).
 3. **Open Tempo trace search** with `status_code >= 500` filter,

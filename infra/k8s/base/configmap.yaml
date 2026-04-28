@@ -2,11 +2,11 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: iris-service-python-config
-  namespace: mirador
+  namespace: iris
   labels:
     app.kubernetes.io/name: iris-service-python
     app.kubernetes.io/component: backend
-    app.kubernetes.io/part-of: mirador
+    app.kubernetes.io/part-of: iris
 data:
   # Server
   IRIS_SERVER_HOST: "0.0.0.0"
@@ -14,19 +14,19 @@ data:
   IRIS_DEV_MODE: "false"
 
   # Database (host overridden per overlay — base assumes in-cluster postgres)
-  IRIS_DB__HOST: "postgres.mirador.svc.cluster.local"
+  IRIS_DB__HOST: "postgres.iris.svc.cluster.local"
   IRIS_DB__PORT: "5432"
-  IRIS_DB__NAME: "mirador"
-  IRIS_DB__USER: "mirador"
+  IRIS_DB__NAME: "iris"
+  IRIS_DB__USER: "iris"
   # IRIS_DB__PASSWORD lives in the Secret, NOT here
 
   # Redis
-  IRIS_REDIS__HOST: "redis.mirador.svc.cluster.local"
+  IRIS_REDIS__HOST: "redis.iris.svc.cluster.local"
   IRIS_REDIS__PORT: "6379"
   IRIS_REDIS__DB: "0"
 
   # Kafka
-  IRIS_KAFKA__BOOTSTRAP_SERVERS: "kafka.mirador.svc.cluster.local:9092"
+  IRIS_KAFKA__BOOTSTRAP_SERVERS: "kafka.iris.svc.cluster.local:9092"
   IRIS_KAFKA__CUSTOMER_REQUEST_TOPIC: "customer.enrich.request"
   IRIS_KAFKA__CUSTOMER_REPLY_TOPIC: "customer.enrich.reply"
   IRIS_KAFKA__ENRICH_TIMEOUT_SECONDS: "5"

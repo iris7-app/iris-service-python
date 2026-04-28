@@ -72,7 +72,7 @@ async def start_kafka(settings: KafkaSettings) -> None:
     _request_consumer = AIOKafkaConsumer(
         settings.customer_request_topic,
         bootstrap_servers=settings.bootstrap_servers,
-        group_id="mirador-enrich-handler",
+        group_id="iris-enrich-handler",
         # earliest : if a request was published while we were down, still process it.
         auto_offset_reset="earliest",
     )
@@ -84,7 +84,7 @@ async def start_kafka(settings: KafkaSettings) -> None:
         # Unique group per instance : every instance must see every reply
         # to deliver to its own pending futures. (Java side uses the same
         # trick via `KafkaConsumerFactory` with a random group.)
-        group_id=f"mirador-enrich-reply-{id(_reply_consumer)}",
+        group_id=f"iris-enrich-reply-{id(_reply_consumer)}",
         auto_offset_reset="latest",
     )
     await _reply_consumer.start()

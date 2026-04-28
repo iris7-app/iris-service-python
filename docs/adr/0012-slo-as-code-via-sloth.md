@@ -35,12 +35,12 @@ Java :
 
 ```
 docs/slo/slo.yaml
-        │  sloth generate -i slo.yaml -o /tmp/mirador-py-slo-rules.yaml
+        │  sloth generate -i slo.yaml -o /tmp/iris-py-slo-rules.yaml
         ▼
-/tmp/mirador-py-slo-rules.yaml (Sloth raw output)
+/tmp/iris-py-slo-rules.yaml (Sloth raw output)
         │  python3 docs/slo/wrap-as-prometheusrule.py
         ▼
-iris-service-shared/deploy/kubernetes/observability-prom/mirador-py-slo.yaml
+iris-service-shared/deploy/kubernetes/observability-prom/iris-py-slo.yaml
         │  (PrometheusRule CRD with `release: prometheus-stack` label)
         ▼
         kube-prometheus-stack operator picks up + Prometheus loads rules
@@ -86,11 +86,11 @@ instance evaluates both services' SLOs.
 
 ## Validation
 
-- `sloth generate -i docs/slo/slo.yaml -o /tmp/mirador-py-slo-rules.yaml`
+- `sloth generate -i docs/slo/slo.yaml -o /tmp/iris-py-slo-rules.yaml`
   → 9 groups, 45 recording rules, 6 alerts.
 - `python3 docs/slo/wrap-as-prometheusrule.py` produces
-  `mirador-py-slo.yaml` with the K8s CRD wrapper.
-- `kubectl apply -f mirador-py-slo.yaml --dry-run=server` validates against
+  `iris-py-slo.yaml` with the K8s CRD wrapper.
+- `kubectl apply -f iris-py-slo.yaml --dry-run=server` validates against
   kube-prometheus-stack's PrometheusRule schema.
 - Grafana dashboard `slo-overview` displays both Java + Python SLOs side-
   by-side, filtered by `sloth_service`.
