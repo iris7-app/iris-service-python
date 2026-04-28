@@ -1,4 +1,4 @@
-# iris-service-python
+![iris-service-python](docs/assets/banner.svg)
 
 <sub>**English** · [Français](README.fr.md)</sub>
 
