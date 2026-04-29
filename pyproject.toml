@@ -76,6 +76,7 @@ dependencies = [
     # it explicitly so a future runtime trim doesn't accidentally drop
     # the only numpy import. Same pin range as the `ml` extra below.
     "numpy>=1.26,<3",
+    "onnxscript[ml]>=0.7.0",
 ]
 
 [project.optional-dependencies]

@@ -63,7 +63,7 @@ from iris_service.ml.seed_demo_data import generate_dataset
 
 logger = logging.getLogger(__name__)
 
-_REPO_ROOT = Path(__file__).resolve().parents[2]
+_REPO_ROOT = Path(__file__).resolve().parents[3]
 _PYPROJECT = _REPO_ROOT / "pyproject.toml"
 
 
