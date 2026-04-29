@@ -20,7 +20,6 @@ from pydantic import ValidationError
 
 from iris_service.product.dtos import ProductCreate
 
-
 # ── stock_quantity ≥ 0 ─────────────────────────────────────────────────────────
 
 
