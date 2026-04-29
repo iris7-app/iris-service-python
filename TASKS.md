@@ -28,12 +28,13 @@ here ; done items removed (use `git tag -l` for history).
     postgres + kafka (requires re-authoring the IT setup to use
     services rather than Testcontainers).
 
-## 🎯 e-commerce coverage gates (scheduled `java-ecommerce-coverage-batch` 2026-05-04 14:00)
+## 🎯 e-commerce coverage — remaining
 
-- ☐ Property-based tests with Hypothesis on order / product
-  invariants (mirror the 10 jqwik properties on Java side : 6 on
-  Order/totalAmount + 5 on Product stock/price)
 - ☐ pytest-asyncio integration tests (blocked by testcontainers
   network issue above — see "Flip integration-tests CI required")
-- ☐ `stability-check.sh` section 3 to cover the new modules
-  (mirrors Java's `bin/dev/sections/code.sh` pattern)
+
+Hypothesis property tests for Order + Product invariants shipped
+via [!58](https://gitlab.com/iris-7/iris-service-python/-/merge_requests/58)
+(Order earlier, Product 2026-04-29). `stability-check.sh` section 3
+already runs `pytest tests/unit -q` which auto-discovers the order +
+product modules — no extra wiring needed.
