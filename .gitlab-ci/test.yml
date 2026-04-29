@@ -61,47 +61,50 @@ integration-tests:
   needs:
     - unit-tests
   rules:
-    # Integration tests use testcontainers — they spawn Postgres + Kafka via
-    # the host Docker socket (mounted into the macbook-local runner via
-    # `volumes = ["/var/run/docker.sock:/var/run/docker.sock"]` in the
-    # runner config). NO docker:dind needed because we're already on a
-    # runner WITH Docker access ; dind would require privileged=true which
-    # our local runner intentionally doesn't have.
     - if: $CI_COMMIT_BRANCH == "main"
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  # GitLab `services:` instead of testcontainers per the integration-tests
+  # CI flip (TASKS.md 2026-04-29). The macbook-local runner's Docker bridge
+  # didn't route from the job container to testcontainers spawned via the
+  # host socket (172.17.0.1:NNNN → connection refused, 0/23 green runs
+  # 2026-04-27). Services share the job's network namespace + are reachable
+  # by alias, no bridge needed. tests/integration/conftest.py auto-detects
+  # IRIS_DB__HOST + IRIS_KAFKA_BOOTSTRAP_SERVERS and uses them when set ;
+  # local dev still falls back to testcontainers (no env vars).
   services:
-    # Postgres service for tests that prefer GitLab-provided over testcontainers.
-    # Currently unused (testcontainers spawn their own) but available for
-    # tests that flip to env-driven DSN via IRIS_DB__* in CI.
     - name: postgres:16.6-alpine
       alias: postgres
+    - name: bitnami/kafka:3.7-debian-12
+      alias: kafka
+      # Bitnami Kafka 3.x supports KRaft mode (controller + broker in one
+      # process — no Zookeeper). Single-broker, single-controller config
+      # is enough for integration tests ; production uses 3+ brokers.
+      variables:
+        KAFKA_CFG_NODE_ID: "0"
+        KAFKA_CFG_PROCESS_ROLES: "controller,broker"
+        KAFKA_CFG_LISTENERS: "PLAINTEXT://:9092,CONTROLLER://:9093"
+        KAFKA_CFG_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:9092"
+        KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT"
+        KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: "0@kafka:9093"
+        KAFKA_CFG_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
+        ALLOW_PLAINTEXT_LISTENER: "yes"
   variables:
-    # NO DOCKER_HOST override : testcontainers picks up the host socket via
-    # /var/run/docker.sock (mounted into the runner). Setting DOCKER_HOST to
-    # a tcp:// URL would override the socket detection and fail.
+    # Postgres service env vars (consumed by the postgres:16.6-alpine
+    # entrypoint to bootstrap the role + db).
     POSTGRES_DB: iris
     POSTGRES_USER: iris
     POSTGRES_PASSWORD: iris
-    # When tests want to use the GitLab postgres service, IRIS_DB__* picks up
-    # the alias hostname.
+    # IRIS_DB__* : conftest.postgres_url() reads these to assemble the
+    # SQLAlchemy URL when running in CI. Local dev (no env) still spawns
+    # a testcontainer — the conftest's two-mode design.
     IRIS_DB__HOST: postgres
+    IRIS_DB__PORT: "5432"
     IRIS_DB__USER: iris
     IRIS_DB__PASSWORD: iris
     IRIS_DB__NAME: iris
-    # Disable testcontainers' ryuk reaper — it spawns a sidecar container
-    # named `testcontainers-ryuk-<UUID>` that lingers between CI jobs on
-    # the macbook-local runner ; subsequent jobs hit a 409 Docker conflict
-    # (`Conflict. The container name "/testcontainers-ryuk-…" is already
-    # in use`) and the test session never starts. Discovered 2026-04-27 :
-    # 0/23 consecutive green runs of integration-tests on main, ALL
-    # blocked at ryuk session creation. Disabling ryuk works because
-    # our integration tests use proper context managers (`with`
-    # PostgresContainer / KafkaContainer) that clean up via SIGTERM at
-    # session end ; ryuk's SIGKILL safety-net is disposable on a
-    # single-runner setup that prunes containers via the
-    # CLAUDE.md-cadenced `docker container prune -f`. Re-enable when
-    # ryuk gains a per-job container-name strategy.
-    TESTCONTAINERS_RYUK_DISABLED: "true"
+    # IRIS_KAFKA_BOOTSTRAP_SERVERS : conftest.kafka_bootstrap() reads this.
+    # Same pattern as the DB — env in CI, testcontainer locally.
+    IRIS_KAFKA_BOOTSTRAP_SERVERS: "kafka:9092"
   script:
     # --no-cov : integration tests don't exercise the full app, only
     # adapter paths ; the global --cov-fail-under=90 in pyproject.toml
@@ -112,7 +115,8 @@ integration-tests:
     reports:
       junit: junit-integration.xml
     expire_in: 30 days
-  allow_failure: true  # TODO 2026-05-25 — flip after 5 consecutive green runs
+  # allow_failure removed 2026-04-29 : the GitLab services: refactor closed
+  # the testcontainers network-bridge issue ; the job is now a real gate.
 
 # Compat matrix : same tests on different Python versions
 .compat-base: &compat-base
