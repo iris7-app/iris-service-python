@@ -31,6 +31,58 @@ unit-tests:
 # the .uv-base anchor there + has cleaner stage/needs wiring. Don't
 # re-define it here.
 
+# Mutation testing on auth (jwt + passwords) — manual gate, mirrors
+# Java's PIT mutation report. Targeted at security-critical paths only
+# (auth/jwt + auth/passwords) because full-suite mutmut is 30-60 min
+# vs ~3-5 min on the auth slice.
+#
+# Why manual instead of MR-gating : mutmut 3.x has a quirk where it
+# walks the parent FS on `run` start ; on macOS this hits unreadable
+# system files (`.VolumeIcon.icns`) and aborts. The Linux Docker image
+# below avoids that — but keeping the job as `when: manual` means
+# regular MRs aren't gated on a 5-minute mutation pass that's only
+# meaningful when auth code actually changed.
+#
+# When to trigger : after touching anything under `src/iris_service/auth/`.
+# The manual button on the MR pipeline runs targeted mutations + posts
+# the surviving-mutant report as an artifact for review.
+mutation-test:
+  <<: *uv-base
+  stage: test
+  needs:
+    - unit-tests
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      changes:
+        - "src/iris_service/auth/**/*"
+        - "tests/unit/auth/**/*"
+        - "pyproject.toml"
+      when: manual
+      allow_failure: true
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        - "src/iris_service/auth/**/*"
+        - "tests/unit/auth/**/*"
+        - "pyproject.toml"
+      when: manual
+      allow_failure: true
+  script:
+    # Linux container : the macOS `.VolumeIcon.icns` issue doesn't apply
+    # (no `/Volumes` to walk). uv run mutmut works as documented.
+    - uv run mutmut run --no-progress 2>&1 | tail -50
+    # Always render the surviving-mutant table even if `mutmut run` exits
+    # non-zero (which it does whenever any mutant survives). The table is
+    # the actual deliverable — exit code is informational.
+    - uv run mutmut results > mutmut-results.txt 2>&1 || true
+    - cat mutmut-results.txt
+  artifacts:
+    when: always
+    paths:
+      - mutmut-results.txt
+      - .mutmut-cache/
+    expire_in: 30 days
+  allow_failure: true  # opt-in tool ; surviving mutants tracked as backlog, not gate
+
 # Microbenchmarks — JMH equivalent (mirror Java side's perf gates).
 # Per ADR-0007 §13. Hot paths : JWT encode/decode + bcrypt hash/verify.
 # JSON output uploaded as artifact ; future job can compare across runs
