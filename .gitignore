@@ -76,3 +76,9 @@ target/
 Thumbs.db
 site/
 .claude/
+
+# Local ML artifacts (mlflow tracking + ONNX models) — generated at
+# runtime by tools/scripts/train_*.py, not part of source.
+.models/
+mlflow.db
+mlruns/

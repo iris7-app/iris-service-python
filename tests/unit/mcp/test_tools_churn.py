@@ -248,15 +248,13 @@ async def test_predict_rounds_probability_to_six_decimals(deps: Deps) -> None:
 @pytest.mark.parametrize(
     ("probability", "expected_band"),
     [
-        (0.05, "LOW"),     # < 0.3
+        (0.05, "LOW"),  # < 0.3
         (0.45, "MEDIUM"),  # [0.3, 0.6)
-        (0.85, "HIGH"),    # >= 0.6
+        (0.85, "HIGH"),  # >= 0.6
     ],
 )
 @pytest.mark.asyncio
-async def test_predict_classifies_risk_band_per_threshold(
-    deps: Deps, probability: float, expected_band: str
-) -> None:
+async def test_predict_classifies_risk_band_per_threshold(deps: Deps, probability: float, expected_band: str) -> None:
     """Pins the ``classify_risk(probability)`` mapping (line 412). Three
     samples, one per band - without these the band field is set but never
     asserted, so a threshold flip would slip through. Mirrors the Java
