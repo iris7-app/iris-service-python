@@ -19,6 +19,17 @@ include:
   - local: .gitlab-ci/build.yml
   - local: .gitlab-ci/deploy.yml
   - local: .gitlab-ci/docs.yml
+  # Cross-cutting universal templates from iris-common (the leaf submodule
+  # of the polyrepo flat α pattern per ADR-0060). Each is a hard gate.
+  - project: 'iris-7/iris-common'
+    ref: main
+    file: 'ci-templates/conventional-commits.yml'
+  - project: 'iris-7/iris-common'
+    ref: main
+    file: 'ci-templates/shellcheck.yml'
+  - project: 'iris-7/iris-common'
+    ref: main
+    file: 'ci-templates/adr-drift.yml'
 
 workflow:
   # Mirror Java's allowlist pattern : only run pipeline when changes touch
