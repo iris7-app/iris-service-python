@@ -63,6 +63,15 @@ jobs:
           ALLOW_PLAINTEXT_LISTENER: "yes"
         ports:
           - 9092:9092
+        # Long retries because kafka KRaft bootstrap is slow (>30s on cold
+        # start). On GitLab CI same image timed out at default 30s and
+        # forced a switch to redpanda (cf. docs/audit/kafka-ci-redpanda-switch).
+        # Here on GH Actions we have flexible healthchecks so kafka works.
+        options: >-
+          --health-cmd "/opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list"
+          --health-interval 10s
+          --health-timeout 10s
+          --health-retries 20
     env:
       IRIS_DB__HOST: postgres
       IRIS_DB__PORT: "5432"
