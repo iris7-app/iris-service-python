@@ -109,14 +109,16 @@ benchmarks:
 
 integration-tests:
   <<: *uv-base
-  # 2026-05-10 : runner migrated to dind via dedicated runner instance.
-  # The macbook-local-dind runner (tag: dind-services) runs in pure dind
-  # mode (privileged=true, no socket binding, network_per_build=true), so
-  # GitLab services: spin up correctly in the job's network and are reach-
-  # able by alias. Other jobs (java testcontainers, docker-build kaniko)
-  # continue to route to macbook-local (socket-binding) via their own tags.
+  # 2026-05-10 attempt 3 : route to SaaS Linux runner. The macbook-local-dind
+  # runner spawned services that started but the health check could not connect
+  # (postgres + kafka, network bridge issue between service container and
+  # health check container despite network_per_build + privileged). Mac
+  # Docker arm64 + GitLab Runner services seems incompatible. SaaS runners
+  # use Linux amd64 native with first-class services support — accept the
+  # CLAUDE.md "use local runners" trade-off for this single integration job.
+  # Free tier provides ~400min/month, sufficient for this 1-3min job per MR.
   tags:
-    - dind-services
+    - saas-linux-medium-amd64
   stage: test
   needs:
     - unit-tests
