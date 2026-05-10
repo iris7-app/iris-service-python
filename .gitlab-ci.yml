@@ -30,6 +30,11 @@ include:
   - project: 'iris-7/iris-common'
     ref: main
     file: 'ci-templates/adr-drift.yml'
+  # Auto-merge dev → main once dev pipeline goes green (uses AUTOMERGE_TOKEN
+  # group variable). Eliminates manual dev → main promote MRs.
+  - project: 'iris-7/iris-common'
+    ref: main
+    file: 'ci-templates/auto-merge-dev-to-main.yml'
 
 workflow:
   # Mirror Java's allowlist pattern : only run pipeline when changes touch
@@ -71,6 +76,7 @@ stages:
   - package
   - deploy
   - compat
+  - promote       # Auto-merge dev → main when dev pipeline succeeds (iris-common template)
 
 variables:
   PYTHON_VERSION: "3.14"
