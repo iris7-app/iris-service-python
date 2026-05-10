@@ -54,6 +54,7 @@ workflow:
         - "docker-compose*.yml"
         - ".gitlab-ci.yml"
         - ".gitlab-ci/**/*"
+        - ".github/**/*"   # GitHub Actions mirror workflow (parallel CI on main pushes)
         - "infra/**/*"
         - "bin/**/*"
         - "docs/**/*"
