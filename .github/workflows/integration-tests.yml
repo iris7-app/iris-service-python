@@ -36,6 +36,14 @@ concurrency:
 jobs:
   integration-tests:
     runs-on: ubuntu-latest
+    # Run the job inside a container so services are reachable via their
+    # alias (postgres:5432, kafka:9092). Without a container, services
+    # are only reachable via localhost:port from the host runner — and
+    # KAFKA_CFG_ADVERTISED_LISTENERS would have to point at localhost,
+    # but then container-to-container traffic breaks. Using a container
+    # makes the GH Actions setup symmetric with GitLab CI.
+    container:
+      image: ghcr.io/astral-sh/uv:python3.14-bookworm-slim
     services:
       postgres:
         image: postgres:16.6-alpine
