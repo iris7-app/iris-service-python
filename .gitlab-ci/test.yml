@@ -109,22 +109,22 @@ benchmarks:
 
 integration-tests:
   <<: *uv-base
+  # 2026-05-10 attempt 3 : route to SaaS Linux runner. The macbook-local-dind
+  # runner spawned services that started but the health check could not connect
+  # (postgres + kafka, network bridge issue between service container and
+  # health check container despite network_per_build + privileged). Mac
+  # Docker arm64 + GitLab Runner services seems incompatible. SaaS runners
+  # use Linux amd64 native with first-class services support — accept the
+  # CLAUDE.md "use local runners" trade-off for this single integration job.
+  # Free tier provides ~400min/month, sufficient for this 1-3min job per MR.
+  tags:
+    - saas-linux-medium-amd64
   stage: test
   needs:
     - unit-tests
-  # TODO remove `when: never` by 2026-05-16 — runner dind migration tracked
-  # in docs/audit/runner-dind-migration-2026-05-09.md. The macbook-local
-  # runner uses docker-socket-binding (volumes=/var/run/docker.sock:...) which
-  # silently breaks GitLab `services:` (postgres + kafka containers crash
-  # right after start, no logs in the health check). Tried 2026-05-09 without
-  # success: network_per_build=true, wait_for_services_timeout=120,
-  # privileged=true. Real fix = migrate runner to docker:dind image (no socket
-  # binding, services share the dind daemon's network). Until then, the
-  # integration-tests job is scope-out (when:never) per CLAUDE.md "(c) Scope-
-  # out, not shield" — the test files still live in the repo, they just
-  # don't gate the pipeline. Local dev still runs them via testcontainers.
   rules:
-    - when: never
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   # GitLab `services:` instead of testcontainers per the integration-tests
   # CI flip (TASKS.md 2026-04-29). The macbook-local runner's Docker bridge
   # didn't route from the job container to testcontainers spawned via the
@@ -136,20 +136,27 @@ integration-tests:
   services:
     - name: postgres:16.6-alpine
       alias: postgres
-    - name: bitnamilegacy/kafka:3.7-debian-12   # Moved from bitnami/* to bitnamilegacy/* early 2026 (Bitnami "freenium" archive). Old ref returns 404 from docker.io.
+    # Redpanda (kafka-API compatible) instead of bitnamilegacy/kafka — Apache
+    # Kafka KRaft mode boots > 30s (cluster bootstrap + log dir formatting),
+    # which exceeds the GitLab CI default service health check timeout (30s)
+    # AND `wait_for_services_timeout` does not propagate to SaaS runners.
+    # Redpanda is a wire-protocol-compatible Kafka broker written in C++ that
+    # boots in ~3-5s. The aiokafka client connects unchanged via kafka:9092.
+    # Tested 2026-05-10 after kafka KRaft timed out on macbook-local-dind +
+    # SaaS runners. See docs/audit/kafka-ci-redpanda-switch-2026-05-10.md.
+    - name: redpandadata/redpanda:v24.2.10
       alias: kafka
-      # Bitnami Kafka 3.x supports KRaft mode (controller + broker in one
-      # process — no Zookeeper). Single-broker, single-controller config
-      # is enough for integration tests ; production uses 3+ brokers.
-      variables:
-        KAFKA_CFG_NODE_ID: "0"
-        KAFKA_CFG_PROCESS_ROLES: "controller,broker"
-        KAFKA_CFG_LISTENERS: "PLAINTEXT://:9092,CONTROLLER://:9093"
-        KAFKA_CFG_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:9092"
-        KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT"
-        KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: "0@kafka:9093"
-        KAFKA_CFG_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
-        ALLOW_PLAINTEXT_LISTENER: "yes"
+      command:
+        - redpanda
+        - start
+        - --kafka-addr=PLAINTEXT://0.0.0.0:9092
+        - --advertise-kafka-addr=PLAINTEXT://kafka:9092
+        - --smp=1
+        - --memory=512M
+        - --reserve-memory=0M
+        - --node-id=0
+        - --check=false
+        - --mode=dev-container
   variables:
     # Postgres service env vars (consumed by the postgres:16.6-alpine
     # entrypoint to bootstrap the role + db).
