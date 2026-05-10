@@ -109,22 +109,20 @@ benchmarks:
 
 integration-tests:
   <<: *uv-base
+  # 2026-05-10 : runner migrated to dind via dedicated runner instance.
+  # The macbook-local-dind runner (tag: dind-services) runs in pure dind
+  # mode (privileged=true, no socket binding, network_per_build=true), so
+  # GitLab services: spin up correctly in the job's network and are reach-
+  # able by alias. Other jobs (java testcontainers, docker-build kaniko)
+  # continue to route to macbook-local (socket-binding) via their own tags.
+  tags:
+    - dind-services
   stage: test
   needs:
     - unit-tests
-  # TODO remove `when: never` by 2026-05-16 — runner dind migration tracked
-  # in docs/audit/runner-dind-migration-2026-05-09.md. The macbook-local
-  # runner uses docker-socket-binding (volumes=/var/run/docker.sock:...) which
-  # silently breaks GitLab `services:` (postgres + kafka containers crash
-  # right after start, no logs in the health check). Tried 2026-05-09 without
-  # success: network_per_build=true, wait_for_services_timeout=120,
-  # privileged=true. Real fix = migrate runner to docker:dind image (no socket
-  # binding, services share the dind daemon's network). Until then, the
-  # integration-tests job is scope-out (when:never) per CLAUDE.md "(c) Scope-
-  # out, not shield" — the test files still live in the repo, they just
-  # don't gate the pipeline. Local dev still runs them via testcontainers.
   rules:
-    - when: never
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   # GitLab `services:` instead of testcontainers per the integration-tests
   # CI flip (TASKS.md 2026-04-29). The macbook-local runner's Docker bridge
   # didn't route from the job container to testcontainers spawned via the
