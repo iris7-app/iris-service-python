@@ -212,6 +212,10 @@ integration-tests:
     - if: $RUN_COMPAT == "true"
       when: on_success
     - when: manual
+  # Compat matrix is opt-in (manual / RUN_COMPAT=true / schedule-triggered).
+  # Cross-version Python (3.12 + 3.13) regressions should surface as a yellow
+  # ⚠️ on the pipeline, not as a red gate that blocks the green main run.
+  # Mirror of java's .compat-job pattern per ADR-0049.
   allow_failure: true
   before_script:
     - uv sync --all-extras --frozen
