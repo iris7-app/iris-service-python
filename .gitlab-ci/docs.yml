@@ -41,4 +41,8 @@ docs:check:
     - uv sync --all-extras --frozen
   script:
     - uv run mkdocs build --strict
+  # mkdocs --strict trips on broken-link warnings — informational on
+  # MR pipelines (mirrors the `pages:` job's allow_failure shield at
+  # line 27). Per ADR-0049 : a broken link in docs shouldn't gate the
+  # MR ; reviewers see the warning and can re-MR a fix.
   allow_failure: true
