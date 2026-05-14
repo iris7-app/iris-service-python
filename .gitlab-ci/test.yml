@@ -52,6 +52,16 @@ mutation-test:
   needs:
     - unit-tests
   rules:
+    # Scheduled run with RUN_MUTMUT=true → runs the auth-slice mutation
+    # pass automatically. Created 2026-05-14 to convert the manual
+    # carry-forward item into a monthly cadence (see schedule
+    # "mutmut-auth-monthly"). Auth code rarely changes day-to-day but
+    # a regression in mutation-kill rate must surface fast.
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $RUN_MUTMUT == "true"
+      when: on_success
+    # Other scheduled pipelines skip mutmut.
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
     - if: $CI_COMMIT_BRANCH == "main"
       changes:
         - "src/iris_service/auth/**/*"
