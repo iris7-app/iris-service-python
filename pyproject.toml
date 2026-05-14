@@ -329,7 +329,12 @@ concurrency = ["greenlet", "thread"]
 # edit `paths_to_mutate` here, then `uv run mutmut run`. Document any
 # surviving mutant as a test-gap ticket in TASKS.md.
 [tool.mutmut]
-paths_to_mutate = "src/iris_service/auth"
+# List form required by mutmut 3.x — the legacy string form was silently
+# ignored when read from pyproject.toml [tool.mutmut], so the loader fell
+# back to `guess_paths_to_mutate()` which walked the project root +
+# followed symlinks into /sys/devices/platform/psci/of_node
+# (FileNotFoundError on first scheduled mutmut-auth-monthly run 2026-05-14).
+paths_to_mutate = ["src/iris_service/auth"]
 tests_dir = "tests/unit/auth"
 
 [tool.coverage.report]
