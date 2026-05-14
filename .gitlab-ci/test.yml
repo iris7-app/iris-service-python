@@ -79,7 +79,11 @@ mutation-test:
   script:
     # Linux container : the macOS `.VolumeIcon.icns` issue doesn't apply
     # (no `/Volumes` to walk). uv run mutmut works as documented.
-    - uv run mutmut run --no-progress 2>&1 | tail -50
+    # NOTE : `--no-progress` was removed in mutmut 3.x. Plain `mutmut run`
+    # writes progress to stderr ; redirect 2>&1 + tail keeps the log tail
+    # bounded. Discovered 2026-05-14 when the first scheduled
+    # `mutmut-auth-monthly` run failed with "No such option: --no-progress".
+    - uv run mutmut run 2>&1 | tail -50
     # Always render the surviving-mutant table even if `mutmut run` exits
     # non-zero (which it does whenever any mutant survives). The table is
     # the actual deliverable — exit code is informational.
